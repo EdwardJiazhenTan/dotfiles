@@ -1,9 +1,9 @@
 return {
   {
-    'norcalli/nvim-colorizer.lua',
+    "norcalli/nvim-colorizer.lua",
     config = function()
-      require('colorizer').setup({
-        '*',
+      require("colorizer").setup({
+        "*",
       }, {
         RGB = true,
         RRGGBB = true,
@@ -13,23 +13,24 @@ return {
         hsl_fn = true,
         css = true,
         css_fn = true,
-        mode = 'background',
+        mode = "background",
       })
     end,
   },
+
   {
-    'roobert/tailwindcss-colorizer-cmp.nvim',
+    "roobert/tailwindcss-colorizer-cmp.nvim",
     config = function()
-      require('tailwindcss-colorizer-cmp').setup({
+      require("tailwindcss-colorizer-cmp").setup({
         color_square_width = 2,
       })
     end,
   },
   {
-    'brenoprata10/nvim-highlight-colors',
+    "brenoprata10/nvim-highlight-colors",
     config = function()
-      require('nvim-highlight-colors').setup({
-        render = 'background',
+      require("nvim-highlight-colors").setup({
+        render = "background",
         enable_named_colors = true,
         enable_tailwind = true,
       })

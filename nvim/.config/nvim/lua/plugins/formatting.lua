@@ -22,7 +22,7 @@ return {
         python = { "isort", "black" },
         go = { "gofmt", "goimports" },
         rust = { "rustfmt" },
-        java = { "google-java-format" },  
+        java = { "google-java-format" },
       },
       format_on_save = {
         lsp_fallback = true,
