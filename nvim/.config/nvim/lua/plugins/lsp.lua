@@ -12,119 +12,42 @@ return {
       })
     end,
   },
+  -- add tsserver and setup with typescript.nvim instead of lspconfig
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      { "williamboman/mason.nvim", build = ":MasonUpdate" },
-      { "williamboman/mason-lspconfig.nvim" },
+      "jose-elias-alvarez/typescript.nvim",
+      init = function()
+        require("lazyvim.util").lsp.on_attach(function(_, buffer)
+          -- stylua: ignore
+          vim.keymap.set( "n", "<leader>co", "TypescriptOrganizeImports", { buffer = buffer, desc = "Organize Imports" })
+          vim.keymap.set("n", "<leader>cR", "TypescriptRenameFile", { desc = "Rename File", buffer = buffer })
+        end)
+      end,
     },
-    config = function()
-      require("mason").setup()
-      require("mason-lspconfig").setup({
-        ensure_installed = {
-          "ts_ls",
-          "tailwindcss",
-          "gopls",
-          "bashls",
-        },
-        automatic_installation = true,
-      })
-
-      local lspconfig = require("lspconfig")
-
-      -- Common on_attach function for all LSP servers
-      local on_attach = function(client, bufnr)
-        local keymap = vim.keymap.set
-        local opts = { buffer = bufnr, silent = true }
-
-        keymap("n", "gd", vim.lsp.buf.definition, opts)
-        keymap("n", "gD", vim.lsp.buf.declaration, opts)
-        keymap("n", "gr", vim.lsp.buf.references, opts)
-        keymap("n", "K", vim.lsp.buf.hover, opts)
-        keymap("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-        keymap("n", "<leader>rn", vim.lsp.buf.rename, opts)
-      end
-
-      -- TypeScript/JavaScript Language Server
-      lspconfig.ts_ls.setup({
-        on_attach = on_attach,
-      })
-
-      -- Tailwind CSS Language Server
-      lspconfig.tailwindcss.setup({
-        on_attach = on_attach,
-        filetypes = {
-          "html",
-          "css",
-          "scss",
-          "javascript",
-          "javascriptreact",
-          "typescript",
-          "typescriptreact",
-          "vue",
-          "svelte",
-        },
-        settings = {
-          tailwindCSS = {
-            classAttributes = { "class", "className", "class:list", "classList", "ngClass" },
-            lint = {
-              cssConflict = "warning",
-              invalidApply = "error",
-              invalidConfigPath = "error",
-              invalidScreen = "error",
-              invalidTailwindDirective = "error",
-              invalidVariant = "error",
-              recommendedVariantOrder = "warning",
-            },
-            validate = true,
-          },
-        },
-      })
-
-      -- ESLint Language Server
-      lspconfig.eslint.setup({
-        settings = {
-          workingDirectories = { mode = "auto" },
-          codeActionOnSave = {
-            enable = true,
-            mode = "all",
-          },
-          format = true,
-          quiet = false,
-          onIgnoredFiles = "off",
-        },
-        on_attach = function(client, bufnr)
-          -- Apply common LSP keymaps
-          on_attach(client, bufnr)
-
-          -- ESLint-specific autocmd
-          vim.api.nvim_create_autocmd("BufWritePre", {
-            buffer = bufnr,
-            command = "EslintFixAll",
-          })
+    ---@class PluginLspOpts
+    opts = {
+      ---@type lspconfig.options
+      servers = {
+        -- tsserver will be automatically installed with mason and loaded with lspconfig
+        tsserver = {},
+      },
+      -- you can do any additional lsp server setup here
+      -- return true if you don't want this server to be setup with lspconfig
+      ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
+      setup = {
+        -- example to setup with typescript.nvim
+        tsserver = function(_, opts)
+          require("typescript").setup({ server = opts })
+          return true
         end,
-        root_dir = function(fname)
-          -- Only activate if ESLint config files exist
-          return lspconfig.util.root_pattern(
-            "eslint.config.js",
-            "eslint.config.mjs",
-            "eslint.config.cjs",
-            ".eslintrc.js",
-            ".eslintrc.json",
-            ".eslintrc"
-          )(fname)
-        end,
-      })
-
-      -- Go Language Server
-      lspconfig.gopls.setup({
-        on_attach = on_attach,
-      })
-
-      -- Bash Language Server
-      lspconfig.bashls.setup({
-        on_attach = on_attach,
-      })
-    end,
+        -- Specify * to use this function as a fallback for any server
+        -- ["*"] = function(server, opts) end,
+      },
+    },
   },
+
+  -- for typescript, LazyVim also includes extra specs to properly setup lspconfig,
+  -- treesitter, mason and typescript.nvim. So instead of the above, you can use:
+  { import = "lazyvim.plugins.extras.lang.typescript" },
 }

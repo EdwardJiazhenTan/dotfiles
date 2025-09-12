@@ -20,13 +20,8 @@ return {
       "saadparwaiz1/cmp_luasnip", -- for autocompletion
       "rafamadriz/friendly-snippets", -- useful snippets
       "onsails/lspkind.nvim", -- vs-code like pictograms
-      "roobert/tailwindcss-colorizer-cmp.nvim", -- tailwind color preview
     },
     config = function()
-      -- Ensure we're not conflicting with LazyVim's completion setup
-      if vim.g.loaded_cmp then
-        return
-      end
       
       local cmp = require("cmp")
 
@@ -46,39 +41,33 @@ return {
             luasnip.lsp_expand(args.body)
           end,
         },
-        mapping = {
-          ["<C-j>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_next_item()
-            else
-              fallback()
-            end
-          end, { "i", "s" }),
-          ["<C-k>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_prev_item()
-            else
-              fallback()
-            end
-          end, { "i", "s" }),
-          ["<M-b>"] = cmp.mapping.scroll_docs(-4),
-          ["<M-f>"] = cmp.mapping.scroll_docs(4),
+        mapping = cmp.mapping.preset.insert({
+          ["<C-j>"] = cmp.mapping.select_next_item(),
+          ["<C-k>"] = cmp.mapping.select_prev_item(),
+          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+          ["<C-f>"] = cmp.mapping.scroll_docs(4),
+          ["<C-Space>"] = cmp.mapping.complete(),
+          ["<C-e>"] = cmp.mapping.abort(),
+          ["<CR>"] = cmp.mapping.confirm({ select = false }),
           ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
-              cmp.confirm({ select = true })
+              cmp.select_next_item()
+            elseif luasnip.expand_or_jumpable() then
+              luasnip.expand_or_jump()
             else
               fallback()
             end
           end, { "i", "s" }),
-          ["<M-e>"] = cmp.mapping.abort(), -- close completion window
-          ["<CR>"] = cmp.mapping(function(fallback)
-            if cmp.visible() and cmp.get_active_entry() then
-              cmp.confirm({ select = false })
+          ["<S-Tab>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_prev_item()
+            elseif luasnip.jumpable(-1) then
+              luasnip.jump(-1)
             else
               fallback()
             end
           end, { "i", "s" }),
-        },
+        }),
         -- sources for autocompletion
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
@@ -88,20 +77,10 @@ return {
         }),
         -- configure lspkind for vs-code like pictograms in completion menu
         formatting = {
-          format = function(entry, item)
-            local color_item = require("tailwindcss-colorizer-cmp").formatter(entry, item)
-            item = lspkind.cmp_format({
-              maxwidth = 50,
-              ellipsis_char = "...",
-            })(entry, item)
-
-            if color_item.abbr_hl_group then
-              item.kind_hl_group = color_item.abbr_hl_group
-              item.kind = color_item.abbr
-            end
-
-            return item
-          end,
+          format = lspkind.cmp_format({
+            maxwidth = 50,
+            ellipsis_char = "...",
+          }),
         },
       })
 
