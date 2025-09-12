@@ -8,7 +8,7 @@ return {
       insert_mappings = true,
       terminal_mappings = true,
     })
-    
+
     vim.keymap.set("n", "<leader>tt", "<cmd>ToggleTerm<cr>", { desc = "ToggleTerm" })
   end,
 }
