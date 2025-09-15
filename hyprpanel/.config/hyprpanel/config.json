@@ -26,11 +26,6 @@
   "bar.workspaces.applicationIconOncePerWorkspace": true,
   "bar.layouts": {
     "0": {
-      "left": [],
-      "middle": [],
-      "right": []
-    },
-    "1": {
       "left": [
         "dashboard",
         "systray",
@@ -46,6 +41,11 @@
         "clock",
         "notifications"
       ]
+    },
+    "1": {
+      "left": [],
+      "middle": [],
+      "right": []
     },
     "2": {
       "left": [
