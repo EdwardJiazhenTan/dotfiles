@@ -15,10 +15,15 @@
       "ctrl-/": "workspace::ToggleBottomDock",
       "space p": "editor::Format",
       "space f f": "file_finder::Toggle",
+      "space f s": "buffer_search::Deploy",
+      "space f g": "project_search::ToggleFocus",
       "shift-l": "pane::ActivateNextItem",
       "shift-h": "pane::ActivatePreviousItem",
-      "space v": "pane::SplitRight",
-      "space w": "pane::CloseActiveItem",
+      "space s": "pane::SplitRight",
+      "space s -": "pane::SplitDown",
+      "space s |": "pane::SplitRight",
+      "space w": "workspace::Save",
+      "space q": "pane::CloseActiveItem",
       "space h": "workspace::ActivateNextPane",
       "space l": "workspace::ActivatePreviousPane"
     }
@@ -26,7 +31,7 @@
   {
     "context": "Editor && vim_mode == insert",
     "bindings": {
-"j k": "vim::NormalBefore",
+      "j k": "vim::NormalBefore",
       "alt-h": "vim::Left",
       "alt-l": "vim::Right",
       "alt-j": "vim::Down",
@@ -54,13 +59,48 @@
   },
   {
     "context": "Dock",
-
     "bindings": {
-
       "ctrl-h": "workspace::ActivatePaneLeft",
       "ctrl-l": "workspace::ActivatePaneRight",
       "ctrl-k": "workspace::ActivatePaneUp",
       "ctrl-j": "workspace::ActivatePaneDown"
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "alt-b enter": "workspace::ToggleLeftDock"
+    }
+  },
+  {
+    "context": "TabBar",
+    "bindings": {
+      "a": "workspace::NewFile",
+      "d": "pane::CloseActiveItem"
+    }
+  },
+  {
+    "context": "(ProjectPanel && not_editing)",
+    "bindings": {
+      "a": "project_panel::NewFile"
+    }
+  },
+  {
+    "context": "(ProjectPanel && not_editing)",
+    "bindings": {
+      "d": "project_panel::Delete"
+    }
+  },
+  {
+    "context": "(ProjectPanel && not_editing)",
+    "bindings": {
+      "shift-a": "project_panel::NewDirectory"
+    }
+  },
+  {
+    "context": "(ProjectPanel && not_editing)",
+    "bindings": {
+      "r": "project_panel::Rename"
     }
   }
 ]
