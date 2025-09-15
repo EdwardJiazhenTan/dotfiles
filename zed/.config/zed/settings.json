@@ -7,6 +7,9 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "git_panel": {
+    "dock": "right"
+  },
   "inlay_hints": {
     "enabled": true,
     "show_value_hints": true,
@@ -36,6 +39,7 @@
   "theme": {
     "mode": "dark",
     "light": "Gruvbox Light",
-    "dark": "Nord"
-  }
+    "dark": "Nordic"
+  },
+  "show_edit_predictions": false
 }
