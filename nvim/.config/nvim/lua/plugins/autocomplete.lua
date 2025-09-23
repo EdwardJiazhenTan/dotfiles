@@ -22,7 +22,6 @@ return {
       "onsails/lspkind.nvim", -- vs-code like pictograms
     },
     config = function()
-      
       local cmp = require("cmp")
 
       local luasnip = require("luasnip")
@@ -132,6 +131,7 @@ return {
           javascript = { "template_string" },
           java = false,
         },
+        map_cr = true,
       })
 
       local cmp_autopairs = require("nvim-autopairs.completion.cmp")
@@ -139,11 +139,5 @@ return {
 
       cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
     end,
-  },
-  {
-    "kylechui/nvim-surround",
-    event = { "BufReadPre", "BufNewFile" },
-    version = "*",
-    config = true,
   },
 }
