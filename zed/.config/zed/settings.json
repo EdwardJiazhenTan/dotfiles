@@ -39,7 +39,8 @@
   "theme": {
     "mode": "dark",
     "light": "Gruvbox Light",
-    "dark": "Nordic"
+    "dark": "Tokyo Night Storm"
   },
-  "show_edit_predictions": false
+  "show_edit_predictions": false,
+  "cursor_blink": false
 }

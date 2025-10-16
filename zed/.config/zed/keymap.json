@@ -31,7 +31,6 @@
   {
     "context": "Editor && vim_mode == insert",
     "bindings": {
-      "j k": "vim::NormalBefore",
       "alt-h": "vim::Left",
       "alt-l": "vim::Right",
       "alt-j": "vim::Down",
@@ -101,6 +100,11 @@
     "context": "(ProjectPanel && not_editing)",
     "bindings": {
       "r": "project_panel::Rename"
+    }
+  },
+  {
+    "bindings": {
+      "ctrl-z": "workspace::ToggleZoom"
     }
   }
 ]
