@@ -26,7 +26,7 @@ Personal configuration files managed with [GNU Stow](https://www.gnu.org/softwar
 
 2. Clone this repository:
    ```bash
-   git clone <repo-url> ~/dotfiles
+   git clone https://github.com/EdwardJiazhenTan/dotfiles ~/dotfiles
    cd ~/dotfiles
    ```
 
