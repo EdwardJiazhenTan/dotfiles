@@ -17,9 +17,11 @@ require("lazy").setup({
   spec = {
     -- add LazyVim and import its plugins
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-    -- import/override with your plugins
+    -- import LazyVim extras
     { import = "lazyvim.plugins.extras.util.mini-hipatterns" },
-
+    { import = "lazyvim.plugins.extras.lang.typescript" },
+    { import = "lazyvim.plugins.extras.lang.java" },
+    -- import/override with your custom plugins
     { import = "plugins" },
   },
   defaults = {
