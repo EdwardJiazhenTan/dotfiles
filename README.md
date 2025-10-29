@@ -2,16 +2,30 @@
 
 Personal configuration files managed with [GNU Stow](https://www.gnu.org/software/stow/).
 
+## Branch Structure
+
+This repository uses branches to separate platform-specific configurations:
+
+- **main** - Shared configurations (kitty, nvim, tmux, zed, .zshrc)
+- **hyprland** - Linux/Hyprland-specific configs (hyprland, hyprpanel)
+- **macos** - macOS-specific configs (aerospace, karabiner)
+
 ## Configurations
 
-- **aerospace** - Tiling window manager for macOS
-- **hyprland** - Wayland compositor/tiling window manager for Arch Linux
-- **hyprpanel** - Panel/bar for Hyprland
-- **karabiner** - Keyboard customization tool for macOS
+### Shared (main branch)
 - **kitty** - GPU-accelerated terminal emulator
 - **nvim** - Neovim text editor configuration
 - **tmux** - Terminal multiplexer
 - **zed** - Zed code editor configuration
+- **.zshrc** - Zsh shell configuration
+
+### Hyprland (hyprland branch)
+- **hyprland** - Wayland compositor/tiling window manager for Arch Linux
+- **hyprpanel** - Panel/bar for Hyprland
+
+### macOS (macos branch)
+- **aerospace** - Tiling window manager for macOS
+- **karabiner** - Keyboard customization tool for macOS
 
 ## Installation
 
@@ -24,10 +38,16 @@ Personal configuration files managed with [GNU Stow](https://www.gnu.org/softwar
    sudo pacman -S stow
    ```
 
-2. Clone this repository:
+2. Clone this repository and checkout the appropriate branch:
    ```bash
    git clone https://github.com/EdwardJiazhenTan/dotfiles ~/dotfiles
    cd ~/dotfiles
+
+   # For Hyprland/Linux
+   git checkout hyprland
+
+   # For macOS
+   git checkout macos
    ```
 
 3. Use stow to symlink configurations:
