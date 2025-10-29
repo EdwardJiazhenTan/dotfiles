@@ -25,6 +25,18 @@ return {
     telescope.setup({
       defaults = {
         path_display = { "smart" },
+        file_ignore_patterns = {},
+        vimgrep_arguments = {
+          "rg",
+          "--color=never",
+          "--no-heading",
+          "--with-filename",
+          "--line-number",
+          "--column",
+          "--smart-case",
+          "--no-ignore",  -- This shows git-ignored files
+          "--hidden",     -- Search hidden files
+        },
         mappings = {
           i = {
             ["<C-k>"] = actions.move_selection_previous, -- move to prev result
@@ -32,6 +44,13 @@ return {
             ["<C-q>"] = actions.send_selected_to_qflist + custom_actions.open_trouble_qflist,
             ["<C-t>"] = trouble_telescope.open,
           },
+        },
+      },
+      pickers = {
+        find_files = {
+          hidden = true,          -- Show hidden files
+          no_ignore = true,       -- Show git-ignored files
+          follow = true,          -- Follow symlinks
         },
       },
     })
