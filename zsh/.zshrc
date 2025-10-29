@@ -1,38 +1,23 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-
 # ===============================================
-# ZSH 配置文件
+# ZSH 配置文件 (macOS 版本)
 # ===============================================
-
-# Powerlevel10k 主题
-if [[ -r "/usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme" ]]; then
-    source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
-fi
 # ===============================================
 # ZSH AUTOSUGGESTIONS 配置
 # ===============================================
-if [[ -r "/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
-    source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-elif [[ -r "$HOME/.oh-my-zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
-    source $HOME/.oh-my-zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+if [[ -r "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
+    source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
 
-# 禁用 p10k 设置 tmux 窗口标题
-POWERLEVEL9K_TERM_SHELL_INTEGRATION=false
 
-# 配置建议颜色 (在你的 kitty 主题中应该清晰可见)
+# 配置建议颜色
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#585858,underline"
 
 # 配置建议策略
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
-# 快捷键绑定
+# Autosuggestion 快捷键绑定
 bindkey '^f' autosuggest-accept          # Ctrl+f 接受建议
-bindkey '^]' autosuggest-execute         # Ctrl+] 执行建议
-bindkey '^[f' autosuggest-accept-word    # Alt+f 接受一个单词
-# 插件列表
-plugins=(git sudo zsh-256color zsh-autosuggestions zsh-syntax-highlighting fzf-tab)
+bindkey '^j' autosuggest-accept          # Ctrl+j 接受建议 (额外选项)
 
 # ===============================================
 # 历史设置
@@ -58,14 +43,16 @@ bindkey '^n' history-search-forward
 # ===============================================
 # ZOXIDE 配置
 # ===============================================
-eval "$(zoxide init zsh)"
+if command -v zoxide &> /dev/null; then
+    eval "$(zoxide init zsh)"
+fi
 
 # ===============================================
 # FZF 配置
 # ===============================================
 if command -v fzf &> /dev/null; then
-    source /usr/share/fzf/key-bindings.zsh
-    source /usr/share/fzf/completion.zsh
+    source "$(brew --prefix)/opt/fzf/shell/key-bindings.zsh"
+    source "$(brew --prefix)/opt/fzf/shell/completion.zsh"
     
     # FZF 主题和选项
     export FZF_DEFAULT_OPTS="
@@ -96,24 +83,10 @@ if command -v fzf &> /dev/null; then
 fi
 
 # ===============================================
-# FZF-TAB 配置
-# ===============================================
-# 启用 fzf-tab
-zstyle ':fzf-tab:*' use-fzf-default-opts yes
-
-# 配置预览
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
-zstyle ':fzf-tab:complete:ls:*' fzf-preview 'eza -1 --color=always $realpath'
-zstyle ':fzf-tab:complete:*:*' fzf-preview 'echo ${(P)word}'
-
-# 配置组
-zstyle ':fzf-tab:*' switch-group ',' '.'
-
-# ===============================================
 # ZSH SYNTAX HIGHLIGHTING 配置
 # ===============================================
-if [[ -r "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
-    source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if [[ -r "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
+    source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
     
     # 语法高亮颜色配置
     ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
@@ -130,7 +103,6 @@ if [[ -r "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting
     ZSH_HIGHLIGHT_STYLES[commandseparator]=none
     ZSH_HIGHLIGHT_STYLES[hashed-command]=fg=green
     ZSH_HIGHLIGHT_STYLES[path]=fg=blue
-    ZSH_HIGHLIGHT_STYLES[path_pathseparator]=
     ZSH_HIGHLIGHT_STYLES[globbing]=fg=blue
     ZSH_HIGHLIGHT_STYLES[history-expansion]=fg=blue
     ZSH_HIGHLIGHT_STYLES[single-hyphen-option]=fg=cyan
@@ -159,6 +131,12 @@ if [[ -r "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting
     ZSH_HIGHLIGHT_STYLES[cursor]=standout
 fi
 
+# FZF theme
+export FZF_DEFAULT_OPTS="--color=fg:#d8dee9,bg:#2e3440,hl:#81a1c1 \
+--color=fg+:#d8dee9,bg+:#3b4252,hl+:#81a1c1 \
+--color=info:#88c0d0,prompt:#5e81ac,pointer:#bf616a \
+--color=marker:#a3be8c,spinner:#b48ead,header:#81a1c1"
+
 # ===============================================
 # 完成系统配置
 # ===============================================
@@ -171,128 +149,6 @@ zstyle ':completion:*' file-sort modification
 zstyle ':completion:*' rehash true
 
 # ===============================================
-# 函数定义
-# ===============================================
-
-# 包管理函数
-function command_not_found_handler {
-    local purple='\e[1;35m' bright='\e[0;1m' green='\e[1;32m' reset='\e[0m'
-    printf 'zsh: command not found: %s\n' "$1"
-    local entries=( ${(f)"$(/usr/bin/pacman -F --machinereadable -- "/usr/bin/$1")"} )
-    if (( ${#entries[@]} )) ; then
-        printf "${bright}$1${reset} may be found in the following packages:\n"
-        local pkg
-        for entry in "${entries[@]}" ; do
-            local fields=( ${(0)entry} )
-            if [[ "$pkg" != "${fields[2]}" ]]; then
-                printf "${purple}%s/${bright}%s ${green}%s${reset}\n" "${fields[1]}" "${fields[2]}" "${fields[3]}"
-            fi
-            printf '    /%s\n' "${fields[4]}"
-            pkg="${fields[2]}"
-        done
-    fi
-    return 127
-}
-
-# 检测 AUR 助手
-if pacman -Qi yay &>/dev/null; then
-   aurhelper="yay"
-elif pacman -Qi paru &>/dev/null; then
-   aurhelper="paru"
-fi
-
-# 智能包安装函数
-function in {
-    local -a inPkg=("$@")
-    local -a arch=()
-    local -a aur=()
-
-    for pkg in "${inPkg[@]}"; do
-        if pacman -Si "${pkg}" &>/dev/null; then
-            arch+=("${pkg}")
-        else
-            aur+=("${pkg}")
-        fi
-    done
-
-    if [[ ${#arch[@]} -gt 0 ]]; then
-        sudo pacman -S "${arch[@]}"
-    fi
-
-    if [[ ${#aur[@]} -gt 0 ]]; then
-        ${aurhelper} -S "${aur[@]}"
-    fi
-}
-
-# 增强的 cd 函数
-function cd() {
-    if [ $# -eq 0 ]; then
-        builtin cd && eza --icons --group-directories-first
-    else
-        builtin cd "$@" && eza --icons --group-directories-first
-    fi
-}
-
-# Yazi 集成
-function y() {
-    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-    yazi "$@" --cwd-file="$tmp"
-    if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-        builtin cd -- "$cwd"
-    fi
-    rm -f -- "$tmp"
-}
-
-# ===============================================
-# 别名定义
-# ===============================================
-
-# 基础别名
-alias c='clear'
-alias mkdir='mkdir -p'
-
-# Eza 别名
-alias l='eza -lh --icons=auto'
-alias ls='eza -1 --icons=auto'
-alias ll='eza -lha --icons=auto --sort=name --group-directories-first'
-alias ld='eza -lhD --icons=auto'
-alias lt='eza --icons=auto --tree'
-alias la='eza -la --icons=auto'
-
-# 包管理别名
-alias un='$aurhelper -Rns'
-alias up='$aurhelper -Syu'
-alias pl='$aurhelper -Qs'
-alias pa='$aurhelper -Ss'
-alias pc='$aurhelper -Sc'
-alias po='$aurhelper -Qtdq | $aurhelper -Rns -'
-
-# 导航别名
-alias ..='cd ..'
-alias ...='cd ../..'
-alias .3='cd ../../..'
-alias .4='cd ../../../..'
-alias .5='cd ../../../../..'
-
-
-# 其他别名
-alias vc='code'
-alias cat='bat'
-alias find='fd'
-
-# Neovim 别名
-alias n='nvim'
-
-# Git 别名
-alias g='git'
-alias ga='git add'
-alias gc='git commit'
-alias gp='git push'
-alias gs='git status'
-alias gd='git diff'
-alias gl='git log --oneline'
-
-# ===============================================
 # 环境变量
 # ===============================================
 
@@ -302,7 +158,6 @@ export VISUAL='nvim'
 
 # 路径
 export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.lmstudio/bin:$PATH"
 
 # API Keys (建议移到单独的私有文件中)
 if [[ -f ~/.env ]]; then
@@ -313,17 +168,26 @@ fi
 # 条件加载
 # ===============================================
 
-# P10k 配置
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# Conda 初始化
-if [[ -f "/home/ed/miniconda3/etc/profile.d/conda.sh" ]]; then
-    . "/home/ed/miniconda3/etc/profile.d/conda.sh"
-fi
-
 # NVM 初始化
 if [[ -d "$HOME/.nvm" ]]; then
     export NVM_DIR="$HOME/.nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 fi
+
+# starship settings
+eval "$(starship init zsh)"
+
+# Homebrew 路径 (Apple Silicon Mac)
+if [[ -d "/opt/homebrew" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+export PATH="/Library/TeX/texbin:$PATH"
+export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
+
+# Set Java 21 as default
+export PATH="/opt/homebrew/opt/openjdk@21/bin:$PATH"
+export JAVA_HOME="/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home"
+
+# run fastfetch on each startup
+fastfetch
