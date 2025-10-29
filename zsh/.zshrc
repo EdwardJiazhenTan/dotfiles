@@ -1,11 +1,11 @@
 # ===============================================
-# ZSH 配置文件 (macOS 版本)
+# ZSH 配置文件 (Arch Linux 版本)
 # ===============================================
 # ===============================================
 # ZSH AUTOSUGGESTIONS 配置
 # ===============================================
-if [[ -r "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
-    source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+if [[ -r "/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
+    source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
 
 
@@ -51,8 +51,8 @@ fi
 # FZF 配置
 # ===============================================
 if command -v fzf &> /dev/null; then
-    source "$(brew --prefix)/opt/fzf/shell/key-bindings.zsh"
-    source "$(brew --prefix)/opt/fzf/shell/completion.zsh"
+    source /usr/share/fzf/key-bindings.zsh
+    source /usr/share/fzf/completion.zsh
     
     # FZF 主题和选项
     export FZF_DEFAULT_OPTS="
@@ -85,8 +85,8 @@ fi
 # ===============================================
 # ZSH SYNTAX HIGHLIGHTING 配置
 # ===============================================
-if [[ -r "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
-    source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if [[ -r "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
+    source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
     
     # 语法高亮颜色配置
     ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
@@ -177,17 +177,6 @@ fi
 
 # starship settings
 eval "$(starship init zsh)"
-
-# Homebrew 路径 (Apple Silicon Mac)
-if [[ -d "/opt/homebrew" ]]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-fi
-export PATH="/Library/TeX/texbin:$PATH"
-export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
-
-# Set Java 21 as default
-export PATH="/opt/homebrew/opt/openjdk@21/bin:$PATH"
-export JAVA_HOME="/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home"
 
 # run fastfetch on each startup
 fastfetch
