@@ -186,8 +186,8 @@ export PATH="/Library/TeX/texbin:$PATH"
 export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
 
 # Set Java 21 as default
-export PATH="/opt/homebrew/opt/openjdk@21/bin:$PATH"
-export JAVA_HOME="/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home"
+export PATH="/opt/homebrew/opt/openjdk@25/bin:$PATH"
+export JAVA_HOME="/opt/homebrew/opt/openjdk@25"
 
 # run fastfetch on each startup
 fastfetch

@@ -1,0 +1,120 @@
+
+after-login-command = []
+after-startup-command = ['exec-and-forget sketchybar']
+
+# Exec commands on workspace change
+exec-on-workspace-change = ['/bin/bash', '-c',
+    'sketchybar --trigger aerospace_workspace_change'
+]
+
+# Start AeroSpace at login
+start-at-login = true
+
+# Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+# See: https://nikitabobko.github.io/AeroSpace/guide#layouts
+# The 'accordion-padding' specifies the size of accordion padding
+accordion-padding = 20
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'auto'
+key-mapping.preset = 'qwerty'
+
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+on-focus-changed = ['move-mouse window-lazy-center']
+
+# Gaps between windows (inner-*) and between monitor edges (outer-*).
+# Possible values:
+# - Constant:     gaps.outer.top = 8
+# - Per monitor:  gaps.outer.top = [{ monitor.main = 16 }, { monitor."some-pattern" = 32 }, 24]
+#                 In this example, 24 is a default value when there is no match.
+#                 Monitor pattern is the same as for 'workspace-to-monitor-force-assignment'.
+#                 See: https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
+[gaps]
+inner.horizontal = 10
+inner.vertical =   10
+outer.left =       10
+outer.bottom =     10
+outer.top =        35
+outer.right =      10
+
+# 'main' binding mode declaration
+# See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
+# 'main' binding mode must be always presented
+[mode.main.binding]
+ctrl-left = 'workspace prev'
+ctrl-right = 'workspace next'
+
+# Layout switching
+alt-slash = 'layout tiles horizontal vertical'
+alt-comma = 'layout accordion horizontal vertical'
+cmd-alt-shift-ctrl-space = 'layout tiles accordion'
+
+# Move current window to different monitors (alt + hjkl)
+alt-h = ['move-node-to-monitor left', 'focus-monitor left']
+alt-j = ['move-node-to-monitor down', 'focus-monitor down']
+alt-k = ['move-node-to-monitor up', 'focus-monitor up']
+alt-l = ['move-node-to-monitor right', 'focus-monitor right']
+
+# Window resizing
+cmd-shift-minus = 'resize smart -50'
+cmd-shift-equal = 'resize smart +50'
+
+# Workspace navigation (letter-based)
+# T=Terminal, A=AI, M=Media, W=Work, B=Browser, C=Coding, X=Extra, P=Productivity, S=Social, G=Gaming
+cmd-alt-shift-ctrl-t = 'workspace T'
+cmd-alt-shift-ctrl-a = 'workspace A'
+cmd-alt-shift-ctrl-m = 'workspace M'
+cmd-alt-shift-ctrl-w = 'workspace W'
+cmd-alt-shift-ctrl-b = 'workspace B'
+cmd-alt-shift-ctrl-c = 'workspace C'
+cmd-alt-shift-ctrl-x = 'workspace X'
+cmd-alt-shift-ctrl-p = 'workspace P'
+cmd-alt-shift-ctrl-s = 'workspace S'
+cmd-alt-shift-ctrl-g = 'workspace G'
+cmd-alt-shift-ctrl-v = 'workspace V'
+
+# Move window to workspace
+alt-t = ['move-node-to-workspace T', 'workspace T']
+alt-a = ['move-node-to-workspace A', 'workspace A']
+alt-m = ['move-node-to-workspace M', 'workspace M']
+alt-w = ['move-node-to-workspace W', 'workspace W']
+alt-b = ['move-node-to-workspace B', 'workspace B']
+alt-c = ['move-node-to-workspace C', 'workspace C']
+alt-x = ['move-node-to-workspace X', 'workspace X']
+alt-p = ['move-node-to-workspace P', 'workspace P']
+alt-s = ['move-node-to-workspace S', 'workspace S']
+alt-g = ['move-node-to-workspace G', 'workspace G']
+alt-v = ['move-node-to-workspace V', 'workspace V']
+
+# Additional useful bindings
+# Toggle fullscreen
+cmd-f = 'fullscreen'
+
+# Close window
+cmd-shift-q = 'close'
+
+# Reload config
+cmd-shift-r = 'reload-config'
+
+# Workspace back and forth
+cmd-tab = 'workspace-back-and-forth'
+
+# Move workspace to specific monitors
+cmd-alt-shift-ctrl-i = 'move-workspace-to-monitor AW2724DM'
+cmd-alt-shift-ctrl-o = "move-workspace-to-monitor 'Built-in Retina Display'"
+
+# move between windows
+cmd-alt-shift-ctrl-h = 'focus left'
+cmd-alt-shift-ctrl-j = 'focus down'
+cmd-alt-shift-ctrl-k = 'focus up'
+cmd-alt-shift-ctrl-l = 'focus right'
+
+# Move workspace to next monitor (cycle through monitors)
+cmd-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+
+# open kitty terminal 
+cmd-t = 'exec-and-forget open -n -a Kitty'
+cmd-b = 'exec-and-forget open -n -a Zen'
+
