@@ -1,6 +1,11 @@
 
 after-login-command = []
-after-startup-command = []
+after-startup-command = ['exec-and-forget sketchybar']
+
+# Exec commands on workspace change
+exec-on-workspace-change = ['/bin/bash', '-c',
+    'sketchybar --trigger aerospace_workspace_change'
+]
 
 # Start AeroSpace at login
 start-at-login = true
@@ -31,7 +36,7 @@ inner.horizontal = 10
 inner.vertical =   10
 outer.left =       10
 outer.bottom =     10
-outer.top =        3
+outer.top =        35
 outer.right =      10
 
 # 'main' binding mode declaration
@@ -112,3 +117,4 @@ cmd-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 # open kitty terminal 
 cmd-t = 'exec-and-forget open -n -a Kitty'
 cmd-b = 'exec-and-forget open -n -a Zen'
+
