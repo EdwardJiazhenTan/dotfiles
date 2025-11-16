@@ -46,16 +46,7 @@ alt-slash = 'layout tiles horizontal vertical'
 alt-comma = 'layout accordion horizontal vertical'
 cmd-alt-shift-ctrl-space = 'layout tiles accordion'
 
-
-# Monitor focus navigation (vim-style hjkl with hyprkey)
-# 显示器焦点导航
-cmd-alt-shift-ctrl-h = 'focus-monitor left'
-cmd-alt-shift-ctrl-j = 'focus-monitor down'
-cmd-alt-shift-ctrl-k = 'focus-monitor up'
-cmd-alt-shift-ctrl-l = 'focus-monitor right'
-
 # Move current window to different monitors (alt + hjkl)
-# 将当前窗口移动到不同显示器
 alt-h = ['move-node-to-monitor left', 'focus-monitor left']
 alt-j = ['move-node-to-monitor down', 'focus-monitor down']
 alt-k = ['move-node-to-monitor up', 'focus-monitor up']
@@ -77,6 +68,7 @@ cmd-alt-shift-ctrl-x = 'workspace X'
 cmd-alt-shift-ctrl-p = 'workspace P'
 cmd-alt-shift-ctrl-s = 'workspace S'
 cmd-alt-shift-ctrl-g = 'workspace G'
+cmd-alt-shift-ctrl-v = 'workspace V'
 
 # Move window to workspace
 alt-t = ['move-node-to-workspace T', 'workspace T']
@@ -89,6 +81,7 @@ alt-x = ['move-node-to-workspace X', 'workspace X']
 alt-p = ['move-node-to-workspace P', 'workspace P']
 alt-s = ['move-node-to-workspace S', 'workspace S']
 alt-g = ['move-node-to-workspace G', 'workspace G']
+alt-v = ['move-node-to-workspace V', 'workspace V']
 
 # Additional useful bindings
 # Toggle fullscreen
@@ -108,10 +101,10 @@ cmd-alt-shift-ctrl-i = 'move-workspace-to-monitor AW2724DM'
 cmd-alt-shift-ctrl-o = "move-workspace-to-monitor 'Built-in Retina Display'"
 
 # move between windows
-cmd-h = 'focus left'
-cmd-j = 'focus down'
-cmd-k = 'focus up'
-cmd-l = 'focus right'
+cmd-alt-shift-ctrl-h = 'focus left'
+cmd-alt-shift-ctrl-j = 'focus down'
+cmd-alt-shift-ctrl-k = 'focus up'
+cmd-alt-shift-ctrl-l = 'focus right'
 
 # Move workspace to next monitor (cycle through monitors)
 cmd-shift-tab = 'move-workspace-to-monitor --wrap-around next'

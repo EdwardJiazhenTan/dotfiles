@@ -34,8 +34,8 @@ return {
           "--line-number",
           "--column",
           "--smart-case",
-          "--no-ignore",  -- This shows git-ignored files
-          "--hidden",     -- Search hidden files
+          "--no-ignore", -- This shows git-ignored files
+          "--hidden", -- Search hidden files
         },
         mappings = {
           i = {
@@ -48,9 +48,9 @@ return {
       },
       pickers = {
         find_files = {
-          hidden = true,          -- Show hidden files
-          no_ignore = true,       -- Show git-ignored files
-          follow = true,          -- Follow symlinks
+          hidden = false, -- Show hidden files
+          no_ignore = false, -- Show git-ignored files
+          follow = true, -- Follow symlinks
         },
       },
     })
