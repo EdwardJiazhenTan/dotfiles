@@ -36,7 +36,7 @@ inner.horizontal = 10
 inner.vertical =   10
 outer.left =       10
 outer.bottom =     10
-outer.top =        35
+outer.top =        [{ monitor.'^AW2724DM$' = 40 }, 5]  # 40 for external, 5 for others
 outer.right =      10
 
 # 'main' binding mode declaration
