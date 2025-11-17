@@ -4,7 +4,7 @@ PLUGIN_DIR="$CONFIG_DIR/plugins"
 
 ##### Bar Appearance #####
 sketchybar --bar position=top height=22 blur_radius=0 color=0xff2e3440 \
-  y_offset=5 margin=10 padding_left=0 padding_right=0
+  y_offset=7 margin=10 padding_left=0 padding_right=0
 sketchybar --bar display=all
 sketchybar --add event aerospace_workspace_change
 
@@ -27,7 +27,7 @@ sketchybar --default "${default[@]}"
 sketchybar --add item aerospace left \
   --subscribe aerospace aerospace_workspace_change \
   --set aerospace \
-  background.color=0xff88C0D0 \
+  background.color=0xff5E81AC \
   background.corner_radius=0 \
   background.height=22 \
   background.padding_left=0 \
@@ -45,7 +45,7 @@ sketchybar --add item aerospace left \
 ##### Current App Block #####
 sketchybar --add item front_app left \
   --set front_app \
-  background.color=0xff81A1C1 \
+  background.color=0xff5E81AC \
   background.corner_radius=0 \
   background.height=22 \
   background.padding_left=8 \
@@ -70,6 +70,7 @@ sketchybar --add item now_playing center \
   background.padding_left=8 \
   background.padding_right=8 \
   background.drawing=on \
+  position=center_left \
   icon="♫" \
   icon.color=0xffECEFF4 \
   icon.padding_left=8 \
@@ -83,7 +84,7 @@ sketchybar --add item now_playing center \
 ##### Time Block #####
 sketchybar --add item clock right \
   --set clock \
-  background.color=0xff8FBCBB \
+  background.color=0xff5E81AC \
   background.corner_radius=0 \
   background.height=22 \
   background.padding_left=8 \
@@ -98,7 +99,7 @@ sketchybar --add item clock right \
   update_freq=10 \
   script="$PLUGIN_DIR/clock.sh"
 
-##### Widgets Block (Memory, Volume, Battery) #####
+##### Widgets Block (CPU, GPU, Memory, Volume, Battery) #####
 sketchybar --add item battery right \
   --set battery \
   background.color=0xff5E81AC \
@@ -116,7 +117,7 @@ sketchybar --add item battery right \
 
 sketchybar --add item volume right \
   --set volume \
-  background.color=0xff81A1C1 \
+  background.color=0xff5E81AC \
   background.corner_radius=0 \
   background.height=22 \
   background.padding_left=8 \
@@ -130,7 +131,7 @@ sketchybar --add item volume right \
 
 sketchybar --add item memory right \
   --set memory \
-  background.color=0xff88C0D0 \
+  background.color=0xff5E81AC \
   background.corner_radius=0 \
   background.height=22 \
   background.padding_left=8 \
@@ -138,10 +139,44 @@ sketchybar --add item memory right \
   background.drawing=on \
   icon= \
   icon.color=0xffECEFF4 \
+  icon.padding_left=8 \
+  icon.padding_right=8 \
   label.color=0xffECEFF4 \
   label.padding_right=8 \
   update_freq=5 \
   script="$PLUGIN_DIR/memory.sh"
+
+sketchybar --add item gpu right \
+  --set gpu \
+  background.color=0xff5E81AC \
+  background.corner_radius=0 \
+  background.height=22 \
+  background.padding_left=8 \
+  background.padding_right=8 \
+  background.drawing=on \
+  icon=󰾲 \
+  icon.color=0xffECEFF4 \
+  label.color=0xffECEFF4 \
+  label.padding_right=8 \
+  update_freq=5 \
+  script="$PLUGIN_DIR/gpu.sh"
+
+sketchybar --add item cpu right \
+  --set cpu \
+  background.color=0xff5E81AC \
+  background.corner_radius=0 \
+  background.height=22 \
+  background.padding_left=8 \
+  background.padding_right=8 \
+  background.drawing=on \
+  icon= \
+  icon.color=0xffECEFF4 \
+  icon.padding_left=8 \
+  icon.padding_right=8 \
+  label.color=0xffECEFF4 \
+  label.padding_right=8 \
+  update_freq=5 \
+  script="$PLUGIN_DIR/cpu.sh"
 
 ##### Force all scripts to run the first time #####
 sketchybar --update
