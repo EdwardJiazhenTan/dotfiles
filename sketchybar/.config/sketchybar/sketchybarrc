@@ -71,44 +71,18 @@ sketchybar --add item now_playing left \
   script="$PLUGIN_DIR/now_playing.sh"
 
 ##### Right Side Items #####
-sketchybar --add item cpu right \
-  --set cpu \
+sketchybar --add item input_method right \
+  --set input_method \
   background.padding_left=8 \
   background.padding_right=8 \
-  icon= \
+  icon=󰌌 \
   icon.color=0xffECEFF4 \
   icon.padding_left=8 \
   icon.padding_right=8 \
   label.color=0xffECEFF4 \
   label.padding_right=8 \
-  update_freq=5 \
-  script="$PLUGIN_DIR/cpu.sh"
-
-sketchybar --add item gpu right \
-  --set gpu \
-  background.padding_left=8 \
-  background.padding_right=8 \
-  icon=󰾲 \
-  icon.color=0xffECEFF4 \
-  icon.padding_left=8 \
-  icon.padding_right=8 \
-  label.color=0xffECEFF4 \
-  label.padding_right=8 \
-  update_freq=5 \
-  script="$PLUGIN_DIR/gpu.sh"
-
-sketchybar --add item memory right \
-  --set memory \
-  background.padding_left=8 \
-  background.padding_right=8 \
-  icon= \
-  icon.color=0xffECEFF4 \
-  icon.padding_left=8 \
-  icon.padding_right=8 \
-  label.color=0xffECEFF4 \
-  label.padding_right=8 \
-  update_freq=5 \
-  script="$PLUGIN_DIR/memory.sh"
+  update_freq=1 \
+  script="$PLUGIN_DIR/input_method.sh"
 
 sketchybar --add item volume right \
   --set volume \
