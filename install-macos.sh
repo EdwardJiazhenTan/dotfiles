@@ -119,6 +119,15 @@ else
     log_success "Zed already installed"
 fi
 
+# Spicetify (Spotify customization)
+if ! command -v spicetify &> /dev/null; then
+    log_info "Installing Spicetify..."
+    brew install spicetify-cli
+    log_success "Spicetify installed"
+else
+    log_success "Spicetify already installed"
+fi
+
 # Install SF Mono Nerd Font for better terminal experience
 log_info "Installing Nerd Fonts..."
 brew tap homebrew/cask-fonts
@@ -173,6 +182,7 @@ stow_package "tmux"
 stow_package "zed"
 stow_package "aerospace"
 stow_package "sketchybar"
+stow_package "spicetify"
 stow_package "zsh"
 
 # Note: Karabiner config is intentionally not stowed
