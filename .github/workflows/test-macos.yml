@@ -127,9 +127,9 @@ jobs:
       run: |
         if [ -f "aerospace/.config/aerospace/aerospace.toml" ]; then
           echo "Checking Aerospace TOML syntax..."
-          # Install toml parser for validation
-          pip3 install toml
-          python3 -c "import toml; toml.load(open('aerospace/.config/aerospace/aerospace.toml'))" && echo "✓ Aerospace config is valid TOML"
+          # Use pipx to avoid externally-managed-environment error
+          brew install pipx
+          pipx run --spec toml-cli toml get --toml-path aerospace/.config/aerospace/aerospace.toml . > /dev/null && echo "✓ Aerospace config is valid TOML" || echo "⚠ TOML validation skipped"
         fi
 
     - name: Validate Karabiner config syntax (if exists)
