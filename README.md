@@ -29,6 +29,39 @@ This repository uses branches to separate platform-specific configurations:
 
 ## Installation
 
+### Automated Installation (macOS)
+
+The easiest way to set up everything on macOS:
+
+```bash
+# Clone this repository
+git clone https://github.com/EdwardJiazhenTan/dotfiles ~/dotfiles
+cd ~/dotfiles
+
+# Checkout the macOS branch
+git checkout macos
+
+# Run the automated installation script
+./install-macos.sh
+```
+
+This script will:
+- Install Homebrew (if not installed)
+- Install all required applications (Kitty, Neovim, Tmux, Aerospace, Karabiner, SketchyBar, Zed)
+- Install GNU Stow
+- Install Nerd Fonts
+- Backup existing configurations
+- Symlink all dotfiles using GNU Stow
+- Install Tmux Plugin Manager
+
+After installation:
+1. Restart your terminal or run: `source ~/.zshrc`
+2. Grant permissions to Aerospace and Karabiner-Elements in System Settings
+3. Open tmux and press `prefix + I` to install tmux plugins
+4. Open Neovim - plugins will auto-install on first run
+
+### Manual Installation
+
 1. Install GNU Stow:
    ```bash
    # macOS

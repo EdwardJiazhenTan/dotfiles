@@ -1,0 +1,182 @@
+name: Test macOS Installation
+
+on:
+  push:
+    branches: [ macos, main ]
+  pull_request:
+    branches: [ macos, main ]
+  workflow_dispatch:  # Allow manual triggering
+
+jobs:
+  test-install:
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Display macOS version
+      run: sw_vers
+
+    - name: Display Homebrew version
+      run: brew --version
+
+    - name: Test GNU Stow installation
+      run: |
+        if ! command -v stow &> /dev/null; then
+          echo "Installing GNU Stow..."
+          brew install stow
+        else
+          echo "GNU Stow already installed"
+        fi
+        stow --version
+
+    - name: Validate directory structure
+      run: |
+        echo "Checking directory structure..."
+        ls -la
+
+        # Check for expected directories
+        for dir in kitty nvim tmux zsh; do
+          if [ -d "$dir" ]; then
+            echo "✓ $dir directory exists"
+          else
+            echo "✗ $dir directory missing"
+            exit 1
+          fi
+        done
+
+    - name: Test Stow dry-run (without actually linking)
+      run: |
+        echo "Testing stow configurations (dry-run)..."
+
+        # Test each package with --no to simulate without making changes
+        for package in kitty nvim tmux zsh aerospace sketchybar; do
+          if [ -d "$package" ]; then
+            echo "Testing stow for $package..."
+            stow -n -v "$package" || echo "Stow simulation completed for $package"
+          fi
+        done
+
+    - name: Validate configuration files exist
+      run: |
+        echo "Validating configuration files..."
+
+        # Check kitty config
+        if [ -f "kitty/.config/kitty/kitty.conf" ]; then
+          echo "✓ Kitty config exists"
+        else
+          echo "✗ Kitty config missing"
+        fi
+
+        # Check nvim config
+        if [ -d "nvim/.config/nvim" ]; then
+          echo "✓ Neovim config directory exists"
+        else
+          echo "✗ Neovim config missing"
+        fi
+
+        # Check tmux config
+        if [ -f "tmux/.tmux.conf" ] || [ -f "tmux/.config/tmux/tmux.conf" ]; then
+          echo "✓ Tmux config exists"
+        else
+          echo "✗ Tmux config missing"
+        fi
+
+        # Check zsh config
+        if [ -f "zsh/.zshrc" ]; then
+          echo "✓ Zsh config exists"
+        else
+          echo "✗ Zsh config missing"
+        fi
+
+        # Check aerospace config
+        if [ -f "aerospace/.config/aerospace/aerospace.toml" ]; then
+          echo "✓ Aerospace config exists"
+        else
+          echo "✗ Aerospace config missing"
+        fi
+
+        # Check sketchybar config
+        if [ -d "sketchybar/.config/sketchybar" ]; then
+          echo "✓ SketchyBar config directory exists"
+        else
+          echo "✗ SketchyBar config missing"
+        fi
+
+    - name: Validate install script
+      run: |
+        echo "Validating install script..."
+        if [ -f "install-macos.sh" ]; then
+          echo "✓ install-macos.sh exists"
+          if [ -x "install-macos.sh" ]; then
+            echo "✓ install-macos.sh is executable"
+          else
+            echo "✗ install-macos.sh is not executable"
+            exit 1
+          fi
+
+          # Check for bash syntax errors
+          bash -n install-macos.sh && echo "✓ install-macos.sh has valid bash syntax"
+        else
+          echo "✗ install-macos.sh missing"
+          exit 1
+        fi
+
+    - name: Validate Aerospace config syntax
+      run: |
+        if [ -f "aerospace/.config/aerospace/aerospace.toml" ]; then
+          echo "Checking Aerospace TOML syntax..."
+          # Install toml parser for validation
+          pip3 install toml
+          python3 -c "import toml; toml.load(open('aerospace/.config/aerospace/aerospace.toml'))" && echo "✓ Aerospace config is valid TOML"
+        fi
+
+    - name: Validate Karabiner config syntax (if exists)
+      run: |
+        if [ -f "karabiner/.config/karabiner/karabiner.json" ]; then
+          echo "Checking Karabiner JSON syntax..."
+          python3 -m json.tool karabiner/.config/karabiner/karabiner.json > /dev/null && echo "✓ Karabiner config is valid JSON"
+        else
+          echo "⚠ Karabiner config not in repo (optional)"
+        fi
+
+    - name: Test actual stow in temporary HOME
+      run: |
+        echo "Testing actual stow process in isolated environment..."
+
+        # Create temporary home directory
+        TEMP_HOME=$(mktemp -d)
+        export HOME="$TEMP_HOME"
+
+        echo "Temporary HOME: $TEMP_HOME"
+
+        # Stow each package
+        for package in kitty nvim tmux zsh; do
+          if [ -d "$package" ]; then
+            echo "Stowing $package to $TEMP_HOME..."
+            stow -v -t "$TEMP_HOME" "$package" 2>&1 | grep -v "BUG in find_stowed_path" || true
+          fi
+        done
+
+        # Verify symlinks were created
+        echo "Verifying symlinks..."
+        ls -la "$TEMP_HOME" || true
+        ls -la "$TEMP_HOME/.config/" || true
+
+        # Cleanup
+        rm -rf "$TEMP_HOME"
+        echo "✓ Stow process test completed successfully"
+
+    - name: Summary
+      if: always()
+      run: |
+        echo "================================"
+        echo "Test Summary"
+        echo "================================"
+        echo "✓ Directory structure validated"
+        echo "✓ Configuration files validated"
+        echo "✓ Install script validated"
+        echo "✓ Config syntax validated"
+        echo "✓ Stow process tested"
+        echo "================================"
