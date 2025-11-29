@@ -1,24 +1,28 @@
 return {
   "nvim-telescope/telescope.nvim",
-  branch = "0.1.x",
+  branch = "master",
   dependencies = {
     "nvim-lua/plenary.nvim",
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     "nvim-tree/nvim-web-devicons",
     "folke/todo-comments.nvim",
+    "folke/trouble.nvim",
   },
   config = function()
     local telescope = require("telescope")
     local actions = require("telescope.actions")
     local transform_mod = require("telescope.actions.mt").transform_mod
 
-    local trouble = require("trouble")
-    local trouble_telescope = require("trouble.sources.telescope")
+    -- Safely load trouble with error handling
+    local trouble_ok, trouble = pcall(require, "trouble")
+    local trouble_telescope_ok, trouble_telescope = pcall(require, "trouble.sources.telescope")
 
     -- or create your custom action
     local custom_actions = transform_mod({
       open_trouble_qflist = function(prompt_bufnr)
-        trouble.toggle("quickfix")
+        if trouble_ok then
+          trouble.toggle("quickfix")
+        end
       end,
     })
 
@@ -42,7 +46,7 @@ return {
             ["<C-k>"] = actions.move_selection_previous, -- move to prev result
             ["<C-j>"] = actions.move_selection_next, -- move to next result
             ["<C-q>"] = actions.send_selected_to_qflist + custom_actions.open_trouble_qflist,
-            ["<C-t>"] = trouble_telescope.open,
+            ["<C-t>"] = trouble_telescope_ok and trouble_telescope.open or actions.select_default,
           },
         },
       },
