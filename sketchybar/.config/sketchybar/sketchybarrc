@@ -12,16 +12,16 @@ sketchybar --add event aerospace_workspace_change
 default=(
   padding_left=5
   padding_right=5
-  icon.font="Monocraft Nerd Font:Bold:17.0"
-  label.font="Monocraft Nerd Font:Bold:14.0"
-  icon.color=0xffD8DEE9
-  label.color=0xffD8DEE9
+  icon.font="Hack Nerd Font:Bold:15.0"
+  label.font="Hack Nerd Font:Bold:15.0"
+  icon.color=0xff88C0D0
+  label.color=0xffECEFF4
   icon.padding_left=4
   icon.padding_right=4
   label.padding_left=4
   label.padding_right=4
-  background.color=0xff2e3440
-  background.corner_radius=4
+  background.color=0xff4C566A
+  background.corner_radius=0
   background.height=22
 )
 sketchybar --default "${default[@]}"
@@ -32,12 +32,9 @@ sketchybar --add item aerospace left \
   --set aerospace \
   background.padding_left=8 \
   background.padding_right=8 \
-  icon= \
-  icon.color=0xffECEFF4 \
-  icon.padding_right=6 \
-  label.color=0xffECEFF4 \
-  label.padding_right=12 \
-  label.font="Monocraft Nerd Font:Bold:14.0" \
+  icon.padding_left=8 \
+  icon.padding_right=2 \
+  label.padding_right=8 \
   update_freq=2 \
   script="$PLUGIN_DIR/aerospace.sh"
 
@@ -46,12 +43,9 @@ sketchybar --add item front_app left \
   background.padding_left=8 \
   background.padding_right=8 \
   icon=">" \
-  icon.color=0xffECEFF4 \
   icon.padding_left=8 \
-  icon.padding_right=8 \
-  label.color=0xffECEFF4 \
-  label.padding_left=4 \
-  label.padding_right=12 \
+  icon.padding_right=4 \
+  label.padding_right=8 \
   script="$PLUGIN_DIR/front_app.sh" \
   --subscribe front_app front_app_switched
 
@@ -60,13 +54,10 @@ sketchybar --add item now_playing left \
   --set now_playing \
   background.padding_left=8 \
   background.padding_right=8 \
-  icon="♫" \
-  icon.color=0xffECEFF4 \
+  icon="󰎆" \
   icon.padding_left=8 \
-  icon.padding_right=8 \
-  label.color=0xffECEFF4 \
-  label.padding_left=4 \
-  label.padding_right=12 \
+  icon.padding_right=4 \
+  label.padding_right=8 \
   update_freq=5 \
   script="$PLUGIN_DIR/now_playing.sh"
 
@@ -76,10 +67,8 @@ sketchybar --add item input_method right \
   background.padding_left=8 \
   background.padding_right=8 \
   icon=󰌌 \
-  icon.color=0xffECEFF4 \
   icon.padding_left=8 \
   icon.padding_right=8 \
-  label.color=0xffECEFF4 \
   label.padding_right=8 \
   update_freq=1 \
   script="$PLUGIN_DIR/input_method.sh"
@@ -88,8 +77,6 @@ sketchybar --add item volume right \
   --set volume \
   background.padding_left=8 \
   background.padding_right=8 \
-  icon.color=0xffECEFF4 \
-  label.color=0xffECEFF4 \
   label.padding_right=8 \
   script="$PLUGIN_DIR/volume.sh" \
   --subscribe volume volume_change
@@ -98,8 +85,6 @@ sketchybar --add item battery right \
   --set battery \
   background.padding_left=8 \
   background.padding_right=8 \
-  icon.color=0xffECEFF4 \
-  label.color=0xffECEFF4 \
   label.padding_right=8 \
   update_freq=120 \
   script="$PLUGIN_DIR/battery.sh" \
@@ -109,11 +94,9 @@ sketchybar --add item clock right \
   --set clock \
   background.padding_left=8 \
   background.padding_right=8 \
-  icon.color=0xffECEFF4 \
   icon="󰔠" \
   icon.padding_left=8 \
   icon.padding_right=8 \
-  label.color=0xffECEFF4 \
   label.padding_right=8 \
   update_freq=10 \
   script="$PLUGIN_DIR/clock.sh"

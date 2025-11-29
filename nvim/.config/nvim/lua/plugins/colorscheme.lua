@@ -29,7 +29,7 @@ return {
           lualine_x = {},
           lualine_y = { "diff" },
           lualine_z = {
-            { "hostname", left_padding = 2 },
+            { function() return vim.fn.fnamemodify(vim.fn.getcwd(), ":t") end, left_padding = 2 },
           },
         },
         inactive_sections = {
