@@ -62,6 +62,17 @@ sketchybar --add item now_playing left \
   script="$PLUGIN_DIR/now_playing.sh"
 
 ##### Right Side Items #####
+sketchybar --add item weather right \
+  --set weather \
+  background.padding_left=8 \
+  background.padding_right=8 \
+  icon="󰖐" \
+  icon.padding_left=8 \
+  icon.padding_right=4 \
+  label.padding_right=8 \
+  update_freq=1800 \
+  script="$PLUGIN_DIR/weather.sh"
+
 sketchybar --add item input_method right \
   --set input_method \
   background.padding_left=8 \
