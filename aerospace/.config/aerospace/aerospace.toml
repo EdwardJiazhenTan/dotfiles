@@ -1,11 +1,6 @@
 
 after-login-command = []
 after-startup-command = ['exec-and-forget sketchybar']
-
-# Exclude apps that don't work well with tiling
-[[on-window-detected]]
-if.app-id = 'com.tencent.xinWeChat'
-run = 'layout floating'
 # Exec commands on workspace change
 exec-on-workspace-change = ['/bin/bash', '-c',
     'sketchybar --trigger aerospace_workspace_change'
@@ -118,7 +113,11 @@ cmd-alt-shift-ctrl-l = 'focus right'
 # Move workspace to next monitor (cycle through monitors)
 cmd-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
-# open kitty terminal 
+# open kitty terminal
 cmd-t = 'exec-and-forget open -n -a Kitty'
 cmd-b = 'exec-and-forget open -n -a Zen'
 
+# Exclude apps that don't work well with tiling
+[[on-window-detected]]
+if.app-id = 'com.tencent.xinWeChat'
+run = 'layout floating'
