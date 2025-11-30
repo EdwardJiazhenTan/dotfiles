@@ -128,6 +128,15 @@ else
     log_success "Spicetify already installed"
 fi
 
+# Fastfetch (system information tool)
+if ! command -v fastfetch &> /dev/null; then
+    log_info "Installing fastfetch..."
+    brew install fastfetch
+    log_success "Fastfetch installed"
+else
+    log_success "Fastfetch already installed"
+fi
+
 # Install SF Mono Nerd Font for better terminal experience
 log_info "Installing Nerd Fonts..."
 brew tap homebrew/cask-fonts
@@ -159,6 +168,7 @@ backup_if_exists "$HOME/.config/zed"
 backup_if_exists "$HOME/.config/aerospace"
 backup_if_exists "$HOME/.config/karabiner"
 backup_if_exists "$HOME/.config/sketchybar"
+backup_if_exists "$HOME/.config/fastfetch"
 backup_if_exists "$HOME/.zshrc"
 
 # Stow configurations
@@ -183,6 +193,7 @@ stow_package "zed"
 stow_package "aerospace"
 stow_package "sketchybar"
 stow_package "spicetify"
+stow_package "fastfetch"
 stow_package "zsh"
 
 # Note: Karabiner config is intentionally not stowed
