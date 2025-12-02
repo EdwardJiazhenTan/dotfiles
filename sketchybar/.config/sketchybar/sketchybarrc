@@ -21,7 +21,7 @@ default=(
   label.padding_left=4
   label.padding_right=4
   background.color=0xff4C566A
-  background.corner_radius=0
+  background.corner_radius=5
   background.height=22
 )
 sketchybar --default "${default[@]}"
@@ -30,13 +30,24 @@ sketchybar --default "${default[@]}"
 sketchybar --add item aerospace left \
   --subscribe aerospace aerospace_workspace_change \
   --set aerospace \
-  background.padding_left=8 \
+  background.padding_left=0 \
   background.padding_right=8 \
   icon.padding_left=8 \
   icon.padding_right=2 \
   label.padding_right=8 \
   update_freq=2 \
   script="$PLUGIN_DIR/aerospace.sh"
+
+sketchybar --add item input_method left \
+  --set input_method \
+  background.padding_left=8 \
+  background.padding_right=8 \
+  icon=󰌌 \
+  icon.padding_left=8 \
+  icon.padding_right=8 \
+  label.padding_right=8 \
+  update_freq=1 \
+  script="$PLUGIN_DIR/input_method.sh"
 
 sketchybar --add item front_app left \
   --set front_app \
@@ -65,24 +76,13 @@ sketchybar --add item now_playing left \
 sketchybar --add item weather right \
   --set weather \
   background.padding_left=8 \
-  background.padding_right=8 \
+  background.padding_right=0 \
   icon="󰖐" \
   icon.padding_left=8 \
   icon.padding_right=4 \
   label.padding_right=8 \
   update_freq=1800 \
   script="$PLUGIN_DIR/weather.sh"
-
-sketchybar --add item input_method right \
-  --set input_method \
-  background.padding_left=8 \
-  background.padding_right=8 \
-  icon=󰌌 \
-  icon.padding_left=8 \
-  icon.padding_right=8 \
-  label.padding_right=8 \
-  update_freq=1 \
-  script="$PLUGIN_DIR/input_method.sh"
 
 sketchybar --add item volume right \
   --set volume \

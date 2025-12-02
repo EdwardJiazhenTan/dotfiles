@@ -4,11 +4,11 @@
 # Uses wttr.in for weather data
 
 # You can customize your location here (city name, coordinates, or leave empty for auto-detect)
-LOCATION=""
+LOCATION="Rochester, NY"
 
 # Cache file to avoid too frequent requests
 CACHE_FILE="/tmp/sketchybar_weather_cache"
-CACHE_TIME=1800 # 30 minutes in seconds
+CACHE_TIME=600 # 10 minutes in seconds
 
 # Get current time
 CURRENT_TIME=$(date +%s)
