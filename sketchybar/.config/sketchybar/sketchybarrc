@@ -30,8 +30,8 @@ sketchybar --default "${default[@]}"
 sketchybar --add item aerospace left \
   --subscribe aerospace aerospace_workspace_change \
   --set aerospace \
-  background.padding_left=0 \
-  background.padding_right=8 \
+  background.padding_left=1 \
+  background.padding_right=5 \
   icon.padding_left=8 \
   icon.padding_right=2 \
   label.padding_right=8 \
@@ -40,8 +40,8 @@ sketchybar --add item aerospace left \
 
 sketchybar --add item input_method left \
   --set input_method \
-  background.padding_left=8 \
-  background.padding_right=8 \
+  background.padding_left=5 \
+  background.padding_right=5 \
   icon=󰌌 \
   icon.padding_left=8 \
   icon.padding_right=8 \
@@ -51,8 +51,8 @@ sketchybar --add item input_method left \
 
 sketchybar --add item front_app left \
   --set front_app \
-  background.padding_left=8 \
-  background.padding_right=8 \
+  background.padding_left=5 \
+  background.padding_right=5 \
   icon=">" \
   icon.padding_left=8 \
   icon.padding_right=4 \
@@ -63,8 +63,8 @@ sketchybar --add item front_app left \
 ##### Center Left Item (Now Playing) #####
 sketchybar --add item now_playing left \
   --set now_playing \
-  background.padding_left=8 \
-  background.padding_right=8 \
+  background.padding_left=5 \
+  background.padding_right=5 \
   icon="󰎆" \
   icon.padding_left=8 \
   icon.padding_right=4 \
@@ -75,8 +75,8 @@ sketchybar --add item now_playing left \
 ##### Right Side Items #####
 sketchybar --add item weather right \
   --set weather \
-  background.padding_left=8 \
-  background.padding_right=0 \
+  background.padding_left=5 \
+  background.padding_right=1 \
   icon="󰖐" \
   icon.padding_left=8 \
   icon.padding_right=4 \
@@ -86,16 +86,16 @@ sketchybar --add item weather right \
 
 sketchybar --add item volume right \
   --set volume \
-  background.padding_left=8 \
-  background.padding_right=8 \
+  background.padding_left=5 \
+  background.padding_right=5 \
   label.padding_right=8 \
   script="$PLUGIN_DIR/volume.sh" \
   --subscribe volume volume_change
 
 sketchybar --add item battery right \
   --set battery \
-  background.padding_left=8 \
-  background.padding_right=8 \
+  background.padding_left=5 \
+  background.padding_right=5 \
   label.padding_right=8 \
   update_freq=120 \
   script="$PLUGIN_DIR/battery.sh" \
@@ -103,8 +103,8 @@ sketchybar --add item battery right \
 
 sketchybar --add item clock right \
   --set clock \
-  background.padding_left=8 \
-  background.padding_right=8 \
+  background.padding_left=5 \
+  background.padding_right=5 \
   icon="󰔠" \
   icon.padding_left=8 \
   icon.padding_right=8 \
