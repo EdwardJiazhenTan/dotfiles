@@ -4,7 +4,7 @@
 # Uses wttr.in for weather data
 
 # You can customize your location here (city name, coordinates, or leave empty for auto-detect)
-LOCATION="Rochester, NY"
+LOCATION="Rochester,+NY"
 
 # Cache file to avoid too frequent requests
 CACHE_FILE="/tmp/sketchybar_weather_cache"
@@ -26,13 +26,14 @@ fi
 
 # Fetch new weather data if cache is stale or doesn't exist
 if [ -z "$WEATHER" ]; then
-  # Fetch weather from wttr.in (format: location, temperature in Celsius, condition)
-  # %l = location, %t = temperature, %C = condition (no emoji)
-  # m for metric (Celsius), no + sign by default with %t
-  WEATHER=$(curl -s "wttr.in/${LOCATION}?format=%l+%t+%C&m" 2>/dev/null)
+  # Fetch weather from wttr.in (format: temperature in Celsius, condition)
+  # %t = temperature, %C = condition (no emoji)
+  # m for metric (Celsius), prepending location manually
+  RAW_WEATHER=$(curl -s "wttr.in/${LOCATION}?format=%t+%C&m" 2>/dev/null)
 
-  # If fetch successful, update cache
-  if [ -n "$WEATHER" ] && [ "$WEATHER" != "" ]; then
+  # If fetch successful, prepend location and update cache
+  if [ -n "$RAW_WEATHER" ] && [ "$RAW_WEATHER" != "" ]; then
+    WEATHER="Rochester · $RAW_WEATHER"
     echo "$WEATHER" >"$CACHE_FILE"
   else
     # If fetch failed, try to use old cache or show error

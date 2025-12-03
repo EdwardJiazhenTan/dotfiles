@@ -1,26 +1,26 @@
 # ===============================================
-# ZSH 配置文件 (macOS 版本)
+# ZSH Configuration File (macOS Version)
 # ===============================================
 # ===============================================
-# ZSH AUTOSUGGESTIONS 配置
+# ZSH AUTOSUGGESTIONS Configuration
 # ===============================================
 if [[ -r "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
     source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
 
 
-# 配置建议颜色
+# Configure suggestion color
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#585858,underline"
 
-# 配置建议策略
+# Configure suggestion strategy
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
-# Autosuggestion 快捷键绑定
-bindkey '^f' autosuggest-accept          # Ctrl+f 接受建议
-bindkey '^j' autosuggest-accept          # Ctrl+j 接受建议 (额外选项)
+# Autosuggestion key bindings
+bindkey '^f' autosuggest-accept          # Ctrl+f accept suggestion
+bindkey '^j' autosuggest-accept          # Ctrl+j accept suggestion (extra option)
 
 # ===============================================
-# 历史设置
+# History Settings
 # ===============================================
 HISTSIZE=5000
 HISTFILE=~/.zsh_history
@@ -34,27 +34,27 @@ setopt hist_save_no_dups
 setopt hist_find_no_dups
 
 # ===============================================
-# 键绑定
+# Key Bindings
 # ===============================================
 bindkey -e
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 
 # ===============================================
-# ZOXIDE 配置
+# ZOXIDE Configuration
 # ===============================================
 if command -v zoxide &> /dev/null; then
     eval "$(zoxide init zsh)"
 fi
 
 # ===============================================
-# FZF 配置
+# FZF Configuration
 # ===============================================
 if command -v fzf &> /dev/null; then
     source "$(brew --prefix)/opt/fzf/shell/key-bindings.zsh"
     source "$(brew --prefix)/opt/fzf/shell/completion.zsh"
-    
-    # FZF 主题和选项
+
+    # FZF theme and options
     export FZF_DEFAULT_OPTS="
     --height 40% 
     --layout=reverse 
@@ -68,14 +68,14 @@ if command -v fzf &> /dev/null; then
     --bind='?:toggle-preview'
     "
     
-    # 使用 fd 替代 find (如果安装了 fd)
+    # Use fd instead of find (if fd is installed)
     if command -v fd &> /dev/null; then
         export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --hidden --follow --exclude .git'
         export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
         export FZF_ALT_C_COMMAND='fd --type d --strip-cwd-prefix --hidden --follow --exclude .git'
     fi
-    
-    # 使用 bat 作为预览工具
+
+    # Use bat as preview tool
     if command -v bat &> /dev/null; then
         export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always {}'"
         export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
@@ -83,15 +83,15 @@ if command -v fzf &> /dev/null; then
 fi
 
 # ===============================================
-# ZSH SYNTAX HIGHLIGHTING 配置
+# ZSH SYNTAX HIGHLIGHTING Configuration
 # ===============================================
 if [[ -r "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
     source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-    
-    # 语法高亮颜色配置
+
+    # Syntax highlighting color configuration
     ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
-    
-    # 主要语法高亮样式
+
+    # Main syntax highlighting styles
     ZSH_HIGHLIGHT_STYLES[default]=none
     ZSH_HIGHLIGHT_STYLES[unknown-token]=fg=red,bold
     ZSH_HIGHLIGHT_STYLES[reserved-word]=fg=yellow
@@ -119,15 +119,15 @@ if [[ -r "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting
     ZSH_HIGHLIGHT_STYLES[comment]=fg=black,bold
     ZSH_HIGHLIGHT_STYLES[arg0]=fg=green
     
-    # 括号高亮
+    # Bracket highlighting
     ZSH_HIGHLIGHT_STYLES[bracket-error]=fg=red,bold
     ZSH_HIGHLIGHT_STYLES[bracket-level-1]=fg=blue,bold
     ZSH_HIGHLIGHT_STYLES[bracket-level-2]=fg=green,bold
     ZSH_HIGHLIGHT_STYLES[bracket-level-3]=fg=magenta,bold
     ZSH_HIGHLIGHT_STYLES[bracket-level-4]=fg=yellow,bold
     ZSH_HIGHLIGHT_STYLES[bracket-level-5]=fg=cyan,bold
-    
-    # 光标高亮
+
+    # Cursor highlighting
     ZSH_HIGHLIGHT_STYLES[cursor]=standout
 fi
 
@@ -138,7 +138,7 @@ export FZF_DEFAULT_OPTS="--color=fg:#d8dee9,bg:#2e3440,hl:#81a1c1 \
 --color=marker:#a3be8c,spinner:#b48ead,header:#81a1c1"
 
 # ===============================================
-# 完成系统配置
+# Completion System Configuration
 # ===============================================
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
@@ -149,17 +149,17 @@ zstyle ':completion:*' file-sort modification
 zstyle ':completion:*' rehash true
 
 # ===============================================
-# 环境变量
+# Environment Variables
 # ===============================================
 
-# 编辑器
+# Editor
 export EDITOR='nvim'
 export VISUAL='nvim'
 
-# 路径
+# Path
 export PATH="$HOME/.local/bin:$PATH"
 
-# API Keys (建议移到单独的私有文件中)
+# API Keys (recommend moving to a separate private file)
 if [[ -f ~/.env ]]; then
     source ~/.env
 fi
@@ -168,10 +168,10 @@ fi
 bindkey -v
 
 # ===============================================
-# 条件加载
+# Conditional Loading
 # ===============================================
 
-# NVM 初始化
+# NVM initialization
 if [[ -d "$HOME/.nvm" ]]; then
     export NVM_DIR="$HOME/.nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
@@ -181,7 +181,7 @@ fi
 # starship settings
 eval "$(starship init zsh)"
 
-# Homebrew 路径 (Apple Silicon Mac)
+# Homebrew path (Apple Silicon Mac)
 if [[ -d "/opt/homebrew" ]]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
@@ -191,6 +191,9 @@ export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
 # Set Java 21 as default
 export PATH="/opt/homebrew/opt/openjdk@25/bin:$PATH"
 export JAVA_HOME="/opt/homebrew/opt/openjdk@25"
+
+# Send bell on command complete for kitty notifications
+precmd() { echo -ne '\a' }
 
 # run fastfetch on each startup
 fastfetch
