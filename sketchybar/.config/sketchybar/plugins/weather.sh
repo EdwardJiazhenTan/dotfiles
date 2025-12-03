@@ -1,9 +1,20 @@
-#!/bin/sh
+#!/usr/bin/env bash
+set -euo pipefail
 
-# Weather widget for sketchybar
-# Uses wttr.in for weather data
+# =============================================================================
+# Weather Widget for SketchyBar
+# =============================================================================
+# Fetches weather data from wttr.in and displays temperature + condition
+# 
+# Features:
+# - 10-minute cache to avoid rate limiting
+# - Automatic state name abbreviation (e.g., "New York" -> "NY")
+# - Graceful fallback to cached data if fetch fails
+#
+# Customize location below (city name, coordinates, or empty for auto-detect)
+# Format examples: "New+York", "Rochester,+NY", "40.7128,-74.0060"
+# =============================================================================
 
-# You can customize your location here (city name, coordinates, or leave empty for auto-detect)
 LOCATION="Rochester,+NY"
 
 # Cache file to avoid too frequent requests
@@ -45,9 +56,61 @@ if [ -z "$WEATHER" ]; then
   fi
 fi
 
-# Clean up the weather string (remove + sign, country, format state, replace separators with dots)
-# Remove ", United States" and convert state names to abbreviations
-WEATHER=$(echo "$WEATHER" | sed 's/+/ · /g' | sed 's/, United States//g' | sed 's/New Jersey/NJ/g' | sed 's/New York/NY/g' | sed 's/California/CA/g' | sed 's/Texas/TX/g' | sed 's/Florida/FL/g' | sed 's/Pennsylvania/PA/g' | sed 's/Illinois/IL/g' | sed 's/Ohio/OH/g' | sed 's/Georgia/GA/g' | sed 's/North Carolina/NC/g' | sed 's/Michigan/MI/g' | sed 's/Virginia/VA/g' | sed 's/Washington/WA/g' | sed 's/Arizona/AZ/g' | sed 's/Massachusetts/MA/g' | sed 's/Tennessee/TN/g' | sed 's/Indiana/IN/g' | sed 's/Missouri/MO/g' | sed 's/Maryland/MD/g' | sed 's/Wisconsin/WI/g' | sed 's/Colorado/CO/g' | sed 's/Minnesota/MN/g' | sed 's/South Carolina/SC/g' | sed 's/Alabama/AL/g' | sed 's/Louisiana/LA/g' | sed 's/Kentucky/KY/g' | sed 's/Oregon/OR/g' | sed 's/Oklahoma/OK/g' | sed 's/Connecticut/CT/g' | sed 's/Utah/UT/g' | sed 's/Iowa/IA/g' | sed 's/Nevada/NV/g' | sed 's/Arkansas/AR/g' | sed 's/Mississippi/MS/g' | sed 's/Kansas/KS/g' | sed 's/New Mexico/NM/g' | sed 's/Nebraska/NE/g' | sed 's/West Virginia/WV/g' | sed 's/Idaho/ID/g' | sed 's/Hawaii/HI/g' | sed 's/New Hampshire/NH/g' | sed 's/Maine/ME/g' | sed 's/Montana/MT/g' | sed 's/Rhode Island/RI/g' | sed 's/Delaware/DE/g' | sed 's/South Dakota/SD/g' | sed 's/North Dakota/ND/g' | sed 's/Alaska/AK/g' | sed 's/Vermont/VT/g' | sed 's/Wyoming/WY/g' | sed 's/, / · /g' | xargs)
+# Clean up the weather string
+# Replace + with · separator, remove country, abbreviate states
+WEATHER=$(echo "$WEATHER" | sed -e 's/+/ · /g' \
+  -e 's/, United States//g' \
+  -e 's/New Jersey/NJ/g' \
+  -e 's/New York/NY/g' \
+  -e 's/California/CA/g' \
+  -e 's/Texas/TX/g' \
+  -e 's/Florida/FL/g' \
+  -e 's/Pennsylvania/PA/g' \
+  -e 's/Illinois/IL/g' \
+  -e 's/Ohio/OH/g' \
+  -e 's/Georgia/GA/g' \
+  -e 's/North Carolina/NC/g' \
+  -e 's/South Carolina/SC/g' \
+  -e 's/Michigan/MI/g' \
+  -e 's/Virginia/VA/g' \
+  -e 's/West Virginia/WV/g' \
+  -e 's/Washington/WA/g' \
+  -e 's/Arizona/AZ/g' \
+  -e 's/Massachusetts/MA/g' \
+  -e 's/Tennessee/TN/g' \
+  -e 's/Indiana/IN/g' \
+  -e 's/Missouri/MO/g' \
+  -e 's/Maryland/MD/g' \
+  -e 's/Wisconsin/WI/g' \
+  -e 's/Colorado/CO/g' \
+  -e 's/Minnesota/MN/g' \
+  -e 's/Alabama/AL/g' \
+  -e 's/Louisiana/LA/g' \
+  -e 's/Kentucky/KY/g' \
+  -e 's/Oregon/OR/g' \
+  -e 's/Oklahoma/OK/g' \
+  -e 's/Connecticut/CT/g' \
+  -e 's/Utah/UT/g' \
+  -e 's/Iowa/IA/g' \
+  -e 's/Nevada/NV/g' \
+  -e 's/Arkansas/AR/g' \
+  -e 's/Mississippi/MS/g' \
+  -e 's/Kansas/KS/g' \
+  -e 's/New Mexico/NM/g' \
+  -e 's/Nebraska/NE/g' \
+  -e 's/Idaho/ID/g' \
+  -e 's/Hawaii/HI/g' \
+  -e 's/New Hampshire/NH/g' \
+  -e 's/Maine/ME/g' \
+  -e 's/Montana/MT/g' \
+  -e 's/Rhode Island/RI/g' \
+  -e 's/Delaware/DE/g' \
+  -e 's/South Dakota/SD/g' \
+  -e 's/North Dakota/ND/g' \
+  -e 's/Alaska/AK/g' \
+  -e 's/Vermont/VT/g' \
+  -e 's/Wyoming/WY/g' \
+  -e 's/, / · /g' | xargs)
 
 # Update sketchybar
 sketchybar --set "$NAME" label="$WEATHER"

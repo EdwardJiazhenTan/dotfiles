@@ -137,6 +137,78 @@ else
     log_success "Fastfetch already installed"
 fi
 
+# Starship prompt
+if ! command -v starship &> /dev/null; then
+    log_info "Installing starship prompt..."
+    brew install starship
+    log_success "Starship installed"
+else
+    log_success "Starship already installed"
+fi
+
+# Zoxide (smarter cd command)
+if ! command -v zoxide &> /dev/null; then
+    log_info "Installing zoxide..."
+    brew install zoxide
+    log_success "Zoxide installed"
+else
+    log_success "Zoxide already installed"
+fi
+
+# FZF (fuzzy finder)
+if ! command -v fzf &> /dev/null; then
+    log_info "Installing fzf..."
+    brew install fzf
+    log_success "FZF installed"
+else
+    log_success "FZF already installed"
+fi
+
+# fd (better find)
+if ! command -v fd &> /dev/null; then
+    log_info "Installing fd..."
+    brew install fd
+    log_success "fd installed"
+else
+    log_success "fd already installed"
+fi
+
+# bat (better cat)
+if ! command -v bat &> /dev/null; then
+    log_info "Installing bat..."
+    brew install bat
+    log_success "bat installed"
+else
+    log_success "bat already installed"
+fi
+
+# tree (directory visualization)
+if ! command -v tree &> /dev/null; then
+    log_info "Installing tree..."
+    brew install tree
+    log_success "tree installed"
+else
+    log_success "tree already installed"
+fi
+
+# zsh-autosuggestions
+if [ ! -d "$(brew --prefix)/share/zsh-autosuggestions" ]; then
+    log_info "Installing zsh-autosuggestions..."
+    brew install zsh-autosuggestions
+    log_success "zsh-autosuggestions installed"
+else
+    log_success "zsh-autosuggestions already installed"
+fi
+
+# zsh-syntax-highlighting
+if [ ! -d "$(brew --prefix)/share/zsh-syntax-highlighting" ]; then
+    log_info "Installing zsh-syntax-highlighting..."
+    brew install zsh-syntax-highlighting
+    log_success "zsh-syntax-highlighting installed"
+else
+    log_success "zsh-syntax-highlighting already installed"
+fi
+
 # Install SF Mono Nerd Font for better terminal experience
 log_info "Installing Nerd Fonts..."
 brew tap homebrew/cask-fonts

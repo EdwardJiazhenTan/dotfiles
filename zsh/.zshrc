@@ -36,7 +36,10 @@ setopt hist_find_no_dups
 # ===============================================
 # Key Bindings
 # ===============================================
-bindkey -e
+# Use vi mode (set before other bindings)
+bindkey -v
+
+# History search in vi mode
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 
@@ -131,12 +134,6 @@ if [[ -r "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting
     ZSH_HIGHLIGHT_STYLES[cursor]=standout
 fi
 
-# FZF theme
-export FZF_DEFAULT_OPTS="--color=fg:#d8dee9,bg:#2e3440,hl:#81a1c1 \
---color=fg+:#d8dee9,bg+:#3b4252,hl+:#81a1c1 \
---color=info:#88c0d0,prompt:#5e81ac,pointer:#bf616a \
---color=marker:#a3be8c,spinner:#b48ead,header:#81a1c1"
-
 # ===============================================
 # Completion System Configuration
 # ===============================================
@@ -163,9 +160,6 @@ export PATH="$HOME/.local/bin:$PATH"
 if [[ -f ~/.env ]]; then
     source ~/.env
 fi
-
-# Enable vi mode in zsh
-bindkey -v
 
 # ===============================================
 # Conditional Loading
@@ -197,3 +191,6 @@ precmd() { echo -ne '\a' }
 
 # run fastfetch on each startup
 fastfetch
+
+# opencode
+export PATH=/Users/etan/.opencode/bin:$PATH

@@ -1,1 +1,43 @@
+# macOS
 .DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Backup files
+*.backup
+*.backup.*
+*~
+
+# Editor swap/temp files
+*.swp
+*.swo
+*~
+.*.sw[a-z]
+.netrwhist
+
+# Cache files
+*.cache
+.cache/
+
+# Environment variables (may contain sensitive data)
+.env.local
+.env.*.local
+
+# Log files
+*.log
+
+# Temporary files
+tmp/
+temp/
+
+# IDE specific
+.vscode/
+.idea/
+
+# Zsh
+.zcompdump*
+.zsh_sessions/
+
+# Homebrew
+Brewfile.lock.json

@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
 
 # Input Method Plugin
 # Shows current input source (Chinese/English)

@@ -47,7 +47,9 @@ git checkout macos
 
 This script will:
 - Install Homebrew (if not installed)
-- Install all required applications (Kitty, Neovim, Tmux, Aerospace, Karabiner, SketchyBar, Zed)
+- Install all required applications (Kitty, Neovim, Tmux, Aerospace, Karabiner, SketchyBar, Zed, Spicetify, Fastfetch)
+- Install essential CLI tools (starship, zoxide, fzf, fd, bat, tree)
+- Install Zsh plugins (zsh-autosuggestions, zsh-syntax-highlighting)
 - Install GNU Stow
 - Install Nerd Fonts
 - Backup existing configurations
@@ -98,4 +100,6 @@ After installation:
 
 ## Notes
 
-The `.zshrc` file is in the root directory and needs to be symlinked manually or moved to a zsh stow package.
+- The installation script automatically handles all configurations including `.zshrc`
+- All shell scripts use `#!/usr/bin/env bash` for better portability
+- Sensitive environment variables should be stored in `~/.env` (not tracked in git)

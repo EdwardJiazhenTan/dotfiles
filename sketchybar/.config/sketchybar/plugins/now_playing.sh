@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/usr/bin/env bash
+set -euo pipefail
 
 # Get now playing info from macOS Music
 TITLE=$(osascript -e 'tell application "Music" to if player state is playing then name of current track' 2>/dev/null)

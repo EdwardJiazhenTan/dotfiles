@@ -1,9 +1,15 @@
-#!/bin/sh
+#!/usr/bin/env bash
+set -euo pipefail
 
-# Some events send additional information specific to the event in the $INFO
-# variable. E.g. the front_app_switched event sends the name of the newly
-# focused application in the $INFO variable:
-# https://felixkratz.github.io/SketchyBar/config/events#events-and-scripting
+# =============================================================================
+# Front App Indicator for SketchyBar
+# =============================================================================
+# Displays the currently focused application with a custom icon
+#
+# The front_app_switched event sends the app name in the $INFO variable
+# To add more apps, add a new case matching the app name (check Activity Monitor)
+# Find nerd font icons at: https://www.nerdfonts.com/cheat-sheet
+# =============================================================================
 
 if [ "$SENDER" = "front_app_switched" ]; then
   # Map common applications to icons

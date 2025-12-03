@@ -1,4 +1,15 @@
 #!/usr/bin/env bash
+set -euo pipefail
+
+# =============================================================================
+# AeroSpace Workspace Indicator for SketchyBar
+# =============================================================================
+# Displays the currently focused AeroSpace workspace with a custom icon
+#
+# Workspace mappings:
+# A = AI, W = Web, T = Terminal, P = Productivity, S = Social Media
+# G = Gaming, X = Extra, C = Coding, V = Video, B = Browser, M = Music
+# =============================================================================
 
 # Get the currently focused workspace from aerospace
 WORKSPACE=$(aerospace list-workspaces --focused)
