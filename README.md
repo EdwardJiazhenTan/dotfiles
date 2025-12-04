@@ -4,11 +4,32 @@ Personal configuration files managed with [GNU Stow](https://www.gnu.org/softwar
 
 ## Branch Structure
 
-This repository uses branches to separate platform-specific configurations:
+This repository uses a **branch-based strategy** to manage platform-specific and shared configurations:
 
-- **main** - Shared configurations (kitty, nvim, tmux, zed, .zshrc)
-- **hyprland** - Linux/Hyprland-specific configs (hyprland, hyprpanel)
-- **macos** - macOS-specific configs (aerospace, karabiner)
+- **main** - Shared configurations that work across all platforms
+- **macos** - macOS-specific configs (merges from main + macOS additions)
+- **linux** - Linux-specific configs (merges from main + Linux additions)
+
+### Workflow
+
+1. **Shared config changes** → commit to `main` branch
+2. **Platform-specific changes** → commit to `macos` or `linux` branch
+3. **Syncing shared configs** → merge `main` into platform branches regularly
+
+```bash
+# Work on shared configs (kitty, nvim, tmux, etc.)
+git checkout main
+# ... make changes ...
+git add . && git commit -m "Update nvim config"
+
+# Sync to macOS
+git checkout macos
+git merge main
+
+# Sync to Linux
+git checkout linux
+git merge main
+```
 
 ## Configurations
 
@@ -16,87 +37,70 @@ This repository uses branches to separate platform-specific configurations:
 - **kitty** - GPU-accelerated terminal emulator
 - **nvim** - Neovim text editor configuration
 - **tmux** - Terminal multiplexer
+- **zsh** - Zsh shell configuration
+- **spicetify** - Spotify customization
 - **zed** - Zed code editor configuration
-- **.zshrc** - Zsh shell configuration
+- **fastfetch** - System information tool
 
-### Hyprland (hyprland branch)
-- **hyprland** - Wayland compositor/tiling window manager for Arch Linux
-- **hyprpanel** - Panel/bar for Hyprland
-
-### macOS (macos branch)
+### macOS-specific (macos branch)
 - **aerospace** - Tiling window manager for macOS
+- **sketchybar** - Status bar for macOS
 - **karabiner** - Keyboard customization tool for macOS
+
+### Linux-specific (linux branch)
+- **hyprland** - Wayland compositor/tiling window manager
+- **waybar** - Status bar for Wayland
+- **hyprpanel** - Panel/bar for Hyprland
 
 ## Installation
 
-### Automated Installation (macOS)
-
-The easiest way to set up everything on macOS:
+### macOS
 
 ```bash
-# Clone this repository
+# Clone and checkout macOS branch
 git clone https://github.com/EdwardJiazhenTan/dotfiles ~/dotfiles
 cd ~/dotfiles
-
-# Checkout the macOS branch
 git checkout macos
 
-# Run the automated installation script
-./install-macos.sh
+# Install Homebrew and GNU Stow
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew install stow
+
+# Stow all configurations
+stow */
 ```
 
-This script will:
-- Install Homebrew (if not installed)
-- Install all required applications (Kitty, Neovim, Tmux, Aerospace, Karabiner, SketchyBar, Zed, Spicetify, Fastfetch)
-- Install essential CLI tools (starship, zoxide, fzf, fd, bat, tree)
-- Install Zsh plugins (zsh-autosuggestions, zsh-syntax-highlighting)
-- Install GNU Stow
-- Install Nerd Fonts
-- Backup existing configurations
-- Symlink all dotfiles using GNU Stow
-- Install Tmux Plugin Manager
+See the `macos` branch for the automated installation script.
 
-After installation:
-1. Restart your terminal or run: `source ~/.zshrc`
-2. Grant permissions to Aerospace and Karabiner-Elements in System Settings
-3. Open tmux and press `prefix + I` to install tmux plugins
-4. Open Neovim - plugins will auto-install on first run
+### Linux
 
-### Manual Installation
+```bash
+# Clone and checkout linux branch
+git clone https://github.com/EdwardJiazhenTan/dotfiles ~/dotfiles
+cd ~/dotfiles
+git checkout linux
 
-1. Install GNU Stow:
-   ```bash
-   # macOS
-   brew install stow
+# Install GNU Stow
+sudo pacman -S stow  # Arch Linux
+# or: sudo apt install stow  # Debian/Ubuntu
 
-   # Arch Linux
-   sudo pacman -S stow
-   ```
+# Stow all configurations
+stow */
+```
 
-2. Clone this repository and checkout the appropriate branch:
-   ```bash
-   git clone https://github.com/EdwardJiazhenTan/dotfiles ~/dotfiles
-   cd ~/dotfiles
+### Manual Stow Usage
 
-   # For Hyprland/Linux
-   git checkout hyprland
+```bash
+# Install specific config
+stow nvim
+stow kitty
 
-   # For macOS
-   git checkout macos
-   ```
+# Install all configs
+stow */
 
-3. Use stow to symlink configurations:
-   ```bash
-   # Install specific config
-   stow nvim
-   stow kitty
-
-   # Install all configs
-   stow */
-
-   # Remove a config
-   stow -D nvim
-   ```
+# Remove a config
+stow -D nvim
+```
 
 ## Notes
 
