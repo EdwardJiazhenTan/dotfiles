@@ -47,6 +47,8 @@ git merge main
 - **sketchybar** - Status bar for macOS
 - **karabiner** - Keyboard customization tool for macOS
 
+> **Note**: You are currently on the `macos` branch with all macOS-specific configurations.
+
 ### Linux-specific (linux branch)
 - **hyprland** - Wayland compositor/tiling window manager
 - **waybar** - Status bar for Wayland
@@ -54,7 +56,25 @@ git merge main
 
 ## Installation
 
-### macOS
+### Automated Installation (macOS)
+
+```bash
+# Clone and checkout macOS branch
+git clone https://github.com/EdwardJiazhenTan/dotfiles ~/dotfiles
+cd ~/dotfiles
+git checkout macos
+
+# Run automated installation script
+./install-macos.sh
+```
+
+This script will:
+- Install Homebrew and all required applications
+- Install GNU Stow and manage symlinks
+- Backup existing configurations
+- Install Tmux Plugin Manager and Neovim plugins
+
+### Manual Installation (macOS)
 
 ```bash
 # Clone and checkout macOS branch
@@ -69,8 +89,6 @@ brew install stow
 # Stow all configurations
 stow */
 ```
-
-See the `macos` branch for the automated installation script.
 
 ### Linux
 
