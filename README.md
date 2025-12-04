@@ -54,6 +54,72 @@ git merge main
 - **waybar** - Status bar for Wayland
 - **hyprpanel** - Panel/bar for Hyprland
 
+> **Note**: You are currently on the `main` branch with shared configs only. 
+> Checkout `macos` or `linux` branch for platform-specific configurations.
+
+## Developer Workflow
+
+### Making Changes to Shared Configs
+
+When updating configs that should be shared across platforms (kitty, nvim, tmux, zsh, etc.):
+
+```bash
+# 1. Make changes on main branch
+git checkout main
+# ... edit kitty/nvim/tmux configs ...
+git add .
+git commit -m "Update shared config"
+
+# 2. Sync to macOS
+git checkout macos
+git merge main
+git push
+
+# 3. Sync to Linux
+git checkout linux
+git merge main
+git push
+```
+
+### Making Platform-Specific Changes
+
+For macOS-specific changes (aerospace, sketchybar, karabiner):
+
+```bash
+git checkout macos
+# ... edit platform-specific configs ...
+git add .
+git commit -m "Update macOS config"
+git push
+```
+
+For Linux-specific changes (hyprland, waybar):
+
+```bash
+git checkout linux
+# ... edit platform-specific configs ...
+git add .
+git commit -m "Update Linux config"
+git push
+```
+
+### Quick Sync Aliases
+
+Add these to your `~/.gitconfig` for easier syncing:
+
+```gitconfig
+[alias]
+    sync-macos = !git checkout macos && git merge main && git checkout -
+    sync-linux = !git checkout linux && git merge main && git checkout -
+    sync-all = !git checkout macos && git merge main && git checkout linux && git merge main && git checkout -
+```
+
+Usage:
+```bash
+# After committing to main
+git sync-all  # Syncs main to both platform branches
+```
+
 ## Installation
 
 ### Automated Installation (macOS)
