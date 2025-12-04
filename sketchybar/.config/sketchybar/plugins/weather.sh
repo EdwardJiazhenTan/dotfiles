@@ -55,11 +55,10 @@ if [ -z "$WEATHER" ]; then
   # If fetch successful, format with location
   if [ -n "$RAW_WEATHER" ] && [ "$RAW_WEATHER" != "" ] && [[ "$RAW_WEATHER" != *"Unknown location"* ]]; then
     if [ -n "$LOCATION" ]; then
-      WEATHER="$LOCATION · $RAW_WEATHER"
+      WEATHER="$LOCATION $RAW_WEATHER"
     else
       WEATHER="$RAW_WEATHER"
     fi
-    echo "$WEATHER" >"$CACHE_FILE"
   else
     # If fetch failed, try to use old cache or show error
     if [ -f "$CACHE_FILE" ]; then
@@ -71,8 +70,10 @@ if [ -z "$WEATHER" ]; then
 fi
 
 # Clean up the weather string
-# Replace + with · separator, remove country, abbreviate states
-WEATHER=$(echo "$WEATHER" | sed -e 's/+/ · /g' \
+# Remove + signs, remove spaces before °C, remove country, abbreviate states
+WEATHER=$(echo "$WEATHER" | sed -e 's/+//g' \
+  -e 's/ °C/°C/g' \
+  -e 's/°C /°C /g' \
   -e 's/, United States//g' \
   -e 's/New Jersey/NJ/g' \
   -e 's/New York/NY/g' \
@@ -125,6 +126,9 @@ WEATHER=$(echo "$WEATHER" | sed -e 's/+/ · /g' \
   -e 's/Vermont/VT/g' \
   -e 's/Wyoming/WY/g' \
   -e 's/, / · /g' | xargs)
+
+# Save cleaned weather to cache
+echo "$WEATHER" >"$CACHE_FILE"
 
 # Update sketchybar
 sketchybar --set "${NAME:-weather}" label="$WEATHER"
