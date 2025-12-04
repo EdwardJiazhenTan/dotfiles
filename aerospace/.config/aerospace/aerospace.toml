@@ -73,6 +73,9 @@ alt-l = ['move-node-to-monitor right', 'focus-monitor right']
 cmd-shift-minus = 'resize smart -50'
 cmd-shift-equal = 'resize smart +50'
 
+# Enter resize mode (hyper + r)
+cmd-alt-shift-ctrl-r = 'mode resize'
+
 # Workspace navigation (letter-based)
 # T=Terminal, A=AI, M=Media, W=Work, B=Browser, C=Coding, X=Extra, P=Productivity, S=Social, G=Gaming
 cmd-alt-shift-ctrl-t = 'workspace T'
@@ -124,6 +127,40 @@ cmd-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 # open kitty terminal
 cmd-t = 'exec-and-forget open -n -a Kitty'
 cmd-b = 'exec-and-forget open -n -a Zen'
+
+# Resize mode - Use hyper+r to enter, hjkl to resize, workspace letters to move window
+[mode.resize.binding]
+# Directional window resizing
+# Note: Due to AeroSpace's window-centric resize model, h/l behavior depends on which window is focused
+# This is a limitation - there's no built-in "move divider" command
+# Using smart resize as the best compromise
+h = 'resize smart -50'
+l = 'resize smart +50'
+j = 'resize smart +50'
+k = 'resize smart -50'
+
+# Alternative: extra large resize
+shift-h = 'resize smart -100'
+shift-l = 'resize smart +100'
+shift-j = 'resize smart +100'
+shift-k = 'resize smart -100'
+
+# Move window to workspace (and follow)
+t = ['move-node-to-workspace T', 'workspace T', 'mode main']
+a = ['move-node-to-workspace A', 'workspace A', 'mode main']
+m = ['move-node-to-workspace M', 'workspace M', 'mode main']
+w = ['move-node-to-workspace W', 'workspace W', 'mode main']
+b = ['move-node-to-workspace B', 'workspace B', 'mode main']
+c = ['move-node-to-workspace C', 'workspace C', 'mode main']
+x = ['move-node-to-workspace X', 'workspace X', 'mode main']
+p = ['move-node-to-workspace P', 'workspace P', 'mode main']
+s = ['move-node-to-workspace S', 'workspace S', 'mode main']
+g = ['move-node-to-workspace G', 'workspace G', 'mode main']
+v = ['move-node-to-workspace V', 'workspace V', 'mode main']
+
+# Exit resize mode
+esc = 'mode main'
+enter = 'mode main'
 
 # Exclude apps that don't work well with tiling
 [[on-window-detected]]

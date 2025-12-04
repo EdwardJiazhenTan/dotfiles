@@ -15,11 +15,14 @@ set -euo pipefail
 # Format examples: "New+York", "Rochester,+NY", "40.7128,-74.0060"
 # =============================================================================
 
-LOCATION="Rochester,+NY"
+LOCATION=""  # Empty for auto-detection based on IP
 
 # Cache file to avoid too frequent requests
 CACHE_FILE="/tmp/sketchybar_weather_cache"
 CACHE_TIME=600 # 10 minutes in seconds
+
+# Initialize WEATHER variable
+WEATHER=""
 
 # Get current time
 CURRENT_TIME=$(date +%s)
@@ -37,14 +40,25 @@ fi
 
 # Fetch new weather data if cache is stale or doesn't exist
 if [ -z "$WEATHER" ]; then
-  # Fetch weather from wttr.in (format: temperature in Celsius, condition)
-  # %t = temperature, %C = condition (no emoji)
-  # m for metric (Celsius), prepending location manually
-  RAW_WEATHER=$(curl -s "wttr.in/${LOCATION}?format=%t+%C&m" 2>/dev/null)
+  # If location is empty, try to auto-detect using ipinfo.io
+  if [ -z "$LOCATION" ]; then
+    DETECTED_CITY=$(curl -s --connect-timeout 3 "https://ipinfo.io/city" 2>/dev/null)
+    if [ -n "$DETECTED_CITY" ]; then
+      LOCATION="$DETECTED_CITY"
+    fi
+  fi
+  
+  # Fetch weather from wttr.in
+  # %t = temperature, %C = condition (no emoji), m for metric (Celsius)
+  RAW_WEATHER=$(curl -s --connect-timeout 5 "wttr.in/${LOCATION}?format=%t+%C&m" 2>/dev/null)
 
-  # If fetch successful, prepend location and update cache
-  if [ -n "$RAW_WEATHER" ] && [ "$RAW_WEATHER" != "" ]; then
-    WEATHER="Rochester · $RAW_WEATHER"
+  # If fetch successful, format with location
+  if [ -n "$RAW_WEATHER" ] && [ "$RAW_WEATHER" != "" ] && [[ "$RAW_WEATHER" != *"Unknown location"* ]]; then
+    if [ -n "$LOCATION" ]; then
+      WEATHER="$LOCATION · $RAW_WEATHER"
+    else
+      WEATHER="$RAW_WEATHER"
+    fi
     echo "$WEATHER" >"$CACHE_FILE"
   else
     # If fetch failed, try to use old cache or show error
@@ -113,4 +127,4 @@ WEATHER=$(echo "$WEATHER" | sed -e 's/+/ · /g' \
   -e 's/, / · /g' | xargs)
 
 # Update sketchybar
-sketchybar --set "$NAME" label="$WEATHER"
+sketchybar --set "${NAME:-weather}" label="$WEATHER"
