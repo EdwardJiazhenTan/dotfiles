@@ -15,10 +15,6 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#585858,underline"
 # Configure suggestion strategy
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
-# Autosuggestion key bindings
-bindkey '^f' autosuggest-accept          # Ctrl+f accept suggestion
-bindkey '^j' autosuggest-accept          # Ctrl+j accept suggestion (extra option)
-
 # ===============================================
 # History Settings
 # ===============================================
@@ -42,6 +38,10 @@ bindkey -v
 # History search in vi mode
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
+
+# Autosuggestion key bindings (must be after bindkey -v)
+bindkey '^f' autosuggest-accept          # Ctrl+f accept suggestion
+bindkey '^j' autosuggest-accept          # Ctrl+j accept suggestion (extra option)
 
 # ===============================================
 # ZOXIDE Configuration

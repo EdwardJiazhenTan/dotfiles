@@ -101,7 +101,7 @@
                         ]
                     },
                     {
-                        "description": "Semicolon: one-shot symbol layer key (OSM)",
+                        "description": "Semicolon: hold-down symbol layer key",
                         "manipulators": [
                             {
                                 "conditions": [
@@ -127,19 +127,14 @@
                                         }
                                     }
                                 ],
-                                "to_delayed_action": {
-                                    "to_if_invoked": [
-                                        {
-                                            "set_variable": {
-                                                "name": "symbol_layer_active",
-                                                "value": 0
-                                            }
+                                "to_after_key_up": [
+                                    {
+                                        "set_variable": {
+                                            "name": "symbol_layer_active",
+                                            "value": 0
                                         }
-                                    ]
-                                },
-                                "parameters": {
-                                    "basic.to_delayed_action_delay_milliseconds": 3000
-                                },
+                                    }
+                                ],
                                 "type": "basic"
                             }
                         ]
@@ -186,12 +181,6 @@
                                         "modifiers": [
                                             "shift"
                                         ]
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "symbol_layer_active",
-                                            "value": 0
-                                        }
                                     }
                                 ],
                                 "type": "basic"
@@ -210,12 +199,6 @@
                                 "to": [
                                     {
                                         "key_code": "semicolon"
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "symbol_layer_active",
-                                            "value": 0
-                                        }
                                     }
                                 ],
                                 "type": "basic"
@@ -234,12 +217,6 @@
                                 "to": [
                                     {
                                         "key_code": "semicolon"
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "symbol_layer_active",
-                                            "value": 0
-                                        }
                                     }
                                 ],
                                 "type": "basic"
@@ -261,12 +238,6 @@
                                         "modifiers": [
                                             "shift"
                                         ]
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "symbol_layer_active",
-                                            "value": 0
-                                        }
                                     }
                                 ],
                                 "type": "basic"
@@ -288,12 +259,6 @@
                                         "modifiers": [
                                             "shift"
                                         ]
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "symbol_layer_active",
-                                            "value": 0
-                                        }
                                     }
                                 ],
                                 "type": "basic"
@@ -315,12 +280,6 @@
                                         "modifiers": [
                                             "shift"
                                         ]
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "symbol_layer_active",
-                                            "value": 0
-                                        }
                                     }
                                 ],
                                 "type": "basic"
@@ -342,12 +301,6 @@
                                         "modifiers": [
                                             "shift"
                                         ]
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "symbol_layer_active",
-                                            "value": 0
-                                        }
                                     }
                                 ],
                                 "type": "basic"
@@ -369,12 +322,6 @@
                                         "modifiers": [
                                             "shift"
                                         ]
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "symbol_layer_active",
-                                            "value": 0
-                                        }
                                     }
                                 ],
                                 "type": "basic"
@@ -396,12 +343,6 @@
                                         "modifiers": [
                                             "shift"
                                         ]
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "symbol_layer_active",
-                                            "value": 0
-                                        }
                                     }
                                 ],
                                 "type": "basic"
@@ -423,12 +364,6 @@
                                         "modifiers": [
                                             "shift"
                                         ]
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "symbol_layer_active",
-                                            "value": 0
-                                        }
                                     }
                                 ],
                                 "type": "basic"
@@ -450,12 +385,6 @@
                                         "modifiers": [
                                             "shift"
                                         ]
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "symbol_layer_active",
-                                            "value": 0
-                                        }
                                     }
                                 ],
                                 "type": "basic"
@@ -477,12 +406,6 @@
                                         "modifiers": [
                                             "shift"
                                         ]
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "symbol_layer_active",
-                                            "value": 0
-                                        }
                                     }
                                 ],
                                 "type": "basic"
@@ -502,12 +425,6 @@
                                     {
                                         "key_code": "hyphen",
                                         "modifiers": []
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "symbol_layer_active",
-                                            "value": 0
-                                        }
                                     }
                                 ],
                                 "type": "basic"
@@ -527,12 +444,6 @@
                                     {
                                         "key_code": "equal_sign",
                                         "modifiers": []
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "symbol_layer_active",
-                                            "value": 0
-                                        }
                                     }
                                 ],
                                 "type": "basic"
@@ -554,12 +465,6 @@
                                         "modifiers": [
                                             "shift"
                                         ]
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "symbol_layer_active",
-                                            "value": 0
-                                        }
                                     }
                                 ],
                                 "type": "basic"
@@ -581,12 +486,6 @@
                                         "modifiers": [
                                             "shift"
                                         ]
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "symbol_layer_active",
-                                            "value": 0
-                                        }
                                     }
                                 ],
                                 "type": "basic"
@@ -606,12 +505,6 @@
                                     {
                                         "key_code": "grave_accent_and_tilde",
                                         "modifiers": []
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "symbol_layer_active",
-                                            "value": 0
-                                        }
                                     }
                                 ],
                                 "type": "basic"
@@ -631,12 +524,6 @@
                                     {
                                         "key_code": "quote",
                                         "modifiers": []
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "symbol_layer_active",
-                                            "value": 0
-                                        }
                                     }
                                 ],
                                 "type": "basic"
@@ -658,12 +545,6 @@
                                         "modifiers": [
                                             "shift"
                                         ]
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "symbol_layer_active",
-                                            "value": 0
-                                        }
                                     }
                                 ],
                                 "type": "basic"
@@ -685,12 +566,6 @@
                                         "modifiers": [
                                             "shift"
                                         ]
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "symbol_layer_active",
-                                            "value": 0
-                                        }
                                     }
                                 ],
                                 "type": "basic"
@@ -712,12 +587,6 @@
                                         "modifiers": [
                                             "shift"
                                         ]
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "symbol_layer_active",
-                                            "value": 0
-                                        }
                                     }
                                 ],
                                 "type": "basic"
@@ -736,12 +605,6 @@
                                 "to": [
                                     {
                                         "key_code": "close_bracket"
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "symbol_layer_active",
-                                            "value": 0
-                                        }
                                     }
                                 ],
                                 "type": "basic"
@@ -760,12 +623,6 @@
                                 "to": [
                                     {
                                         "key_code": "open_bracket"
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "symbol_layer_active",
-                                            "value": 0
-                                        }
                                     }
                                 ],
                                 "type": "basic"
@@ -787,12 +644,6 @@
                                         "modifiers": [
                                             "shift"
                                         ]
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "symbol_layer_active",
-                                            "value": 0
-                                        }
                                     }
                                 ],
                                 "type": "basic"
@@ -811,12 +662,6 @@
                                 "to": [
                                     {
                                         "key_code": "backslash"
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "symbol_layer_active",
-                                            "value": 0
-                                        }
                                     }
                                 ],
                                 "type": "basic"
@@ -838,12 +683,6 @@
                                         "modifiers": [
                                             "shift"
                                         ]
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "symbol_layer_active",
-                                            "value": 0
-                                        }
                                     }
                                 ],
                                 "type": "basic"
@@ -865,12 +704,6 @@
                                         "modifiers": [
                                             "shift"
                                         ]
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "symbol_layer_active",
-                                            "value": 0
-                                        }
                                     }
                                 ],
                                 "type": "basic"
@@ -892,12 +725,6 @@
                                         "modifiers": [
                                             "shift"
                                         ]
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "symbol_layer_active",
-                                            "value": 0
-                                        }
                                     }
                                 ],
                                 "type": "basic"
@@ -919,12 +746,6 @@
                                         "modifiers": [
                                             "shift"
                                         ]
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "symbol_layer_active",
-                                            "value": 0
-                                        }
                                     }
                                 ],
                                 "type": "basic"
@@ -946,12 +767,6 @@
                                         "modifiers": [
                                             "shift"
                                         ]
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "symbol_layer_active",
-                                            "value": 0
-                                        }
                                     }
                                 ],
                                 "type": "basic"
@@ -973,12 +788,6 @@
                                         "modifiers": [
                                             "shift"
                                         ]
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "symbol_layer_active",
-                                            "value": 0
-                                        }
                                     }
                                 ],
                                 "type": "basic"
@@ -1000,12 +809,6 @@
                                         "modifiers": [
                                             "shift"
                                         ]
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "symbol_layer_active",
-                                            "value": 0
-                                        }
                                     }
                                 ],
                                 "type": "basic"
@@ -1025,12 +828,6 @@
                                     {
                                         "key_code": "backslash",
                                         "modifiers": []
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "symbol_layer_active",
-                                            "value": 0
-                                        }
                                     }
                                 ],
                                 "type": "basic"
