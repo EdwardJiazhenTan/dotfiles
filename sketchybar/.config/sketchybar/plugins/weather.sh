@@ -50,85 +50,91 @@ if [ -z "$WEATHER" ]; then
   
   # Fetch weather from wttr.in
   # %t = temperature, %C = condition (no emoji), m for metric (Celsius)
-  RAW_WEATHER=$(curl -s --connect-timeout 5 "wttr.in/${LOCATION}?format=%t+%C&m" 2>/dev/null)
+  RAW_WEATHER=$(curl -s --connect-timeout 5 --max-time 10 "wttr.in/${LOCATION}?format=%t+%C&m" 2>/dev/null || true)
 
   # If fetch successful, format with location
-  if [ -n "$RAW_WEATHER" ] && [ "$RAW_WEATHER" != "" ] && [[ "$RAW_WEATHER" != *"Unknown location"* ]]; then
+  if [ -n "$RAW_WEATHER" ] && [ "$RAW_WEATHER" != "" ] && [[ "$RAW_WEATHER" != *"Unknown location"* ]] && [[ "$RAW_WEATHER" != *"ERROR"* ]]; then
     if [ -n "$LOCATION" ]; then
       WEATHER="$LOCATION $RAW_WEATHER"
     else
       WEATHER="$RAW_WEATHER"
     fi
+    # Save to cache immediately on success
+    echo "$WEATHER" >"$CACHE_FILE"
   else
     # If fetch failed, try to use old cache or show error
     if [ -f "$CACHE_FILE" ]; then
       WEATHER=$(cat "$CACHE_FILE")
     else
-      WEATHER="N/A"
+      # Show location at least, or generic message
+      if [ -n "$LOCATION" ]; then
+        WEATHER="$LOCATION - Loading..."
+      else
+        WEATHER="Weather unavailable"
+      fi
     fi
   fi
 fi
 
-# Clean up the weather string
+# Clean up the weather string (only if not already from cache)
 # Remove + signs, remove spaces before °C, remove country, abbreviate states
-WEATHER=$(echo "$WEATHER" | sed -e 's/+//g' \
-  -e 's/ °C/°C/g' \
-  -e 's/°C /°C /g' \
-  -e 's/, United States//g' \
-  -e 's/New Jersey/NJ/g' \
-  -e 's/New York/NY/g' \
-  -e 's/California/CA/g' \
-  -e 's/Texas/TX/g' \
-  -e 's/Florida/FL/g' \
-  -e 's/Pennsylvania/PA/g' \
-  -e 's/Illinois/IL/g' \
-  -e 's/Ohio/OH/g' \
-  -e 's/Georgia/GA/g' \
-  -e 's/North Carolina/NC/g' \
-  -e 's/South Carolina/SC/g' \
-  -e 's/Michigan/MI/g' \
-  -e 's/Virginia/VA/g' \
-  -e 's/West Virginia/WV/g' \
-  -e 's/Washington/WA/g' \
-  -e 's/Arizona/AZ/g' \
-  -e 's/Massachusetts/MA/g' \
-  -e 's/Tennessee/TN/g' \
-  -e 's/Indiana/IN/g' \
-  -e 's/Missouri/MO/g' \
-  -e 's/Maryland/MD/g' \
-  -e 's/Wisconsin/WI/g' \
-  -e 's/Colorado/CO/g' \
-  -e 's/Minnesota/MN/g' \
-  -e 's/Alabama/AL/g' \
-  -e 's/Louisiana/LA/g' \
-  -e 's/Kentucky/KY/g' \
-  -e 's/Oregon/OR/g' \
-  -e 's/Oklahoma/OK/g' \
-  -e 's/Connecticut/CT/g' \
-  -e 's/Utah/UT/g' \
-  -e 's/Iowa/IA/g' \
-  -e 's/Nevada/NV/g' \
-  -e 's/Arkansas/AR/g' \
-  -e 's/Mississippi/MS/g' \
-  -e 's/Kansas/KS/g' \
-  -e 's/New Mexico/NM/g' \
-  -e 's/Nebraska/NE/g' \
-  -e 's/Idaho/ID/g' \
-  -e 's/Hawaii/HI/g' \
-  -e 's/New Hampshire/NH/g' \
-  -e 's/Maine/ME/g' \
-  -e 's/Montana/MT/g' \
-  -e 's/Rhode Island/RI/g' \
-  -e 's/Delaware/DE/g' \
-  -e 's/South Dakota/SD/g' \
-  -e 's/North Dakota/ND/g' \
-  -e 's/Alaska/AK/g' \
-  -e 's/Vermont/VT/g' \
-  -e 's/Wyoming/WY/g' \
-  -e 's/, / · /g' | xargs)
-
-# Save cleaned weather to cache
-echo "$WEATHER" >"$CACHE_FILE"
+if [[ "$WEATHER" != *"Loading"* ]] && [[ "$WEATHER" != *"unavailable"* ]]; then
+  WEATHER=$(echo "$WEATHER" | sed -e 's/+//g' \
+    -e 's/ °C/°C/g' \
+    -e 's/°C /°C /g' \
+    -e 's/, United States//g' \
+    -e 's/New Jersey/NJ/g' \
+    -e 's/New York/NY/g' \
+    -e 's/California/CA/g' \
+    -e 's/Texas/TX/g' \
+    -e 's/Florida/FL/g' \
+    -e 's/Pennsylvania/PA/g' \
+    -e 's/Illinois/IL/g' \
+    -e 's/Ohio/OH/g' \
+    -e 's/Georgia/GA/g' \
+    -e 's/North Carolina/NC/g' \
+    -e 's/South Carolina/SC/g' \
+    -e 's/Michigan/MI/g' \
+    -e 's/Virginia/VA/g' \
+    -e 's/West Virginia/WV/g' \
+    -e 's/Washington/WA/g' \
+    -e 's/Arizona/AZ/g' \
+    -e 's/Massachusetts/MA/g' \
+    -e 's/Tennessee/TN/g' \
+    -e 's/Indiana/IN/g' \
+    -e 's/Missouri/MO/g' \
+    -e 's/Maryland/MD/g' \
+    -e 's/Wisconsin/WI/g' \
+    -e 's/Colorado/CO/g' \
+    -e 's/Minnesota/MN/g' \
+    -e 's/Alabama/AL/g' \
+    -e 's/Louisiana/LA/g' \
+    -e 's/Kentucky/KY/g' \
+    -e 's/Oregon/OR/g' \
+    -e 's/Oklahoma/OK/g' \
+    -e 's/Connecticut/CT/g' \
+    -e 's/Utah/UT/g' \
+    -e 's/Iowa/IA/g' \
+    -e 's/Nevada/NV/g' \
+    -e 's/Arkansas/AR/g' \
+    -e 's/Mississippi/MS/g' \
+    -e 's/Kansas/KS/g' \
+    -e 's/New Mexico/NM/g' \
+    -e 's/Nebraska/NE/g' \
+    -e 's/Idaho/ID/g' \
+    -e 's/Hawaii/HI/g' \
+    -e 's/New Hampshire/NH/g' \
+    -e 's/Maine/ME/g' \
+    -e 's/Montana/MT/g' \
+    -e 's/Rhode Island/RI/g' \
+    -e 's/Delaware/DE/g' \
+    -e 's/South Dakota/SD/g' \
+    -e 's/North Dakota/ND/g' \
+    -e 's/Alaska/AK/g' \
+    -e 's/Vermont/VT/g' \
+    -e 's/Wyoming/WY/g' \
+    -e 's/, / · /g' | xargs)
+fi
 
 # Update sketchybar
 sketchybar --set "${NAME:-weather}" label="$WEATHER"
