@@ -41,5 +41,5 @@ if [ "$SENDER" = "front_app_switched" ]; then
     *) ICON="󰀘" ;;  # Default app icon
   esac
 
-  sketchybar --set "$NAME" icon="$ICON" label="$INFO"
+  sketchybar --set "$NAME" icon="$ICON" label="$INFO" &
 fi

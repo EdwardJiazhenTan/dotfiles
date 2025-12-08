@@ -1,9 +1,9 @@
 
 after-login-command = []
 after-startup-command = ['exec-and-forget sketchybar']
-# Exec commands on workspace change
+# Exec commands on workspace change (async to prevent blocking/freezing)
 exec-on-workspace-change = ['/bin/bash', '-c',
-    'sketchybar --trigger aerospace_workspace_change'
+    'sketchybar --trigger aerospace_workspace_change &'
 ]
 
 # Start AeroSpace at login
@@ -20,8 +20,9 @@ default-root-container-layout = 'tiles'
 default-root-container-orientation = 'auto'
 key-mapping.preset = 'qwerty'
 
-on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
-on-focus-changed = ['move-mouse window-lazy-center']
+# PERFORMANCE: These mouse movement hooks can cause system freezes - disabled
+# on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+# on-focus-changed = ['move-mouse window-lazy-center']
 
 # Assign workspaces to monitors (P, M, X to retina display by default)
 [workspace-to-monitor-force-assignment]
@@ -63,11 +64,18 @@ cmd-alt-shift-ctrl-j = 'focus --boundaries all-monitors-outer-frame --boundaries
 cmd-alt-shift-ctrl-k = 'focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors up'
 cmd-alt-shift-ctrl-l = 'focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors right'
 
-# Move current window to different monitors (alt + hjkl)
-alt-h = ['move-node-to-monitor left', 'focus-monitor left']
-alt-j = ['move-node-to-monitor down', 'focus-monitor down']
-alt-k = ['move-node-to-monitor up', 'focus-monitor up']
-alt-l = ['move-node-to-monitor right', 'focus-monitor right']
+# Join windows for hybrid tiling (alt + hjkl)
+alt-h = 'join-with left'
+alt-j = 'join-with down'
+alt-k = 'join-with up'
+alt-l = 'join-with right'
+
+# Toggle floating
+alt-f = 'layout floating tiling'
+
+# Quick layout switching
+alt-t = 'layout tiling'
+alt-a = 'layout accordion'
 
 # Window resizing
 cmd-shift-minus = 'resize smart -50'
@@ -90,18 +98,7 @@ cmd-alt-shift-ctrl-s = 'workspace S'
 cmd-alt-shift-ctrl-g = 'workspace G'
 cmd-alt-shift-ctrl-v = 'workspace V'
 
-# Move window to workspace
-alt-t = ['move-node-to-workspace T', 'workspace T']
-alt-a = ['move-node-to-workspace A', 'workspace A']
-alt-m = ['move-node-to-workspace M', 'workspace M']
-alt-w = ['move-node-to-workspace W', 'workspace W']
-alt-b = ['move-node-to-workspace B', 'workspace B']
-alt-c = ['move-node-to-workspace C', 'workspace C']
-alt-x = ['move-node-to-workspace X', 'workspace X']
-alt-p = ['move-node-to-workspace P', 'workspace P']
-alt-s = ['move-node-to-workspace S', 'workspace S']
-alt-g = ['move-node-to-workspace G', 'workspace G']
-alt-v = ['move-node-to-workspace V', 'workspace V']
+# Move window to workspace (use resize mode: Hyper+R then letter)
 
 # Additional useful bindings
 # Toggle fullscreen
@@ -124,9 +121,9 @@ cmd-alt-shift-ctrl-o = "move-workspace-to-monitor 'Built-in Retina Display'"
 # Move workspace to next monitor (cycle through monitors)
 cmd-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
-# open kitty terminal
-cmd-t = 'exec-and-forget open -n -a Kitty'
-cmd-b = 'exec-and-forget open -n -a Zen'
+# open kitty terminal (direct exec for better performance)
+cmd-t = 'exec-and-forget /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~'
+cmd-b = 'exec-and-forget /Applications/Zen.app/Contents/MacOS/zen'
 
 # Resize mode - Use hyper+r to enter, hjkl to resize, workspace letters to move window
 [mode.resize.binding]
@@ -162,7 +159,3 @@ v = ['move-node-to-workspace V', 'workspace V', 'mode main']
 esc = 'mode main'
 enter = 'mode main'
 
-# Exclude apps that don't work well with tiling
-[[on-window-detected]]
-if.app-id = 'com.tencent.xinWeChat'
-run = 'layout floating'

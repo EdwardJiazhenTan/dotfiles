@@ -46,7 +46,7 @@ sketchybar --add item input_method left \
   icon.padding_left=8 \
   icon.padding_right=8 \
   label.padding_right=8 \
-  update_freq=1 \
+  update_freq=3 \
   script="$PLUGIN_DIR/input_method.sh"
 
 sketchybar --add item front_app left \
@@ -61,28 +61,31 @@ sketchybar --add item front_app left \
   --subscribe front_app front_app_switched
 
 ##### Center Left Item (Now Playing) #####
-sketchybar --add item now_playing left \
-  --set now_playing \
-  background.padding_left=5 \
-  background.padding_right=5 \
-  icon="󰎆" \
-  icon.padding_left=8 \
-  icon.padding_right=4 \
-  label.padding_right=8 \
-  update_freq=5 \
-  script="$PLUGIN_DIR/now_playing.sh"
+# DISABLED: Blocking osascript calls cause freezing during browser switches
+# sketchybar --add item now_playing left \
+#   --set now_playing \
+#   background.padding_left=5 \
+#   background.padding_right=5 \
+#   icon="󰎆" \
+#   icon.padding_left=8 \
+#   icon.padding_right=4 \
+#   label.padding_right=8 \
+#   update_freq=5 \
+#   script="$PLUGIN_DIR/now_playing.sh"
 
 ##### Right Side Items #####
-sketchybar --add item weather right \
-  --set weather \
-  background.padding_left=5 \
-  background.padding_right=1 \
-  icon="󰖐" \
-  icon.padding_left=8 \
-  icon.padding_right=4 \
-  label.padding_right=8 \
-  update_freq=1800 \
-  script="$PLUGIN_DIR/weather.sh"
+# DISABLED: Blocking network calls (curl) cause 2-13s lag on first browser switch
+# when cache is stale. Eliminates first-time lag when opening/switching to Zen.
+# sketchybar --add item weather right \
+#   --set weather \
+#   background.padding_left=5 \
+#   background.padding_right=1 \
+#   icon="󰖐" \
+#   icon.padding_left=8 \
+#   icon.padding_right=4 \
+#   label.padding_right=8 \
+#   update_freq=1800 \
+#   script="$PLUGIN_DIR/weather.sh"
 
 sketchybar --add item volume right \
   --set volume \
