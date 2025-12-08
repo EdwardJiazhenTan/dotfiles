@@ -20,10 +20,6 @@ default-root-container-layout = 'tiles'
 default-root-container-orientation = 'auto'
 key-mapping.preset = 'qwerty'
 
-# PERFORMANCE: These mouse movement hooks can cause system freezes - disabled
-# on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
-# on-focus-changed = ['move-mouse window-lazy-center']
-
 # Assign workspaces to monitors (P, M, X to retina display by default)
 [workspace-to-monitor-force-assignment]
 P = 'Built-in Retina Display'
@@ -54,9 +50,10 @@ ctrl-left = 'workspace prev'
 ctrl-right = 'workspace next'
 
 # Layout switching
-alt-slash = 'layout tiles horizontal vertical'
-alt-comma = 'layout accordion horizontal vertical'
-cmd-alt-shift-ctrl-space = 'layout tiles accordion'
+alt-t = 'layout tiles horizontal vertical'
+alt-a = 'layout accordion horizontal vertical'
+alt-f = 'layout floating tiling'
+cmd-f = 'fullscreen'
 
 # Move between windows seamlessly across monitors (hyper + hjkl)
 cmd-alt-shift-ctrl-h = 'focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors left'
@@ -70,13 +67,6 @@ alt-j = 'join-with down'
 alt-k = 'join-with up'
 alt-l = 'join-with right'
 
-# Toggle floating
-alt-f = 'layout floating tiling'
-
-# Quick layout switching
-alt-t = 'layout tiling'
-alt-a = 'layout accordion'
-
 # Window resizing
 cmd-shift-minus = 'resize smart -50'
 cmd-shift-equal = 'resize smart +50'
@@ -85,12 +75,11 @@ cmd-shift-equal = 'resize smart +50'
 cmd-alt-shift-ctrl-r = 'mode resize'
 
 # Workspace navigation (letter-based)
-# T=Terminal, A=AI, M=Media, W=Work, B=Browser, C=Coding, X=Extra, P=Productivity, S=Social, G=Gaming
+# T=Terminal, A=AI, M=Media, W=Work, C=Coding, X=Extra, P=Productivity, S=Social, G=Gaming, V=Video
 cmd-alt-shift-ctrl-t = 'workspace T'
 cmd-alt-shift-ctrl-a = 'workspace A'
 cmd-alt-shift-ctrl-m = 'workspace M'
 cmd-alt-shift-ctrl-w = 'workspace W'
-cmd-alt-shift-ctrl-b = 'workspace B'
 cmd-alt-shift-ctrl-c = 'workspace C'
 cmd-alt-shift-ctrl-x = 'workspace X'
 cmd-alt-shift-ctrl-p = 'workspace P'
@@ -100,54 +89,38 @@ cmd-alt-shift-ctrl-v = 'workspace V'
 
 # Move window to workspace (use resize mode: Hyper+R then letter)
 
-# Additional useful bindings
-# Toggle fullscreen
-cmd-f = 'fullscreen'
-
 # Close window
-cmd-shift-q = 'close'
-
+cmd-q = 'close'
 # Reload config
 cmd-shift-r = 'reload-config'
-
 # Workspace back and forth
 cmd-tab = 'workspace-back-and-forth'
-
-# Move workspace to specific monitors
-cmd-alt-shift-ctrl-i = 'move-workspace-to-monitor AW2724DM'
-cmd-alt-shift-ctrl-o = "move-workspace-to-monitor 'Built-in Retina Display'"
-
 
 # Move workspace to next monitor (cycle through monitors)
 cmd-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
 # open kitty terminal (direct exec for better performance)
 cmd-t = 'exec-and-forget /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~'
-cmd-b = 'exec-and-forget /Applications/Zen.app/Contents/MacOS/zen'
 
-# Resize mode - Use hyper+r to enter, hjkl to resize, workspace letters to move window
+# Resize mode - Use hyper+r to enter, d/f to resize, workspace letters to move window
 [mode.resize.binding]
-# Directional window resizing
-# Note: Due to AeroSpace's window-centric resize model, h/l behavior depends on which window is focused
-# This is a limitation - there's no built-in "move divider" command
-# Using smart resize as the best compromise
-h = 'resize smart -50'
-l = 'resize smart +50'
-j = 'resize smart +50'
-k = 'resize smart -50'
+# Window resizing (matches Karabiner symbol layer)
+# d = expand window, f = shrink window
+d = 'resize smart +50'        # Expand focused window
+f = 'resize smart -50'        # Shrink focused window
 
-# Alternative: extra large resize
-shift-h = 'resize smart -100'
-shift-l = 'resize smart +100'
-shift-j = 'resize smart +100'
-shift-k = 'resize smart -100'
+# Larger adjustments
+shift-d = 'resize smart +100' # Expand focused window (large)
+shift-f = 'resize smart -100' # Shrink focused window (large)
+
+# Utility commands
+equal = 'balance-sizes'       # Balance all window sizes equally
 
 # Move window to workspace (and follow)
 t = ['move-node-to-workspace T', 'workspace T', 'mode main']
 a = ['move-node-to-workspace A', 'workspace A', 'mode main']
 m = ['move-node-to-workspace M', 'workspace M', 'mode main']
 w = ['move-node-to-workspace W', 'workspace W', 'mode main']
-b = ['move-node-to-workspace B', 'workspace B', 'mode main']
 c = ['move-node-to-workspace C', 'workspace C', 'mode main']
 x = ['move-node-to-workspace X', 'workspace X', 'mode main']
 p = ['move-node-to-workspace P', 'workspace P', 'mode main']
