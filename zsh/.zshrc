@@ -57,16 +57,16 @@ if command -v fzf &> /dev/null; then
     source "$(brew --prefix)/opt/fzf/shell/key-bindings.zsh"
     source "$(brew --prefix)/opt/fzf/shell/completion.zsh"
 
-    # FZF theme and options
+    # FZF theme and options (Nordic/Nord theme)
     export FZF_DEFAULT_OPTS="
     --height 40% 
     --layout=reverse 
     --border 
     --inline-info
-    --color=fg:#d0d0d0,bg:#121212,hl:#5f87af
-    --color=fg+:#d0d0d0,bg+:#262626,hl+:#5fd7ff
-    --color=info:#afaf87,prompt:#d7005f,pointer:#af5fff
-    --color=marker:#87ff00,spinner:#af5fff,header:#87afaf
+    --color=fg:#d8dee9,bg:#2e3440,hl:#81a1c1
+    --color=fg+:#d8dee9,bg+:#3b4252,hl+:#81a1c1
+    --color=info:#88c0d0,prompt:#5e81ac,pointer:#bf616a
+    --color=marker:#a3be8c,spinner:#b48ead,header:#81a1c1
     --preview-window=:hidden
     --bind='?:toggle-preview'
     "
