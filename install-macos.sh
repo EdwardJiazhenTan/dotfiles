@@ -263,14 +263,11 @@ stow_package "nvim"
 stow_package "tmux"
 stow_package "zed"
 stow_package "aerospace"
+stow_package "karabiner"
 stow_package "sketchybar"
 stow_package "spicetify"
 stow_package "fastfetch"
 stow_package "zsh"
-
-# Note: Karabiner config is intentionally not stowed
-# Everyone has different keyboard customization requirements
-log_info "Karabiner-Elements installed but config not copied (customize yourself in the app)"
 
 # Install Tmux Plugin Manager (TPM) if not installed
 if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then

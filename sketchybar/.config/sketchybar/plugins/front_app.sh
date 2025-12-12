@@ -14,31 +14,25 @@ set -euo pipefail
 if [ "$SENDER" = "front_app_switched" ]; then
   # Map common applications to icons
   case "$INFO" in
-    "kitty"|"iTerm2"|"Terminal"|"Alacritty") ICON="󰆍" ;;
-    "Chrome"|"Google Chrome") ICON="󰊯" ;;
-    "Safari") ICON="󰀹" ;;
-    "Firefox") ICON="󰈹" ;;
-    "zen"|"Zen Browser"|"Zen") ICON="󰈹" ;;
-    "Arc") ICON="" ;;
-    "Code"|"Visual Studio Code"|"VSCode") ICON="󰨞" ;;
-    "Neovide"|"MacVim"|"VimR") ICON="" ;;
-    "Xcode") ICON="" ;;
-    "Slack") ICON="󰒱" ;;
-    "Discord") ICON="󰙯" ;;
-    "Telegram"|"Messages") ICON="󰻞" ;;
-    "Spotify") ICON="󰓇" ;;
-    "Music") ICON="󰎆" ;;
-    "VLC"|"QuickTime Player"|"IINA") ICON="󰕧" ;;
-    "Finder") ICON="" ;;
-    "Notes"|"Notion") ICON="󰈙" ;;
-    "Mail"|"Outlook") ICON="󰇮" ;;
-    "Calendar") ICON="" ;;
-    "Obsidian") ICON="󱓧" ;;
-    "ChatGPT"|"Claude") ICON="󰚩" ;;
-    "Steam") ICON="󰊴" ;;
-    "Docker"|"Docker Desktop") ICON="󰡨" ;;
-    "Postman") ICON="󰛮" ;;
-    *) ICON="󰀘" ;;  # Default app icon
+  "kitty" | "iTerm2" | "Terminal" | "Alacritty") ICON="󰆍" ;;
+  "Chrome" | "Google Chrome") ICON="󰊯" ;;
+  "Firefox") ICON="󰈹" ;;
+  "zen" | "Zen Browser" | "Zen") ICON="󰬡" ;;
+  "Code" | "Visual Studio Code" | "VSCode") ICON="󰨞" ;;
+  "Slack") ICON="󰒱" ;;
+  "Discord") ICON="󰙯" ;;
+  "Spotify") ICON="󰓇" ;;
+  "VLC" | "QuickTime Player" | "IINA") ICON="󰕧" ;;
+  "Finder") ICON="󰈔" ;;
+  "Notes" | "Notion") ICON="󰈙" ;;
+  "Mail" | "Outlook") ICON="󰇮" ;;
+  "Calendar") ICON="" ;;
+  "Obsidian") ICON="󱓧" ;;
+  "ChatGPT" | "Claude") ICON="󰚩" ;;
+  "Docker" | "Docker Desktop") ICON="󰡨" ;;
+  "Postman") ICON="󰛮" ;;
+  "WeChat") ICON="" ;;
+  *) ICON="󰀘" ;; # Default app icon
   esac
 
   sketchybar --set "$NAME" icon="$ICON" label="$INFO" &
