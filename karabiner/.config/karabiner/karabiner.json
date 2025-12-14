@@ -1,6 +1,15 @@
 {
     "profiles": [
         {
+            "devices": [
+                {
+                    "identifiers": {
+                        "is_pointing_device": true
+                    },
+                    "ignore": true,
+                    "manipulate_caps_lock_led": false
+                }
+            ],
             "complex_modifications": {
                 "parameters": {
                     "basic.to_if_alone_timeout_milliseconds": 200,

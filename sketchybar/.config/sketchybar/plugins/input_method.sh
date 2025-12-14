@@ -2,9 +2,9 @@
 # Input Method Plugin - Optimized for performance
 # Shows current input source (Chinese/English)
 
-# Get current input source using fastest method (skip pipefail to avoid errors)
-set -eu
+set -euo pipefail
 
+# Get current input source with error handling
 INPUT_SOURCE=$(defaults read ~/Library/Preferences/com.apple.HIToolbox.plist AppleCurrentKeyboardLayoutInputSourceID 2>/dev/null || echo "")
 
 # Only try fallback if first method fails
@@ -26,4 +26,4 @@ else
   fi
 fi
 
-sketchybar --set "${NAME:-input_method}" label="$LABEL"
+sketchybar --set "${NAME:-input_method}" label="$LABEL" 2>/dev/null || true

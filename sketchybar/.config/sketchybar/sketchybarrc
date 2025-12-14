@@ -5,6 +5,7 @@ PLUGIN_DIR="$CONFIG_DIR/plugins"
 ##### Bar Appearance #####
 sketchybar --bar position=top height=22 blur_radius=0 color=0x00000000 \
   y_offset=7 margin=10 padding_left=0 padding_right=0
+
 sketchybar --bar display=all
 sketchybar --add event aerospace_workspace_change
 
@@ -35,7 +36,6 @@ sketchybar --add item aerospace left \
   icon.padding_left=8 \
   icon.padding_right=2 \
   label.padding_right=8 \
-  update_freq=2 \
   script="$PLUGIN_DIR/aerospace.sh"
 
 sketchybar --add item input_method left \

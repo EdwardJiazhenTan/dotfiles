@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-PERCENTAGE="$(pmset -g batt | grep -Eo "[0-9]+%" | cut -d% -f1)"
-CHARGING="$(pmset -g batt | grep 'AC Power' || true)"
+PERCENTAGE="$(pmset -g batt 2>/dev/null | grep -Eo "[0-9]+%" | cut -d% -f1 || echo "")"
+CHARGING="$(pmset -g batt 2>/dev/null | grep 'AC Power' || echo "")"
 
 if [ "$PERCENTAGE" = "" ]; then
   exit 0
@@ -26,4 +26,4 @@ fi
 
 # The item invoking this script (name $NAME) will get its icon and label
 # updated with the current battery status
-sketchybar --set "$NAME" icon="$ICON" label="${PERCENTAGE}%"
+sketchybar --set "$NAME" icon="$ICON" label="${PERCENTAGE}%" 2>/dev/null || true

@@ -9,6 +9,12 @@ exec-on-workspace-change = ['/bin/bash', '-c',
 # Start AeroSpace at login
 start-at-login = true
 
+# Prevent WindowServer deadlock when using mouse to focus windows
+# These callbacks tell AeroSpace how to handle focus changes triggered by mouse clicks
+# This prevents the circular dependency: WindowServer waits for AeroSpace, AeroSpace waits for WindowServer
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+on-focus-changed = ['move-mouse window-lazy-center']
+
 # Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
 enable-normalization-flatten-containers = true
 enable-normalization-opposite-orientation-for-nested-containers = true

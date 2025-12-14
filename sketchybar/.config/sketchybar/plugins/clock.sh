@@ -5,5 +5,5 @@ set -euo pipefail
 # the item invoking this script:
 # https://felixkratz.github.io/SketchyBar/config/events#events-and-scripting
 
-sketchybar --set "$NAME" label="$(date '+%a %d %H:%M')"
+sketchybar --set "$NAME" label="$(date '+%a %d %H:%M')" 2>/dev/null || true
 

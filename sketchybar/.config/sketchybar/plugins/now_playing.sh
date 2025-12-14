@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Get Spotify playback info using AppleScript
+# Get Spotify playback info using AppleScript with error handling
 STATE=$(osascript -e 'tell application "Spotify" to player state as string' 2>/dev/null || echo "stopped")
 
 if [ "$STATE" = "playing" ]; then
@@ -22,7 +22,7 @@ if [ "$STATE" = "playing" ]; then
     MEDIA="${MEDIA:0:47}..."
   fi
 
-  sketchybar --set "$NAME" label="$MEDIA" drawing=on
+  sketchybar --set "$NAME" label="$MEDIA" drawing=on 2>/dev/null || true
 else
-  sketchybar --set "$NAME" drawing=off
+  sketchybar --set "$NAME" drawing=off 2>/dev/null || true
 fi
