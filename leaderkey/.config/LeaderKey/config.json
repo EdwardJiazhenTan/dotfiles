@@ -1,0 +1,370 @@
+{
+  "actions" : [
+    {
+      "actions" : [
+        {
+          "key" : "m",
+          "label" : "Spotify",
+          "type" : "application",
+          "value" : "/Applications/Spotify.app"
+        },
+        {
+          "key" : "t",
+          "label" : "kitty",
+          "type" : "command",
+          "value" : "/Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~"
+        },
+        {
+          "key" : "b",
+          "label" : "Zen Browser",
+          "type" : "application",
+          "value" : "/Applications/Zen.app"
+        },
+        {
+          "key" : "e",
+          "label" : "Finder",
+          "type" : "application",
+          "value" : "/System/Library/CoreServices/Finder.app"
+        },
+        {
+          "key" : "g",
+          "label" : "Google Chrome",
+          "type" : "application",
+          "value" : "/Applications/Google Chrome.app"
+        }
+      ],
+      "key" : "o",
+      "label" : "Open Application",
+      "type" : "group"
+    },
+    {
+      "actions" : [
+        {
+          "key" : "a",
+          "label" : "AI",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace workspace A"
+        },
+        {
+          "key" : "t",
+          "label" : "Terminal",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace workspace T"
+        },
+        {
+          "key" : "m",
+          "label" : "Media",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace workspace M"
+        },
+        {
+          "key" : "w",
+          "label" : "Work",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace workspace W"
+        },
+        {
+          "key" : "c",
+          "label" : "Coding",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace workspace C"
+        },
+        {
+          "key" : "x",
+          "label" : "Extra",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace workspace X"
+        },
+        {
+          "key" : "p",
+          "label" : "Productivity",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace workspace P"
+        },
+        {
+          "key" : "s",
+          "label" : "Social",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace workspace S"
+        },
+        {
+          "key" : "g",
+          "label" : "Gaming",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace workspace G"
+        },
+        {
+          "key" : "v",
+          "label" : "Video",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace workspace V"
+        }
+      ],
+      "key" : "w",
+      "label" : "Workspace",
+      "type" : "group"
+    },
+    {
+      "actions" : [
+        {
+          "key" : "a",
+          "label" : "AI",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace move-node-to-workspace A && /opt/homebrew/bin/aerospace workspace A"
+        },
+        {
+          "key" : "t",
+          "label" : "Terminal",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace move-node-to-workspace T && /opt/homebrew/bin/aerospace workspace T"
+        },
+        {
+          "key" : "m",
+          "label" : "Media",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace move-node-to-workspace M && /opt/homebrew/bin/aerospace workspace M"
+        },
+        {
+          "key" : "w",
+          "label" : "Work",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace move-node-to-workspace W && /opt/homebrew/bin/aerospace workspace W"
+        },
+        {
+          "key" : "c",
+          "label" : "Coding",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace move-node-to-workspace C && /opt/homebrew/bin/aerospace workspace C"
+        },
+        {
+          "key" : "x",
+          "label" : "Extra",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace move-node-to-workspace X && /opt/homebrew/bin/aerospace workspace X"
+        },
+        {
+          "key" : "p",
+          "label" : "Productivity",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace move-node-to-workspace P && /opt/homebrew/bin/aerospace workspace P"
+        },
+        {
+          "key" : "s",
+          "label" : "Social",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace move-node-to-workspace S && /opt/homebrew/bin/aerospace workspace S"
+        },
+        {
+          "key" : "g",
+          "label" : "Gaming",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace move-node-to-workspace G && /opt/homebrew/bin/aerospace workspace G"
+        },
+        {
+          "key" : "v",
+          "label" : "Video",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace move-node-to-workspace V && /opt/homebrew/bin/aerospace workspace V"
+        }
+      ],
+      "key" : "m",
+      "label" : "Move Window",
+      "type" : "group"
+    },
+    {
+      "actions" : [
+        {
+          "key" : "a",
+          "label" : "Accordion",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace layout accordion horizontal vertical"
+        },
+        {
+          "key" : "f",
+          "label" : "Floating",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace layout floating tiling"
+        },
+        {
+          "key" : "t",
+          "label" : "Tiles",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace layout tiles horizontal vertical"
+        }
+      ],
+      "key" : "l",
+      "label" : "Layout",
+      "type" : "group"
+    },
+    {
+      "actions" : [
+        {
+          "key" : "h",
+          "label" : "Join Left",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace join-with left"
+        },
+        {
+          "key" : "j",
+          "label" : "Join Down",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace join-with down"
+        },
+        {
+          "key" : "k",
+          "label" : "Join Up",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace join-with up"
+        },
+        {
+          "key" : "l",
+          "label" : "Join Right",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace join-with right"
+        }
+      ],
+      "key" : "j",
+      "label" : "Join",
+      "type" : "group"
+    },
+    {
+      "actions" : [
+        {
+          "key" : "+",
+          "label" : "Expand",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace resize smart +50"
+        },
+        {
+          "key" : "-",
+          "label" : "Shrink",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace resize smart -50"
+        },
+        {
+          "key" : "=",
+          "label" : "Balance",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace balance-sizes"
+        }
+      ],
+      "key" : "r",
+      "label" : "Resize",
+      "type" : "group"
+    },
+    {
+      "actions" : [
+        {
+          "key" : "s",
+          "label" : "Selection",
+          "type" : "command",
+          "value" : "/usr/sbin/screencapture -i ~/Pictures/Screenshots/screenshot-$(date +%Y%m%d-%H%M%S).png"
+        },
+        {
+          "key" : "w",
+          "label" : "Window",
+          "type" : "command",
+          "value" : "/usr/sbin/screencapture -i -w ~/Pictures/Screenshots/screenshot-$(date +%Y%m%d-%H%M%S).png"
+        },
+        {
+          "key" : "f",
+          "label" : "Fullscreen",
+          "type" : "command",
+          "value" : "/usr/sbin/screencapture ~/Pictures/Screenshots/screenshot-$(date +%Y%m%d-%H%M%S).png"
+        },
+        {
+          "key" : "c",
+          "label" : "Clipboard",
+          "type" : "command",
+          "value" : "/usr/sbin/screencapture -i -c"
+        },
+        {
+          "key" : "t",
+          "label" : "Touch Bar",
+          "type" : "command",
+          "value" : "/usr/sbin/screencapture -b ~/Pictures/Screenshots/touchbar-$(date +%Y%m%d-%H%M%S).png"
+        }
+      ],
+      "key" : "s",
+      "label" : "Screenshot",
+      "type" : "group"
+    },
+
+    {
+      "actions" : [
+        {
+          "key" : "h",
+          "label" : "Focus Left",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace focus left"
+        },
+        {
+          "key" : "j",
+          "label" : "Focus Down",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace focus down"
+        },
+        {
+          "key" : "k",
+          "label" : "Focus Up",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace focus up"
+        },
+        {
+          "key" : "l",
+          "label" : "Focus Right",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace focus right"
+        }
+      ],
+      "key" : "f",
+      "label" : "Focus",
+      "type" : "group"
+    },
+    {
+      "actions" : [
+        {
+          "key" : "u",
+          "label" : "Update & Upgrade",
+          "type" : "command",
+          "value" : "open -a kitty --args sh -c '/opt/homebrew/bin/brew update && /opt/homebrew/bin/brew upgrade && echo && echo \"Press ENTER to close...\" && read'"
+        },
+        {
+          "key" : "l",
+          "label" : "List Packages",
+          "type" : "command",
+          "value" : "open -a kitty --args sh -c '/opt/homebrew/bin/brew list && echo && echo \"Press ENTER to close...\" && read'"
+        },
+        {
+          "key" : "s",
+          "label" : "Search Package",
+          "type" : "command",
+          "value" : "open -a kitty --args sh -c 'echo \"Enter package name to search:\" && read pkg && /opt/homebrew/bin/brew search \"$pkg\" && echo && echo \"Press ENTER to close...\" && read'"
+        },
+        {
+          "key" : "i",
+          "label" : "Package Info",
+          "type" : "command",
+          "value" : "open -a kitty --args sh -c 'echo \"Enter package name for info:\" && read pkg && /opt/homebrew/bin/brew info \"$pkg\" && echo && echo \"Press ENTER to close...\" && read'"
+        }
+      ],
+      "key" : "b",
+      "label" : "Brew",
+      "type" : "group"
+    },
+    {
+      "actions" : [
+        {
+          "key" : "q",
+          "label" : "Close Window",
+          "type" : "command",
+          "value" : "osascript -e 'tell application \"System Events\" to keystroke \"w\" using command down'"
+        }
+      ],
+      "key" : "q",
+      "label" : "Quit",
+      "type" : "group"
+    }
+  ],
+  "type" : "group"
+}
