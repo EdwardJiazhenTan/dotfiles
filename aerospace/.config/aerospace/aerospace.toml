@@ -32,6 +32,8 @@ P = 'Built-in Retina Display'
 M = 'Built-in Retina Display'
 X = 'Built-in Retina Display'
 A = 'Built-in Retina Display'
+V = 'Built-in Retina Display'
+S = 'Built-in Retina Display'
 
 # Gaps between windows (inner-*) and between monitor edges (outer-*).
 # Possible values:
@@ -41,12 +43,12 @@ A = 'Built-in Retina Display'
 #                 Monitor pattern is the same as for 'workspace-to-monitor-force-assignment'.
 #                 See: https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 [gaps]
-inner.horizontal = 10
-inner.vertical =   10
-outer.left =       10
-outer.bottom =     10
-outer.top =        [{ monitor.'^AW2724DM$' = 35 }, 5]  # 40 for external, 5 for others
-outer.right =      10
+inner.horizontal = 5
+inner.vertical =   5
+outer.left =       5
+outer.bottom =     5
+outer.top =        [{ monitor.'^AW2724DM$' = 38 }, 5]  # 40 for external, 5 for others
+outer.right =      5
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -62,10 +64,10 @@ alt-f = 'layout floating tiling'
 cmd-f = 'fullscreen'
 
 # Move between windows seamlessly across monitors (hyper + hjkl)
-cmd-alt-shift-ctrl-h = 'focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors left'
-cmd-alt-shift-ctrl-j = 'focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors down'
-cmd-alt-shift-ctrl-k = 'focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors up'
-cmd-alt-shift-ctrl-l = 'focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors right'
+cmd-shift-h = 'focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors left'
+cmd-shift-j = 'focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors down'
+cmd-shift-k = 'focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors up'
+cmd-shift-l = 'focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors right'
 
 # Join windows for hybrid tiling (alt + hjkl)
 alt-h = 'join-with left'
@@ -104,9 +106,6 @@ cmd-tab = 'workspace-back-and-forth'
 
 # Move workspace to next monitor (cycle through monitors)
 cmd-shift-tab = 'move-workspace-to-monitor --wrap-around next'
-
-# open kitty terminal (direct exec for better performance)
-cmd-t = 'exec-and-forget /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~'
 
 # Resize mode - Use hyper+r to enter, d/f to resize, workspace letters to move window
 [mode.resize.binding]
