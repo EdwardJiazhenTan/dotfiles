@@ -73,6 +73,7 @@ X) ICON="󰿨" ;;       # Extra
 C) ICON="󰘦" ;;       # Coding
 V) ICON="󰕧" ;;       # Video
 M) ICON="󰎆" ;;       # Music
+D) ICON="" ;;       # Docker
 *) ICON="$LETTER" ;; # Fallback to letter
 esac
 

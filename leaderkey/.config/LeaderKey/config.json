@@ -9,6 +9,7 @@
           "value" : "/Applications/Spotify.app"
         },
         {
+          "iconPath" : "/Applications/kitty.app",
           "key" : "t",
           "label" : "kitty",
           "type" : "command",
@@ -31,6 +32,36 @@
           "label" : "Google Chrome",
           "type" : "application",
           "value" : "/Applications/Google Chrome.app"
+        },
+        {
+          "key" : "w",
+          "label" : "Wechat",
+          "type" : "application",
+          "value" : "/Applications/WeChat.app"
+        },
+        {
+          "key" : "o",
+          "label" : "OBS",
+          "type" : "application",
+          "value" : "/Applications/OBS.app"
+        },
+        {
+          "key" : "c",
+          "label" : "Calendar",
+          "type" : "application",
+          "value" : "/System/Applications/Calendar.app"
+        },
+        {
+          "key" : "z",
+          "label" : "Zed",
+          "type" : "application",
+          "value" : "/Applications/Zed.app"
+        },
+        {
+          "key" : "y",
+          "label" : "Youtube",
+          "type" : "application",
+          "value" : "/Applications/YouTube.app"
         }
       ],
       "key" : "o",
@@ -56,6 +87,12 @@
           "label" : "Media",
           "type" : "command",
           "value" : "/opt/homebrew/bin/aerospace workspace M"
+        },
+        {
+          "key" : "d",
+          "label" : "Docker",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace workspace D"
         },
         {
           "key" : "w",
@@ -123,6 +160,12 @@
           "label" : "Media",
           "type" : "command",
           "value" : "/opt/homebrew/bin/aerospace move-node-to-workspace M && /opt/homebrew/bin/aerospace workspace M"
+        },
+        {
+          "key" : "d",
+          "label" : "Docker",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace move-node-to-workspace D && /opt/homebrew/bin/aerospace workspace D"
         },
         {
           "key" : "w",
@@ -289,7 +332,6 @@
       "label" : "Screenshot",
       "type" : "group"
     },
-
     {
       "actions" : [
         {
@@ -350,6 +392,31 @@
       ],
       "key" : "b",
       "label" : "Brew",
+      "type" : "group"
+    },
+    {
+      "actions" : [
+        {
+          "key" : "a",
+          "label" : "Aerospace",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace reload-config"
+        },
+        {
+          "key" : "s",
+          "label" : "Sketchybar",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/sketchybar --reload"
+        },
+        {
+          "key" : "l",
+          "label" : "LeaderKey",
+          "type" : "command",
+          "value" : "killall LeaderKey && open -a LeaderKey"
+        }
+      ],
+      "key" : "c",
+      "label" : "Configs",
       "type" : "group"
     },
     {
