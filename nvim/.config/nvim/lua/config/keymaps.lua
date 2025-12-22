@@ -10,4 +10,7 @@ keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights" })
 -- visual mode mappings
 keymap.set("v", "<", "<gv", { desc = "Indent left and reselect" })
 keymap.set("v", ">", ">gv", { desc = "Indent right and reselect" })
-keymap.set("v", "<leader>c", "gc", { desc = "Comment/uncomment selection" })
+keymap.set("v", "<leader>C", "gc", { desc = "Comment selected text", remap = true })
+
+-- terminal mode mappings
+vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })

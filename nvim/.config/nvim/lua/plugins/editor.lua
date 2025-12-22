@@ -1,39 +1,5 @@
 -- Editor enhancement plugins: navigation, terminal, file finding, etc.
 return {
-  -- Accelerated j/k navigation
-  {
-    "rainbowhxch/accelerated-jk.nvim",
-    event = "VeryLazy",
-    config = function()
-      require("accelerated-jk").setup({
-        -- Acceleration mode:
-        -- "time_driven" - accelerates based on how long you hold the key
-        -- "position_driven" - accelerates based on distance traveled
-        mode = "time_driven",
-
-        -- Enable acceleration for these keys
-        enable_deceleration = false,
-
-        -- Acceleration table - defines how fast it gets over time
-        -- Format: { time_in_ms, lines_to_move }
-        acceleration_motions = {},
-
-        -- Table for deceleration (not used when enable_deceleration = false)
-        deceleration_motions = {},
-
-        -- Acceleration limit
-        acceleration_limit = 150,
-
-        -- Enable by default
-        enable_acceleration = true,
-      })
-
-      -- Map j and k to accelerated versions
-      vim.keymap.set("n", "j", "<Plug>(accelerated_jk_gj)", { desc = "Accelerated j" })
-      vim.keymap.set("n", "k", "<Plug>(accelerated_jk_gk)", { desc = "Accelerated k" })
-    end,
-  },
-
   -- Surround text objects
   {
     "kylechui/nvim-surround",
@@ -64,22 +30,6 @@ return {
       { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
       { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
     },
-  },
-
-  -- Terminal
-  {
-    "akinsho/toggleterm.nvim",
-    version = "*",
-    config = function()
-      require("toggleterm").setup({
-        direction = "float",
-        float_opts = { border = "curved" },
-        insert_mappings = true,
-        terminal_mappings = true,
-      })
-
-      vim.keymap.set("n", "<leader>tt", "<cmd>ToggleTerm<cr>", { desc = "ToggleTerm" })
-    end,
   },
 
   -- Trouble diagnostics
@@ -180,6 +130,15 @@ return {
     opts = {
       picker = {
         sources = {
+          explorer = {
+            -- other explorer options
+            layout = {
+              width = 10,
+              layout = {
+                position = "right", -- Set the position to "right"
+              },
+            },
+          },
           files = {
             hidden = true, -- Show hidden files
             no_ignore = true, -- Show git-ignored files (includes untracked)
@@ -191,6 +150,56 @@ return {
           },
         },
       },
+    },
+  },
+
+  {
+    "coder/claudecode.nvim",
+    dependencies = { "folke/snacks.nvim" },
+    opts = {
+      terminal = {
+        split_side = "left", -- "left" or "right"
+        split_width_percentage = 0.25,
+        provider = "auto", -- "auto", "snacks", "native", "external", "none", or custom provider table
+        auto_close = true,
+        snacks_win_opts = {}, -- Opts to pass to `Snacks.terminal.open()` - see Floating Window section below
+
+        -- Provider-specific options
+        provider_opts = {
+          -- Command for external terminal provider. Can be:
+          -- 1. String with %s placeholder: "alacritty -e %s" (backward compatible)
+          -- 2. String with two %s placeholders: "alacritty --working-directory %s -e %s" (cwd, command)
+          -- 3. Function returning command: function(cmd, env) return "alacritty -e " .. cmd end
+          external_terminal_cmd = nil,
+        },
+      },
+
+      -- Diff Integration
+      diff_opts = {
+        auto_close_on_accept = true,
+        vertical_split = false,
+        open_in_current_tab = true,
+        keep_terminal_focus = false, -- If true, moves focus back to terminal after diff opens
+      },
+    },
+    keys = {
+      { "<leader>a", nil, desc = "AI/Claude Code" },
+      { "<leader>ac", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude" },
+      { "<leader>af", "<cmd>ClaudeCodeFocus<cr>", desc = "Focus Claude" },
+      { "<leader>ar", "<cmd>ClaudeCode --resume<cr>", desc = "Resume Claude" },
+      { "<leader>aC", "<cmd>ClaudeCode --continue<cr>", desc = "Continue Claude" },
+      { "<leader>am", "<cmd>ClaudeCodeSelectModel<cr>", desc = "Select Claude model" },
+      { "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>", desc = "Add current buffer" },
+      { "<leader>as", "<cmd>ClaudeCodeSend<cr>", mode = "v", desc = "Send to Claude" },
+      {
+        "<leader>as",
+        "<cmd>ClaudeCodeTreeAdd<cr>",
+        desc = "Add file",
+        ft = { "NvimTree", "neo-tree", "oil", "minifiles", "netrw" },
+      },
+      -- Diff management
+      { "<leader>aa", "<cmd>ClaudeCodeDiffAccept<cr>", desc = "Accept diff" },
+      { "<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>", desc = "Deny diff" },
     },
   },
 }
