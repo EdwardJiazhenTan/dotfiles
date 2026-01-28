@@ -1868,7 +1868,9 @@
                         "description": "Quote key to Cmd+Tab (for window focus switching)",
                         "manipulators": [
                             {
-                                "from": { "key_code": "quote" },
+                                "from": {
+                                    "key_code": "quote"
+                                },
                                 "to": [
                                     {
                                         "key_code": "tab",
@@ -1947,35 +1949,6 @@
                         "vendor_id": 57624
                     },
                     "ignore": true
-                },
-                {
-                    "disable_built_in_keyboard_if_exists": true,
-                    "identifiers": {
-                        "is_keyboard": true,
-                        "product_id": 33,
-                        "vendor_id": 1278
-                    },
-                    "ignore_vendor_events": true
-                },
-                {
-                    "identifiers": {
-                        "is_pointing_device": true,
-                        "product_id": 32980,
-                        "vendor_id": 1149
-                    },
-                    "ignore": false,
-                    "ignore_vendor_events": true,
-                    "mouse_flip_vertical_wheel": true,
-                    "simple_modifications": [
-                        {
-                            "from": { "pointing_button": "button2" },
-                            "to": [{ "pointing_button": "button1" }]
-                        },
-                        {
-                            "from": { "pointing_button": "button4" },
-                            "to": [{ "pointing_button": "button2" }]
-                        }
-                    ]
                 }
             ],
             "name": "Default profile",
