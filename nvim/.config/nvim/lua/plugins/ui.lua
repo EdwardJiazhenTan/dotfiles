@@ -1,5 +1,13 @@
 -- UI enhancement plugins: colorizers, statusline, etc.
 return {
+  {
+    "AlexvZyl/nordic.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require("nordic").load()
+    end,
+  },
   -- Color highlighting
   {
     "norcalli/nvim-colorizer.lua",
@@ -98,11 +106,30 @@ return {
     end,
   },
 
-  -- Tailwind CSS folding
   {
-    "razak17/tailwind-fold.nvim",
-    opts = {},
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-    ft = { "html", "svelte", "astro", "vue", "typescriptreact", "php", "blade" },
+    "folke/noice.nvim",
+    ops = function(_, ops)
+      table.insert(ops.routes, {
+        filter = {
+          event = "notify",
+          find = "no info avaiable",
+        },
+        ops = { skip = true },
+      })
+      ops.preset.lsp_doc_border = true
+    end,
+  },
+  -- Tailwind CSS folding
+  -- {
+  --   "razak17/tailwind-fold.nvim",
+  --   opts = {},
+  --   dependencies = { "nvim-treesitter/nvim-treesitter" },
+  --   ft = { "html", "svelte", "astro", "vue", "typescriptreact", "php", "blade" },
+  -- },
+  {
+    "folke/snacks.nvim",
+    opts = {
+      indent = { enabled = false },
+    },
   },
 }

@@ -6,3 +6,4 @@ vim.opt.wildignore:append({ "/node_modules/*" })
 
 -- Disable session autoload on startup
 vim.g.persistence_autoload = false
+vim.g.snacks_animate = true
