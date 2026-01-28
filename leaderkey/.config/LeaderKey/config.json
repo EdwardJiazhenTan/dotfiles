@@ -64,6 +64,7 @@
           "value" : "/Applications/YouTube.app"
         }
       ],
+      "iconPath" : "questionmark.folder.fill",
       "key" : "o",
       "label" : "Open Application",
       "type" : "group"
@@ -137,6 +138,7 @@
           "value" : "/opt/homebrew/bin/aerospace workspace V"
         }
       ],
+      "iconPath" : "suitcase",
       "key" : "w",
       "label" : "Workspace",
       "type" : "group"
@@ -210,6 +212,7 @@
           "value" : "/opt/homebrew/bin/aerospace move-node-to-workspace V && /opt/homebrew/bin/aerospace workspace V"
         }
       ],
+      "iconPath" : "move.3d",
       "key" : "m",
       "label" : "Move Window",
       "type" : "group"
@@ -235,6 +238,7 @@
           "value" : "/opt/homebrew/bin/aerospace layout tiles horizontal vertical"
         }
       ],
+      "iconPath" : "gearshift.layout.sixspeed",
       "key" : "l",
       "label" : "Layout",
       "type" : "group"
@@ -266,6 +270,7 @@
           "value" : "/opt/homebrew/bin/aerospace join-with right"
         }
       ],
+      "iconPath" : "pencil.and.outline",
       "key" : "j",
       "label" : "Join",
       "type" : "group"
@@ -276,13 +281,13 @@
           "key" : "+",
           "label" : "Expand",
           "type" : "command",
-          "value" : "/opt/homebrew/bin/aerospace resize smart +50"
+          "value" : "/opt/homebrew/bin/aerospace resize smart +200"
         },
         {
           "key" : "-",
           "label" : "Shrink",
           "type" : "command",
-          "value" : "/opt/homebrew/bin/aerospace resize smart -50"
+          "value" : "/opt/homebrew/bin/aerospace resize smart -200"
         },
         {
           "key" : "=",
@@ -291,6 +296,7 @@
           "value" : "/opt/homebrew/bin/aerospace balance-sizes"
         }
       ],
+      "iconPath" : "apple.terminal.fill",
       "key" : "r",
       "label" : "Resize",
       "type" : "group"
@@ -359,6 +365,7 @@
           "value" : "/opt/homebrew/bin/aerospace focus right"
         }
       ],
+      "iconPath" : "keyboard.badge.eye",
       "key" : "f",
       "label" : "Focus",
       "type" : "group"
@@ -415,6 +422,7 @@
           "value" : "killall LeaderKey && open -a LeaderKey"
         }
       ],
+      "iconPath" : "bookmark.fill",
       "key" : "c",
       "label" : "Configs",
       "type" : "group"
@@ -428,6 +436,7 @@
           "value" : "osascript -e 'tell application \"System Events\" to keystroke \"w\" using command down'"
         }
       ],
+      "iconPath" : "rectangle.portrait.and.arrow.right",
       "key" : "q",
       "label" : "Quit",
       "type" : "group"
