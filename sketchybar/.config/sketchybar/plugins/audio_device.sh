@@ -7,9 +7,9 @@ DEVICE=$(SwitchAudioSource -c 2>/dev/null || echo "Unknown")
 
 # Map device names to custom short names with icons
 case "$DEVICE" in
-"MacBook Air Speakers")
-  LABEL="MBA"
-  ;;
+*"MacBook Pro Speakers"*)
+LABEL="MBP"
+;;
 *"张可儿Olivia的AirPods"*)
   LABEL="AirPods"
   ;;

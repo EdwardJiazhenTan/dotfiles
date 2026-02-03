@@ -3,7 +3,7 @@
 PLUGIN_DIR="$CONFIG_DIR/plugins"
 
 ##### Bar Appearance #####
-sketchybar --bar position=top height=34 blur_radius=5 color=0xf52e3440 y_offset=0 margin=0 padding_left=0 padding_right=15
+sketchybar --bar position=top height=34 blur_radius=5 color=0x00000000 y_offset=0 margin=0 padding_left=0 padding_right=15
 
 sketchybar --bar display=all
 sketchybar --add event aerospace_workspace_change
@@ -12,37 +12,34 @@ sketchybar --add event aerospace_workspace_change
 default=(
   icon.font="Hack Nerd Font:Regular:14:0"
   label.font="SF Pro:Semibold:14.0"
-  icon.color=0xffe5e9f0
-  label.color=0xffd8dee9
+  icon.color=0xff000000
+  label.color=0xff000000
   icon.padding_left=8
   icon.padding_right=5
   label.padding_left=0
   label.padding_right=8
   background.padding_left=15
   background.padding_right=0
-  # background.color=0xf03b4252
   background.corner_radius=5
   background.height=20
 )
 sketchybar --default "${default[@]}"
 
 ##### Left Side Items #####
-sketchybar --add item clock left \
-  --set clock \
-  icon="󰔠" \
-  update_freq=10 \
-  script="$PLUGIN_DIR/clock.sh"
+sketchybar --add item apple_icon left \
+  --set apple_icon \
+  icon=󰀵 \
 
 sketchybar --add item aerospace left \
   --subscribe aerospace aerospace_workspace_change \
   --set aerospace \
   script="$PLUGIN_DIR/aerospace.sh"
 
-sketchybar --add item input_method left \
-  --set input_method \
-  icon=󰌌 \
-  update_freq=3 \
-  script="$PLUGIN_DIR/input_method.sh"
+# sketchybar --add item input_method left \
+#   --set input_method \
+#   icon=󰌌 \
+#   update_freq=3 \
+#   script="$PLUGIN_DIR/input_method.sh"
 
 sketchybar --add item front_app left \
   --set front_app \
@@ -50,13 +47,32 @@ sketchybar --add item front_app left \
   script="$PLUGIN_DIR/front_app.sh" \
   --subscribe front_app front_app_switched
 
-sketchybar --add item now_playing left \
-  --set now_playing \
-  icon="󰎆" \
-  update_freq=5 \
-  script="$PLUGIN_DIR/now_playing.sh"
+sketchybar --add item slack left \
+  --set slack \
+  icon="" \
+  update_freq=20 \
+  script="$PLUGIN_DIR/slack.sh" \
+
+sketchybar --add item github left \
+  --set github \
+  icon="" \
+  update_freq=60 \
+  script="$PLUGIN_DIR/github.sh" \
+
+sketchybar --add item mail left \
+  --set mail \
+  icon="󰊫" \
+  update_freq=30 \
+  script="$PLUGIN_DIR/mail.sh" \
+
 
 ##### Right Side Items #####
+sketchybar --add item clock right \
+  --set clock \
+  icon="󰔠" \
+  update_freq=10 \
+  script="$PLUGIN_DIR/clock.sh"
+
 sketchybar --add item audio_device right \
   --set audio_device \
   icon="󰓃" \
@@ -75,23 +91,28 @@ sketchybar --add item battery right \
   script="$PLUGIN_DIR/battery.sh" \
   --subscribe battery system_woke power_source_change
 
-sketchybar --add item cpu right \
-  --set cpu \
-  icon="󰻠" \
-  update_freq=10 \
-  script="$PLUGIN_DIR/cpu.sh"
+sketchybar --add item now_playing right \
+  --set now_playing \
+  icon="󰎆" \
+  update_freq=5 \
+  script="$PLUGIN_DIR/now_playing.sh"
 
-sketchybar --add item memory right \
-  --set memory \
-  icon="" \
-  update_freq=10 \
-  script="$PLUGIN_DIR/memory.sh"
+# sketchybar --add item cpu right \
+#   --set cpu \
+#   icon="󰻠" \
+#   update_freq=10 \
+#   script="$PLUGIN_DIR/cpu.sh"
 
-sketchybar --add item cpu_temp right \
-  --set cpu_temp \
-  icon="" \
-  update_freq=10 \
-  script="$PLUGIN_DIR/cpu_temp.sh"
+# sketchybar --add item memory right \
+#   --set memory \
+#   icon="" \
+#   update_freq=10 \
+#   script="$PLUGIN_DIR/memory.sh"
 
-##### Force all scripts to run the first time #####
+# sketchybar --add item cpu_temp right \
+#   --set cpu_temp \
+#   icon="" \
+#   update_freq=10 \
+#   script="$PLUGIN_DIR/cpu_temp.sh"
+
 sketchybar --update
