@@ -55,10 +55,10 @@ outer.right =      5
 [mode.main.binding]
 
 # Layout switching
-# alt-t = 'layout tiles horizontal vertical'
-# alt-a = 'layout accordion horizontal vertical'
-# alt-f = 'layout floating tiling'
-# cmd-f = 'fullscreen'
+cmd-alt-shift-ctrl-space = 'layout floating tiling'
+cmd-alt-shift-ctrl-f = 'fullscreen'
+cmd-alt-shift-ctrl-tab = 'layout tiles horizontal vertical'
+cmd-alt-shift-ctrl-z = 'layout accordion horizontal vertical'
 # Move between windows seamlessly across monitors (hyper + hjkl)
 cmd-shift-h = 'focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors left'
 cmd-shift-j = 'focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors down'
@@ -139,5 +139,5 @@ if.app-id = 'com.apple.iphonesimulator'
 run = ['layout tiling']
 
 [[on-window-detected]]
-wf.app-id = 'com.valvesoftware.steam'
+if.app-id = 'com.valvesoftware.steam'
 run = ['layout tiling']
