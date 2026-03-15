@@ -1586,22 +1586,14 @@
                         ]
                     },
                     {
-                        "description": "Cmd+hjkl to arrow keys",
+                        "description": "Cmd+jk to Cmd+Up/Down",
                         "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "h",
-                                    "modifiers": { "mandatory": ["command"] }
-                                },
-                                "to": [{ "key_code": "left_arrow" }],
-                                "type": "basic"
-                            },
                             {
                                 "from": {
                                     "key_code": "j",
                                     "modifiers": { "mandatory": ["command"] }
                                 },
-                                "to": [{ "key_code": "down_arrow" }],
+                                "to": [{ "key_code": "down_arrow", "modifiers": ["command"] }],
                                 "type": "basic"
                             },
                             {
@@ -1609,15 +1601,7 @@
                                     "key_code": "k",
                                     "modifiers": { "mandatory": ["command"] }
                                 },
-                                "to": [{ "key_code": "up_arrow" }],
-                                "type": "basic"
-                            },
-                            {
-                                "from": {
-                                    "key_code": "l",
-                                    "modifiers": { "mandatory": ["command"] }
-                                },
-                                "to": [{ "key_code": "right_arrow" }],
+                                "to": [{ "key_code": "up_arrow", "modifiers": ["command"] }],
                                 "type": "basic"
                             }
                         ]

@@ -39,5 +39,8 @@ temp/
 .zcompdump*
 .zsh_sessions/
 
+# Karabiner automatic backups
+karabiner/.config/karabiner/automatic_backups/
+
 # Homebrew
 Brewfile.lock.json

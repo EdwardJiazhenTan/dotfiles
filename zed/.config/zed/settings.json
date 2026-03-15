@@ -17,33 +17,27 @@
     "show_branch_icon": false,
     "show_branch_name": false,
   },
-  "search": {
-    "button": false,
+  "project_panel": {
+    "hide_root": true,
+    "starts_open": false,
+    "folder_icons": true,
+    "auto_fold_dirs": false,
+    "indent_size": 10,
+    "sticky_scroll": false,
+    "scrollbar": {
+      "show": "never",
+    },
+    "entry_spacing": "standard",
   },
   "terminal": {
     "button": true,
     "dock": "right",
   },
-  // bottom bar
-  "status_bar": {
-    "cursor_position_button": false,
-    "active_language_button": true,
-  },
-
-  // file exporer tree on left
-  "project_panel": {
-    "button": true,
-    "hide_root": true,
-    "default_width": 300,
-    "dock": "left",
-  },
-  "outline_panel": {
-    "dock": "right",
-  },
-  "agent": {
-    "inline_assistant_model": {
-      "provider": "anthropic",
-      "model": "claude-3-7-sonnet-thinking-latest",
+  "git": {
+    "inline_blame": {
+      "enabled": true,
+      "delay_ms": 200,
+      "padding": 50,
     },
     "default_profile": "ask",
     "default_model": {
@@ -52,61 +46,103 @@
     },
     "dock": "right",
   },
-  "git_panel": {
-    "dock": "left",
-  },
-  "inlay_hints": {
-    "enabled": true,
-    "show_value_hints": true,
-    "show_type_hints": true,
-    "show_parameter_hints": false,
-    "show_other_hints": false,
-    "edit_debounce_ms": 700,
-    "scroll_debounce_ms": 50,
-    "toggle_on_modifiers_press": {
-      "control": true,
-      "alt": false,
-      "shift": false,
-      "platform": false,
-      "function": false,
-    },
-  },
   "toolbar": {
-    "breadcrumbs": true,
-    "quick_actions": true,
+    "breadcrumbs": false,
+    "quick_actions": false,
   },
   "tabs": {
-    "show_diagnostics": "errors",
+    "show_diagnostics": "all",
     "git_status": true,
     "file_icons": true,
+    "activate_on_close": null,
   },
-  "git": { "inline_blame": { "enabled": false } },
+  "agent": {
+    "expand_edit_card": false,
+    "expand_terminal_card": false,
+    "message_editor_min_lines": 4,
+    "dock": "left",
+    "default_width": 800,
+  },
   "telemetry": {
     "metrics": false,
   },
   "vim_mode": true,
   "base_keymap": "VSCode",
   "relative_line_numbers": "enabled",
-  "icon_theme": "Catppuccin Macchiato",
-  "ui_font_size": 17,
-  "buffer_font_size": 16,
+  "icon_theme": "Symbols Icon Theme",
+  "ui_font_size": 15,
+  "buffer_font_size": 14,
   "theme": {
     "mode": "dark",
     "light": "Gruvbox Light",
-    "dark": "Nordic Syntax",
+    "dark": "Nordic Blur",
+  },
+
+  "indent_guides": {
+    "enabled": false,
   },
   "show_edit_predictions": false,
+  "selection_highlight": false,
   "cursor_blink": false,
-  "always_treat_brackets_as_autoclosed": true,
+  "inline_code_actions": false,
   "file_finder": {
     "file_icons": true,
-    "modal_max_width": "small",
+    "skip_focus_for_active_in_search": true,
+    "modal_max_width": "medium",
   },
-  "colorize_brackets": true,
+  // "colorize_brackets": true,
+  "close_on_file_delete": true,
+  "confirm_quit": true,
+  "hide_mouse": "on_typing",
+  "extend_comment_on_newline": false,
+  "centered_layout": {
+    "left_padding": 0.1,
+    "right_padding": 0.1,
+  },
   "scrollbar": {
     "axes": {
       "horizontal": false,
       "vertical": false,
     },
   },
+  "active_pane_modifiers": {
+    "border_size": 1,
+    "inactive_opacity": 0.8,
+  },
+
+  // lsps
+  "lsp": {
+    "typescript-language-server": {
+      "settings": {
+        "typescript": {
+          "updateImportsOnFileMove": { "enabled": "always" },
+          "tsserver": { "maxTsServerMemory": 10000 },
+        },
+        "javascript": {
+          "updateImportsOnFileMove": { "enabled": "always" },
+          "tsserver": { "maxTsServerMemory": 10000 },
+        },
+      },
+    },
+    "eslint": {
+      "settings": {
+        "run": "onSave",
+        "workingDirectory": { "mode": "auto" },
+        "experimental": { "useFlatConfig": false },
+      },
+    },
+  },
+  "languages": {
+    "TypeScript": {
+      "show_edit_predictions": false,
+      "language_servers": ["!vtsls", "typescript-language-server", "eslint"],
+    },
+    "TSX": {
+      "language_servers": ["!vtsls", "typescript-language-server", "eslint"],
+    },
+    "JavaScript": {
+      "language_servers": ["!vtsls", "typescript-language-server", "eslint"],
+    },
+  },
+  "format_on_save": "on",
 }
