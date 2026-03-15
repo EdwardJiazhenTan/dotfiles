@@ -8,7 +8,7 @@ EVENT=$(gws calendar events list --params "{\"calendarId\": \"primary\", \"timeM
   ] | .[0] // empty')
 
 if [ -z "$EVENT" ]; then
-  sketchybar --set $NAME label="No events"
+  sketchybar --set "$NAME" label="No events"
   exit 0
 fi
 
@@ -22,8 +22,8 @@ else
 fi
 
 LABEL="${TIME} ${SUMMARY}"
-if [ ${#LABEL} -gt 40 ]; then
-  LABEL="${LABEL:0:37}..."
-fi
 
-sketchybar --set $NAME label="$LABEL"
+CURRENT=$(sketchybar --query "$NAME" 2>/dev/null | jq -r '.label.value // empty')
+if [ "$CURRENT" != "$LABEL" ]; then
+  sketchybar --set "$NAME" label="$LABEL"
+fi

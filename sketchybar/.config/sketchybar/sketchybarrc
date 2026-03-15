@@ -53,6 +53,8 @@ sketchybar --add item mail left \
 sketchybar --add item calendar q \
   --set calendar \
   icon="󰃭" \
+  label.max_chars=20 \
+  label.scroll_texts=on \
   update_freq=60 \
   script="$PLUGIN_DIR/calendar.sh"
 
@@ -66,7 +68,9 @@ sketchybar --add item clock e \
 
 sketchybar --add item audio_device right \
   --set audio_device \
-  icon="󰓃" \
+  icon="" \
+  label.max_chars=25 \
+  label.scroll_texts=on \
   update_freq=5 \
   script="$PLUGIN_DIR/audio_device.sh" \
   --subscribe audio_device volume_change

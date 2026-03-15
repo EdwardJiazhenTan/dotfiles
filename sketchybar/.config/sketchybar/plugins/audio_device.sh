@@ -1,17 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Get current audio output device
-DEVICE=$(SwitchAudioSource -c 2>/dev/null || echo "Unknown")
-
-case "$DEVICE" in
-  *"MacBook Pro Speakers"*) LABEL="MBP" ;;
-  *"张可儿Olivia的AirPods"*) LABEL="AirPods" ;;
-  *"HK SoundStick 4"*) LABEL="HK" ;;
-  "Unknown") LABEL="?" ;;
-  *) LABEL="$DEVICE" ;;
-esac
-
 # Check if Spotify has a track (playing or paused)
 STATE=$(osascript -e 'tell application "Spotify" to player state as string' 2>/dev/null || echo "stopped")
 
@@ -27,14 +16,15 @@ if [ "$STATE" = "playing" ] || [ "$STATE" = "paused" ]; then
     MEDIA=""
   fi
 
-  if [ ${#MEDIA} -gt 50 ]; then
-    MEDIA="${MEDIA:0:47}..."
-  fi
-
   if [ -n "$MEDIA" ]; then
-    sketchybar --set "$NAME" label="$LABEL | $MEDIA" 2>/dev/null || true
+    CURRENT=$(sketchybar --query "$NAME" 2>/dev/null | jq -r '.label.value // empty')
+    if [ "$CURRENT" != "$MEDIA" ]; then
+      sketchybar --set "$NAME" label="$MEDIA" drawing=on 2>/dev/null || true
+    elif [ "$(sketchybar --query "$NAME" 2>/dev/null | jq -r '.geometry.drawing // empty')" != "on" ]; then
+      sketchybar --set "$NAME" drawing=on 2>/dev/null || true
+    fi
     exit 0
   fi
 fi
 
-sketchybar --set "$NAME" label="$LABEL" 2>/dev/null || true
+sketchybar --set "$NAME" drawing=off 2>/dev/null || true
