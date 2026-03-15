@@ -1,13 +1,20 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
-data=$("$PLUGIN_DIR/system_data.sh")
+PAGES=$(vm_stat 2>/dev/null | awk '
+  /Pages active/   { active = $3 }
+  /Pages wired/    { wired = $4 }
+  /Pages compressed/ { compressed = $3 }
+  END { gsub(/\./, "", active); gsub(/\./, "", wired); gsub(/\./, "", compressed); print active + wired + compressed }
+')
 
-mem_usage=$(echo "$data" | grep -o '"mem_usage":[[:space:]]*"[0-9.]*"' | grep -o '[0-9.]*')
+TOTAL=$(sysctl -n hw.memsize 2>/dev/null)
+PAGE_SIZE=16384
 
-if [ -n "$mem_usage" ]; then
-  sketchybar --set "$NAME" label="${mem_usage}%" drawing=on
+if [ -n "$PAGES" ] && [ -n "$TOTAL" ]; then
+  USED_BYTES=$((PAGES * PAGE_SIZE))
+  PCT=$(awk "BEGIN {printf \"%.0f\", ($USED_BYTES / $TOTAL) * 100}")
+  sketchybar --set "$NAME" label="${PCT}%" 2>/dev/null || true
 else
-  sketchybar --set "$NAME" drawing=off
+  sketchybar --set "$NAME" label="?" 2>/dev/null || true
 fi

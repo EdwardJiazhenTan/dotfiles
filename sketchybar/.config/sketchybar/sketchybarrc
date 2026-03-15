@@ -26,36 +26,21 @@ default=(
 sketchybar --default "${default[@]}"
 
 ##### Left Side Items #####
-sketchybar --add item apple_icon left \
-  --set apple_icon \
-  icon=󰀵 \
+sketchybar --add item workspace left \
+  --subscribe workspace aerospace_workspace_change \
+  --set workspace \
+  script="$PLUGIN_DIR/workspace.sh"
 
-sketchybar --add item aerospace left \
-  --subscribe aerospace aerospace_workspace_change \
-  --set aerospace \
-  script="$PLUGIN_DIR/aerospace.sh"
-
-# sketchybar --add item input_method left \
-#   --set input_method \
-#   icon=󰌌 \
-#   update_freq=3 \
-#   script="$PLUGIN_DIR/input_method.sh"
-
-sketchybar --add item front_app left \
-  --set front_app \
-  icon=">" \
-  script="$PLUGIN_DIR/front_app.sh" \
-  --subscribe front_app front_app_switched
 
 sketchybar --add item slack left \
   --set slack \
-  icon="" \
+  icon="󰒱" \
   update_freq=20 \
   script="$PLUGIN_DIR/slack.sh" \
 
 sketchybar --add item github left \
   --set github \
-  icon="" \
+  icon="" \
   update_freq=60 \
   script="$PLUGIN_DIR/github.sh" \
 
@@ -65,9 +50,15 @@ sketchybar --add item mail left \
   update_freq=30 \
   script="$PLUGIN_DIR/mail.sh" \
 
+sketchybar --add item calendar q \
+  --set calendar \
+  icon="󰃭" \
+  update_freq=60 \
+  script="$PLUGIN_DIR/calendar.sh"
+
 
 ##### Right Side Items #####
-sketchybar --add item clock right \
+sketchybar --add item clock e \
   --set clock \
   icon="󰔠" \
   update_freq=10 \
@@ -76,6 +67,7 @@ sketchybar --add item clock right \
 sketchybar --add item audio_device right \
   --set audio_device \
   icon="󰓃" \
+  update_freq=5 \
   script="$PLUGIN_DIR/audio_device.sh" \
   --subscribe audio_device volume_change
 
@@ -91,28 +83,10 @@ sketchybar --add item battery right \
   script="$PLUGIN_DIR/battery.sh" \
   --subscribe battery system_woke power_source_change
 
-sketchybar --add item now_playing right \
-  --set now_playing \
-  icon="󰎆" \
-  update_freq=5 \
-  script="$PLUGIN_DIR/now_playing.sh"
-
-# sketchybar --add item cpu right \
-#   --set cpu \
-#   icon="󰻠" \
-#   update_freq=10 \
-#   script="$PLUGIN_DIR/cpu.sh"
-
-# sketchybar --add item memory right \
-#   --set memory \
-#   icon="" \
-#   update_freq=10 \
-#   script="$PLUGIN_DIR/memory.sh"
-
-# sketchybar --add item cpu_temp right \
-#   --set cpu_temp \
-#   icon="" \
-#   update_freq=10 \
-#   script="$PLUGIN_DIR/cpu_temp.sh"
+sketchybar --add item memory right \
+  --set memory \
+  icon="󰍛" \
+  update_freq=10 \
+  script="$PLUGIN_DIR/memory.sh"
 
 sketchybar --update
