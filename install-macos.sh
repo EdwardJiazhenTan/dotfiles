@@ -43,15 +43,6 @@ else
     log_success "Homebrew already installed"
 fi
 
-# Install GNU Stow
-if ! command -v stow &> /dev/null; then
-    log_info "Installing GNU Stow..."
-    brew install stow
-    log_success "GNU Stow installed"
-else
-    log_success "GNU Stow already installed"
-fi
-
 # Install required applications
 log_info "Installing required applications..."
 
@@ -232,47 +223,36 @@ backup_if_exists() {
 }
 
 log_info "Backing up existing configurations..."
-backup_if_exists "$HOME/.config/kitty"
-backup_if_exists "$HOME/.config/nvim"
-backup_if_exists "$HOME/.config/tmux"
-backup_if_exists "$HOME/.tmux.conf"
-backup_if_exists "$HOME/.config/zed"
-backup_if_exists "$HOME/.config/aerospace"
-backup_if_exists "$HOME/.config/karabiner"
-backup_if_exists "$HOME/.config/sketchybar"
-backup_if_exists "$HOME/.config/fastfetch"
+mkdir -p "$HOME/.config"
+for item in "$SCRIPT_DIR/.config"/*; do
+    backup_if_exists "$HOME/.config/$(basename "$item")"
+done
 backup_if_exists "$HOME/.zshrc"
 
-# Stow configurations
-log_info "Symlinking configurations using GNU Stow..."
+# Symlink configurations
+log_info "Symlinking configurations..."
 
-stow_package() {
-    local package="$1"
-    if [ -d "$package" ]; then
-        log_info "Stowing $package..."
-        stow -v "$package" 2>&1 | grep -v "BUG in find_stowed_path" || true
-        log_success "$package stowed"
-    else
-        log_warning "Package $package not found, skipping..."
-    fi
-}
+# Symlink each entry in .config/
+for item in "$SCRIPT_DIR/.config"/*; do
+    name="$(basename "$item")"
+    ln -sfn "$item" "$HOME/.config/$name"
+    log_success "Linked .config/$name"
+done
 
-# Stow all packages
-stow_package "kitty"
-stow_package "nvim"
-stow_package "tmux"
-stow_package "zed"
-stow_package "aerospace"
-stow_package "karabiner"
-stow_package "sketchybar"
-stow_package "spicetify"
-stow_package "fastfetch"
-stow_package "zsh"
+# Home-level files
+ln -sf "$SCRIPT_DIR/.zshrc" "$HOME/.zshrc"
+log_success "Linked .zshrc"
+
+# Claude commands and settings (into existing ~/.claude/)
+mkdir -p "$HOME/.claude"
+ln -sfn "$SCRIPT_DIR/.claude/commands" "$HOME/.claude/commands"
+ln -sf "$SCRIPT_DIR/.claude/settings.json" "$HOME/.claude/settings.json"
+log_success "Linked .claude/commands and settings.json"
 
 # Install Tmux Plugin Manager (TPM) if not installed
-if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
+if [ ! -d "$HOME/.config/tmux/plugins/tpm" ]; then
     log_info "Installing Tmux Plugin Manager (TPM)..."
-    git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+    git clone https://github.com/tmux-plugins/tpm "$HOME/.config/tmux/plugins/tpm"
     log_success "TPM installed. Press prefix + I in tmux to install plugins"
 else
     log_success "TPM already installed"

@@ -41,7 +41,13 @@ temp/
 .zsh_sessions/
 
 # Karabiner automatic backups
-karabiner/.config/karabiner/automatic_backups/
+.config/karabiner/automatic_backups/
+
+# Tmux plugins (managed by TPM)
+.config/tmux/plugins/
+
+# Zed database files
+.config/zed/prompts/
 
 # Homebrew
 Brewfile.lock.json

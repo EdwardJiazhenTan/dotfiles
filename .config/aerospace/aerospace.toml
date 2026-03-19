@@ -1,0 +1,143 @@
+
+after-login-command = []
+after-startup-command = ['exec-and-forget sketchybar']
+# Exec commands on workspace change (async to prevent blocking/freezing)
+exec-on-workspace-change = ['/bin/bash', '-c',
+    'sketchybar --trigger aerospace_workspace_change &'
+]
+
+# Start AeroSpace at login
+start-at-login = true
+
+# Prevent WindowServer deadlock when using mouse to focus windows
+# These callbacks tell AeroSpace how to handle focus changes triggered by mouse clicks
+# This prevents the circular dependency: WindowServer waits for AeroSpace, AeroSpace waits for WindowServer
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+on-focus-changed = ['move-mouse window-lazy-center']
+
+# Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+# See: https://nikitabobko.github.io/AeroSpace/guide#layouts
+# The 'accordion-padding' specifies the size of accordion padding
+accordion-padding = 20
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'auto'
+key-mapping.preset = 'qwerty'
+
+# Assign workspaces to monitors (P, M, X to retina display by default)
+[workspace-to-monitor-force-assignment]
+P = 'Built-in Retina Display'
+M = 'Built-in Retina Display'
+X = 'Built-in Retina Display'
+A = 'Built-in Retina Display'
+S = 'Built-in Retina Display'
+
+# Gaps between windows (inner-*) and between monitor edges (outer-*).
+# Possible values:
+# - Constant:     gaps.outer.top = 8
+# - Per monitor:  gaps.outer.top = [{ monitor.main = 16 }, { monitor."some-pattern" = 32 }, 24]
+#                 In this example, 24 is a default value when there is no match.
+#                 Monitor pattern is the same as for 'workspace-to-monitor-force-assignment'.
+#                 See: https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
+[gaps]
+inner.horizontal = 5
+inner.vertical =   5
+outer.left =       5
+outer.bottom =     5
+outer.top =        [{ monitor.'^(?!Built-in)' = 38 }, 5]  # 38 for external, 5 for built-in
+outer.right =      5
+
+# 'main' binding mode declaration
+# See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
+# 'main' binding mode must be always presented
+[mode.main.binding]
+
+# Layout switching
+cmd-alt-shift-ctrl-space = 'layout floating tiling'
+cmd-alt-shift-ctrl-f = 'fullscreen'
+cmd-alt-shift-ctrl-tab = 'layout tiles horizontal vertical'
+cmd-alt-shift-ctrl-z = 'layout accordion horizontal vertical'
+# Move between windows seamlessly across monitors (hyper + hjkl)
+cmd-shift-h = 'focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors left'
+cmd-shift-j = 'focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors down'
+cmd-shift-k = 'focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors up'
+cmd-shift-l = 'focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors right'
+
+# Join windows for hybrid tiling (alt + hjkl)
+# alt-h = 'join-with left'
+# alt-j = 'join-with down'
+# alt-k = 'join-with up'
+# alt-l = 'join-with right'
+
+# Window resizing
+cmd-shift-d = 'resize smart -50'
+cmd-shift-f = 'resize smart +50'
+
+# Enter resize mode (hyper + r)
+cmd-alt-shift-ctrl-r = 'mode resize'
+
+# Workspace navigation (letter-based)
+# T=Terminal, A=AI, M=Media, W=Work, C=Coding, X=Extra, P=Productivity, S=Social, G=Gaming, V=Video
+cmd-alt-shift-ctrl-t = 'workspace T'
+cmd-alt-shift-ctrl-a = 'workspace A'
+cmd-alt-shift-ctrl-m = 'workspace M'
+cmd-alt-shift-ctrl-w = 'workspace W'
+cmd-alt-shift-ctrl-c = 'workspace C'
+cmd-alt-shift-ctrl-x = 'workspace X'
+cmd-alt-shift-ctrl-p = 'workspace P'
+cmd-alt-shift-ctrl-s = 'workspace S'
+cmd-alt-shift-ctrl-g = 'workspace G'
+cmd-alt-shift-ctrl-v = 'workspace V'
+
+# Move window to workspace (use resize mode: Hyper+R then letter)
+
+# Close window
+cmd-q = 'close'
+# Reload config
+cmd-shift-r = 'reload-config'
+# Workspace back and forth
+cmd-tab = 'workspace-back-and-forth'
+
+# Move workspace to next monitor (cycle through monitors)
+cmd-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+
+# Resize mode - Use hyper+r to enter, d/f to resize, workspace letters to move window
+[mode.resize.binding]
+# Window resizing (matches Karabiner symbol layer)
+# d = expand window, f = shrink window
+d = 'resize smart +50'        # Expand focused window
+f = 'resize smart -50'        # Shrink focused window
+
+# Larger adjustments
+shift-d = 'resize smart +100' # Expand focused window (large)
+shift-f = 'resize smart -100' # Shrink focused window (large)
+
+# Utility commands
+equal = 'balance-sizes'       # Balance all window sizes equally
+
+# Move window to workspace (and follow)
+t = ['move-node-to-workspace T', 'workspace T', 'mode main']
+a = ['move-node-to-workspace A', 'workspace A', 'mode main']
+m = ['move-node-to-workspace M', 'workspace M', 'mode main']
+w = ['move-node-to-workspace W', 'workspace W', 'mode main']
+c = ['move-node-to-workspace C', 'workspace C', 'mode main']
+x = ['move-node-to-workspace X', 'workspace X', 'mode main']
+p = ['move-node-to-workspace P', 'workspace P', 'mode main']
+s = ['move-node-to-workspace S', 'workspace S', 'mode main']
+g = ['move-node-to-workspace G', 'workspace G', 'mode main']
+v = ['move-node-to-workspace V', 'workspace V', 'mode main']
+
+# Exit resize mode
+esc = 'mode main'
+enter = 'mode main'
+
+# Add this section to force Simulator into tiling mode
+[[on-window-detected]]
+if.app-id = 'com.apple.iphonesimulator'
+run = ['layout tiling']
+
+[[on-window-detected]]
+if.app-id = 'com.valvesoftware.steam'
+run = ['layout tiling']
