@@ -28,56 +28,24 @@
                         ]
                     },
                     {
-                        "description": "Change caps_lock to control. if pressed with other keys, to escape if pressed alone.",
+                        "description": "Change caps_lock to control",
                         "manipulators": [
                             {
-                                "conditions": [
-                                    {
-                                        "name": "symbol_layer_active",
-                                        "type": "variable_if",
-                                        "value": 0
-                                    }
-                                ],
                                 "from": {
                                     "key_code": "caps_lock",
                                     "modifiers": { "optional": ["any"] }
                                 },
                                 "to": [{ "key_code": "left_control" }],
-                                "to_if_alone": [{ "key_code": "escape" }],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "name": "symbol_layer_active",
-                                        "type": "variable_if",
-                                        "value": 0
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "left_control",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "to": [{ "key_code": "left_control" }],
-                                "to_if_alone": [{ "key_code": "escape" }],
                                 "type": "basic"
                             }
                         ]
                     },
                     {
-                        "description": "Semicolon: hold-down symbol layer key",
+                        "description": "Left Command: hold-down symbol layer key",
                         "manipulators": [
                             {
-                                "conditions": [
-                                    {
-                                        "name": "number_layer_active",
-                                        "type": "variable_if",
-                                        "value": 0
-                                    }
-                                ],
                                 "from": {
-                                    "key_code": "semicolon",
-                                    "modifiers": { "optional": ["any"] }
+                                    "key_code": "left_command"
                                 },
                                 "to": [
                                     {
@@ -117,81 +85,6 @@
                     {
                         "description": "Symbol Layer: Complete Layout",
                         "manipulators": [
-                            {
-                                "conditions": [
-                                    {
-                                        "name": "symbol_layer_active",
-                                        "type": "variable_if",
-                                        "value": 1
-                                    }
-                                ],
-                                "from": { "key_code": "caps_lock" },
-                                "to": [
-                                    {
-                                        "key_code": "semicolon",
-                                        "modifiers": ["shift"]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "name": "symbol_layer_active",
-                                        "type": "variable_if",
-                                        "value": 1
-                                    }
-                                ],
-                                "from": { "key_code": "left_shift" },
-                                "to": [{ "key_code": "semicolon" }],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "name": "symbol_layer_active",
-                                        "type": "variable_if",
-                                        "value": 1
-                                    }
-                                ],
-                                "from": { "key_code": "right_shift" },
-                                "to": [{ "key_code": "semicolon" }],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "name": "symbol_layer_active",
-                                        "type": "variable_if",
-                                        "value": 1
-                                    }
-                                ],
-                                "from": { "key_code": "left_control" },
-                                "to": [
-                                    {
-                                        "key_code": "semicolon",
-                                        "modifiers": ["shift"]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "name": "symbol_layer_active",
-                                        "type": "variable_if",
-                                        "value": 1
-                                    }
-                                ],
-                                "from": { "key_code": "right_control" },
-                                "to": [
-                                    {
-                                        "key_code": "semicolon",
-                                        "modifiers": ["shift"]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
                             {
                                 "conditions": [
                                     {
@@ -1859,6 +1752,52 @@
                         ]
                     },
                     {
+                        "description": "Tab to Left Option",
+                        "manipulators": [
+                            {
+                                "from": { "key_code": "tab" },
+                                "to": [{ "key_code": "left_option" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Left Option to Tab",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "left_option",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "key_code": "tab" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Right Shift to Command",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "right_shift",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "key_code": "right_command" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "[ to Escape",
+                        "manipulators": [
+                            {
+                                "from": { "key_code": "open_bracket" },
+                                "to": [{ "key_code": "escape" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "Quote key to Cmd+Tab (for window focus switching)",
                         "manipulators": [
                             {
@@ -1867,22 +1806,6 @@
                                     {
                                         "key_code": "tab",
                                         "modifiers": ["left_command"]
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "[ to screenshot selection (Cmd+Shift+4)",
-                        "enabled": false,
-                        "manipulators": [
-                            {
-                                "from": { "key_code": "open_bracket" },
-                                "to": [
-                                    {
-                                        "key_code": "4",
-                                        "modifiers": ["left_command", "left_shift"]
                                     }
                                 ],
                                 "type": "basic"
