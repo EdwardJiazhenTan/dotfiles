@@ -8,6 +8,7 @@ fi
 # Editor
 export EDITOR='zed'
 export VISUAL='nvim'
+export ENABLE_IDE_INTEGRATION=true
 
 # Global Paths
 export PATH="$HOME/.local/bin:$PATH"
@@ -47,7 +48,10 @@ if [[ -o interactive ]]; then
     fi
 
     # Zoxide & FZF
-    command -v zoxide &>/dev/null && eval "$(zoxide init zsh)"
+    if command -v zoxide &>/dev/null; then
+        eval "$(zoxide init zsh)"
+        z() { __zoxide_z "$@" && lsd --tree --depth 1; }
+    fi
     if command -v fzf &>/dev/null; then
         source "$BREW_PREFIX/opt/fzf/shell/key-bindings.zsh"
         source "$BREW_PREFIX/opt/fzf/shell/completion.zsh"
@@ -84,24 +88,17 @@ export CPPFLAGS="-I/opt/homebrew/opt/openjdk@17/include"
 export ANDROID_HOME=$HOME/Library/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+ndiff() {
+  if [[ $# -eq 0 ]]; then
+    nvim -c "DiffviewOpen"
+  else
+    nvim -c "DiffviewOpen $1...HEAD --imply-local"
+  fi
+}
+
 alias nx='pnpm nx'
 alias sand='nx start sandbox'
 alias se='nx setup environment'
 export NX_TUI=false
 
-# Git worktree helpers
-wt() {
-  local root=$(git rev-parse --show-toplevel)
-  if git show-ref --verify --quiet refs/heads/$1; then
-    git worktree add $root/.worktrees/$1 $1
-  elif git show-ref --verify --quiet refs/remotes/origin/$1; then
-    git worktree add $root/.worktrees/$1 $1
-  else
-    git fetch origin develop && git worktree add -b $1 $root/.worktrees/$1 origin/develop
-  fi && ln -s $root/node_modules $root/.worktrees/$1/node_modules && cd $root/.worktrees/$1
-}
-rwt() {
-  local root=$(git worktree list | head -1 | awk '{print $1}')
-  local current=$(pwd)
-  cd $root && git worktree remove $current
-}

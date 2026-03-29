@@ -138,6 +138,8 @@ enter = 'mode main'
 if.app-id = 'com.apple.iphonesimulator'
 run = ['layout tiling']
 
+
 [[on-window-detected]]
-if.app-id = 'com.valvesoftware.steam'
-run = ['layout tiling']
+if.app-id = 'com.apple.finder'
+run = ['layout floating']
+

@@ -26,6 +26,9 @@ keymap.set("n", "<A-i>", function()
   Snacks.toggle.inlay_hints():toggle()
 end, { desc = "Toggle inlay hints" })
 
+-- open oil with -
+keymap.set("n", "-", "<cmd>Oil<CR>")
+
 -- visual mode mappings
 keymap.set("v", "<", "<gv", { desc = "Indent left and reselect" })
 keymap.set("v", ">", ">gv", { desc = "Indent right and reselect" })

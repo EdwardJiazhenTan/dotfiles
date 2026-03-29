@@ -7,18 +7,13 @@ return {
     config = function()
       require("nordic").setup({
         transparent = {
-          bg = true,
-          float = true,
+          bg = false,
+          float = false,
         },
       })
       require("nordic").load()
       vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#ebcb8b", bold = true })
-      vim.api.nvim_set_hl(0, "LineNr", { fg = "#ebcb8b" })
-      -- Diff highlights: transparent bg strips these, so set explicitly
-      vim.api.nvim_set_hl(0, "DiffAdd", { bg = "#1e3a28", fg = "NONE" })
-      vim.api.nvim_set_hl(0, "DiffDelete", { bg = "#3a1e22", fg = "NONE" })
-      vim.api.nvim_set_hl(0, "DiffChange", { bg = "#1e2a3a", fg = "NONE" })
-      vim.api.nvim_set_hl(0, "DiffText", { bg = "#2a3f5a", fg = "NONE", bold = true })
+      vim.api.nvim_set_hl(0, "LineNr", { fg = "#4c566a" })
     end,
   },
 
@@ -126,13 +121,6 @@ return {
         extensions = { "aerial" },
       })
     end,
-  },
-
-  {
-    "folke/snacks.nvim",
-    opts = {
-      indent = { enabled = false },
-    },
   },
 
   { "nvim-mini/mini.icons" },

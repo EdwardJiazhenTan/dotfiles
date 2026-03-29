@@ -1,5 +1,8 @@
 -- Editor enhancement plugins: navigation, terminal, file finding, etc.
 return {
+  -- Disable markdown auto-rendering (provided by lazyvim markdown extra)
+  { "MeanderingProgrammer/render-markdown.nvim", enabled = false },
+
   -- Surround text objects
   {
     "kylechui/nvim-surround",
@@ -32,6 +35,141 @@ return {
     },
   },
 
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    ---@type Flash.Config
+    opts = {},
+    keys = {
+      {
+        "s",
+        mode = { "n", "x", "o" },
+        function()
+          require("flash").jump()
+        end,
+        desc = "Flash",
+      },
+      {
+        "S",
+        mode = { "n", "x", "o" },
+        function()
+          require("flash").treesitter()
+        end,
+        desc = "Flash Treesitter",
+      },
+      {
+        "r",
+        mode = "o",
+        function()
+          require("flash").remote()
+        end,
+        desc = "Remote Flash",
+      },
+      {
+        "R",
+        mode = { "o", "x" },
+        function()
+          require("flash").treesitter_search()
+        end,
+        desc = "Treesitter Search",
+      },
+      {
+        "<c-s>",
+        mode = { "c" },
+        function()
+          require("flash").toggle()
+        end,
+        desc = "Toggle Flash Search",
+      },
+    },
+  },
+
+  {
+    "wasabeef/yank-for-claude.nvim",
+    config = function()
+      require("yank-for-claude").setup()
+    end,
+    keys = {
+      -- Reference only
+      {
+        "<leader>y",
+        function()
+          require("yank-for-claude").yank_visual()
+        end,
+        mode = "v",
+        desc = "Yank for Claude",
+      },
+      {
+        "<leader>y",
+        function()
+          require("yank-for-claude").yank_line()
+        end,
+        mode = "n",
+        desc = "Yank line for Claude",
+      },
+
+      -- Reference + Code
+      {
+        "<leader>Y",
+        function()
+          require("yank-for-claude").yank_visual_with_content()
+        end,
+        mode = "v",
+        desc = "Yank with content",
+      },
+      {
+        "<leader>Y",
+        function()
+          require("yank-for-claude").yank_line_with_content()
+        end,
+        mode = "n",
+        desc = "Yank line with content",
+      },
+    },
+  },
+
+  {
+    "stevearc/oil.nvim",
+    ---@module 'oil'
+    ---@type oil.SetupOpts
+    opts = {},
+    -- Optional dependencies
+    dependencies = { { "nvim-mini/mini.icons", opts = {} } },
+    -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
+    -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
+    lazy = false,
+  },
+
+  {
+    "coder/claudecode.nvim",
+    opts = {
+      diff_opts = {
+        open_in_new_tab = true,
+        hide_terminal_in_new_tab = true,
+      },
+    },
+    keys = {
+      { "<C-,>", "<cmd>ClaudeCodeFocus<cr>", desc = "Claude Code", mode = { "n", "x" } },
+      { "<leader>a", nil, desc = "AI/Claude Code" },
+      { "<leader>ac", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude" },
+      { "<leader>af", "<cmd>ClaudeCodeFocus<cr>", desc = "Focus Claude" },
+      { "<leader>ar", "<cmd>ClaudeCode --resume<cr>", desc = "Resume Claude" },
+      { "<leader>aC", "<cmd>ClaudeCode --continue<cr>", desc = "Continue Claude" },
+      { "<leader>am", "<cmd>ClaudeCodeSelectModel<cr>", desc = "Select Claude model" },
+      { "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>", desc = "Add current buffer" },
+      { "<leader>as", "<cmd>ClaudeCodeSend<cr>", mode = "v", desc = "Send to Claude" },
+      {
+        "<leader>as",
+        "<cmd>ClaudeCodeTreeAdd<cr>",
+        desc = "Add file",
+        ft = { "NvimTree", "neo-tree", "oil", "minifiles", "netrw" },
+      },
+      -- Diff management
+      { "<leader>aa", "<cmd>ClaudeCodeDiffAccept<cr>", desc = "Accept diff" },
+      { "<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>", desc = "Deny diff" },
+    },
+  },
+
   -- Trouble diagnostics
   {
     "folke/trouble.nvim",
@@ -59,51 +197,11 @@ return {
     keys = {
       { "<leader>gD", "<cmd>DiffviewOpen<cr>", desc = "Diffview unstaged changes" },
       { "<leader>gH", "<cmd>DiffviewFileHistory %<cr>", desc = "Diffview file history" },
-      { "<leader>gr", "<cmd>DiffviewOpen origin/develop...HEAD --imply-local<cr>", desc = "Diffview review vs develop" },
-    },
-  },
-
-  {
-    "mikavilpas/yazi.nvim",
-    version = "*", -- use the latest stable version
-    event = "VeryLazy",
-    dependencies = {
-      { "nvim-lua/plenary.nvim", lazy = true },
-    },
-    keys = {
       {
-        "<leader>-",
-        mode = { "n", "v" },
-        "<cmd>Yazi<cr>",
-        desc = "Open yazi at the current file",
-      },
-      {
-        -- Open in the current working directory
-        "<leader>cw",
-        "<cmd>Yazi cwd<cr>",
-        desc = "Open the file manager in nvim's working directory",
-      },
-      {
-        "<c-up>",
-        "<cmd>Yazi toggle<cr>",
-        desc = "Resume the last yazi session",
+        "<leader>gr",
+        "<cmd>DiffviewOpen origin/develop...HEAD --imply-local<cr>",
+        desc = "Diffview review vs develop",
       },
     },
-    ---@type YaziConfig | {}
-    opts = {
-      -- if you want to open yazi instead of netrw, see below for more info
-      open_for_directories = false,
-      floating_window_scaling_factor = 1,
-      keymaps = {
-        show_help = "<f1>",
-      },
-    },
-    -- 👇 if you use `open_for_directories=true`, this is recommended
-    init = function()
-      -- mark netrw as loaded so it's not loaded at all.
-      --
-      -- More details: https://github.com/mikavilpas/yazi.nvim/issues/802
-      vim.g.loaded_netrwPlugin = 1
-    end,
   },
 }
