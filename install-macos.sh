@@ -202,8 +202,7 @@ fi
 
 # Install SF Mono Nerd Font for better terminal experience
 log_info "Installing Nerd Fonts..."
-brew tap homebrew/cask-fonts
-brew install --cask font-sf-mono-nerd-font || log_warning "Font already installed or unavailable"
+brew install --cask font-sf-mono-nerd-font-ligaturized || log_warning "Font already installed or unavailable"
 brew install --cask font-jetbrains-mono-nerd-font || log_warning "Font already installed or unavailable"
 
 # Get the directory where this script is located
