@@ -205,6 +205,15 @@ log_info "Installing Nerd Fonts..."
 brew install --cask font-sf-mono-nerd-font-ligaturized || log_warning "Font already installed or unavailable"
 brew install --cask font-jetbrains-mono-nerd-font || log_warning "Font already installed or unavailable"
 
+# GNU Stow
+if ! command -v stow &> /dev/null; then
+    log_info "Installing GNU Stow..."
+    brew install stow
+    log_success "Stow installed"
+else
+    log_success "Stow already installed"
+fi
+
 # Get the directory where this script is located
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "$SCRIPT_DIR"
@@ -221,19 +230,36 @@ backup_if_exists() {
     fi
 }
 
-log_info "Backing up existing configurations..."
 mkdir -p "$HOME/.config"
-for item in "$SCRIPT_DIR/.config"/*; do
-    backup_if_exists "$HOME/.config/$(basename "$item")"
+mkdir -p "$HOME/.claude"
+
+# Stow named packages (subdirs with a .config/ inside)
+# Collect which .config/ entries are owned by stow packages so we skip them below
+declare -a STOW_OWNED_CONFIGS=()
+for pkg_dir in "$SCRIPT_DIR"/*/; do
+    [ -d "$pkg_dir/.config" ] || continue
+    pkg="$(basename "$pkg_dir")"
+    log_info "Stowing package: $pkg..."
+    stow -d "$SCRIPT_DIR" -t "$HOME" --restow "$pkg"
+    log_success "Stowed $pkg"
+    for cfg in "$pkg_dir/.config"/*/; do
+        STOW_OWNED_CONFIGS+=("$(basename "$cfg")")
+    done
 done
-backup_if_exists "$HOME/.zshrc"
 
-# Symlink configurations
-log_info "Symlinking configurations..."
-
-# Symlink each entry in .config/
+# Symlink root-level .config/ entries (skip any owned by a stow package)
+log_info "Symlinking root-level configs..."
 for item in "$SCRIPT_DIR/.config"/*; do
     name="$(basename "$item")"
+    skip=false
+    for owned in "${STOW_OWNED_CONFIGS[@]}"; do
+        [ "$name" = "$owned" ] && { skip=true; break; }
+    done
+    if $skip; then
+        log_info "Skipping .config/$name (managed by stow package)"
+        continue
+    fi
+    backup_if_exists "$HOME/.config/$name"
     ln -sfn "$item" "$HOME/.config/$name"
     log_success "Linked .config/$name"
 done
@@ -243,7 +269,6 @@ ln -sf "$SCRIPT_DIR/.zshrc" "$HOME/.zshrc"
 log_success "Linked .zshrc"
 
 # Claude commands and settings (into existing ~/.claude/)
-mkdir -p "$HOME/.claude"
 ln -sfn "$SCRIPT_DIR/.claude/commands" "$HOME/.claude/commands"
 ln -sf "$SCRIPT_DIR/.claude/settings.json" "$HOME/.claude/settings.json"
 log_success "Linked .claude/commands and settings.json"
