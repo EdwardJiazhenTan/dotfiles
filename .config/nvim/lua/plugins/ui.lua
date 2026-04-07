@@ -44,7 +44,7 @@ return {
 
       local tmux_theme = {
         normal = {
-          a = { fg = colors.blue, bg = colors.bg, gui = "bold" },
+          a = { fg = colors.purple, bg = colors.bg, gui = "bold" },
           b = { fg = colors.green, bg = colors.bg },
           c = { fg = colors.fg, bg = colors.bg },
           x = { fg = colors.fg, bg = colors.bg },
@@ -67,6 +67,9 @@ return {
         },
       }
 
+      vim.api.nvim_set_hl(0, "StatusLine", { bg = "NONE" })
+      vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "NONE" })
+
       require("lualine").setup({
         options = {
           theme = tmux_theme,
@@ -78,9 +81,6 @@ return {
           lualine_a = {
             {
               "mode",
-              fmt = function(s)
-                return s:sub(1, 1)
-              end,
             },
           },
           lualine_b = {

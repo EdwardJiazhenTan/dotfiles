@@ -47,11 +47,10 @@ if [[ -o interactive ]]; then
         source "$BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
     fi
 
-    # Zoxide & FZF
     if command -v zoxide &>/dev/null; then
-        eval "$(zoxide init zsh)"
-        z() { __zoxide_z "$@" && lsd --tree --depth 1; }
+      eval "$(zoxide init zsh)"
     fi
+
     if command -v fzf &>/dev/null; then
         source "$BREW_PREFIX/opt/fzf/shell/key-bindings.zsh"
         source "$BREW_PREFIX/opt/fzf/shell/completion.zsh"
