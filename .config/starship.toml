@@ -2,17 +2,9 @@
 
 add_newline = true
 
-format = """$cmd_duration\
-$directory\
-$hostname\
-$localip\
-$jobs\
-$sudo\
-$username\
-${custom.gitdiff}\
-$character"""
+format = """$character"""
 
-right_format = """$time"""
+right_format = """$directory$time"""
 
 [character]
 format = "$symbol "

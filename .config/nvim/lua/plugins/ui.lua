@@ -13,7 +13,7 @@ return {
       })
       require("nordic").load()
       vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#ebcb8b", bold = true })
-      vim.api.nvim_set_hl(0, "LineNr", { fg = "#4c566a" })
+      vim.api.nvim_set_hl(0, "LineNr", { fg = "#ffffff" })
     end,
   },
 
@@ -124,4 +124,23 @@ return {
   },
 
   { "nvim-mini/mini.icons" },
+
+  {
+    "akinsho/bufferline.nvim",
+    opts = {
+      options = {
+        show_buffer_icons = false,
+        show_close_icon = false,
+        show_buffer_close_icons = false,
+        diagnostics = false,
+      },
+      highlights = {
+        fill = { bg = "NONE" },
+        separator = { bg = "NONE" },
+        separator_selected = { bg = "NONE" },
+        separator_visible = { bg = "NONE" },
+        indicator_selected = { bg = "NONE" },
+      },
+    },
+  },
 }
