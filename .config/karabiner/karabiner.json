@@ -3,6 +3,7 @@
         {
             "complex_modifications": {
                 "parameters": {
+                    "basic.to_delayed_action_delay_milliseconds": 300,
                     "basic.to_if_alone_timeout_milliseconds": 200,
                     "basic.to_if_held_down_threshold_milliseconds": 150
                 },
@@ -66,8 +67,48 @@
                         ]
                     },
                     {
-                        "description": "Left Command: hold-down symbol layer key",
+                        "description": "Left Command: symbol layer (double-tap → ESC)",
                         "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "left_cmd_tapped",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "left_command"
+                                },
+                                "to": [
+                                    {
+                                        "set_variable": {
+                                            "name": "left_cmd_tapped",
+                                            "value": 0
+                                        }
+                                    },
+                                    {
+                                        "set_variable": {
+                                            "name": "symbol_layer_active",
+                                            "value": 1
+                                        }
+                                    }
+                                ],
+                                "to_if_alone": [
+                                    {
+                                        "key_code": "escape"
+                                    }
+                                ],
+                                "to_after_key_up": [
+                                    {
+                                        "set_variable": {
+                                            "name": "symbol_layer_active",
+                                            "value": 0
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
                             {
                                 "from": {
                                     "key_code": "left_command"
@@ -80,6 +121,14 @@
                                         }
                                     }
                                 ],
+                                "to_if_alone": [
+                                    {
+                                        "set_variable": {
+                                            "name": "left_cmd_tapped",
+                                            "value": 1
+                                        }
+                                    }
+                                ],
                                 "to_after_key_up": [
                                     {
                                         "set_variable": {
@@ -88,6 +137,17 @@
                                         }
                                     }
                                 ],
+                                "to_delayed_action": {
+                                    "to_if_invoked": [
+                                        {
+                                            "set_variable": {
+                                                "name": "left_cmd_tapped",
+                                                "value": 0
+                                            }
+                                        }
+                                    ],
+                                    "to_if_canceled": []
+                                },
                                 "type": "basic"
                             }
                         ]
@@ -1954,8 +2014,48 @@
                         ]
                     },
                     {
-                        "description": "Right Command as Number Layer",
+                        "description": "Right Command: number layer (double-tap → right_command)",
                         "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "right_cmd_tapped",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "right_command"
+                                },
+                                "to": [
+                                    {
+                                        "set_variable": {
+                                            "name": "right_cmd_tapped",
+                                            "value": 0
+                                        }
+                                    },
+                                    {
+                                        "set_variable": {
+                                            "name": "number_layer_active",
+                                            "value": 1
+                                        }
+                                    }
+                                ],
+                                "to_if_alone": [
+                                    {
+                                        "key_code": "right_command"
+                                    }
+                                ],
+                                "to_after_key_up": [
+                                    {
+                                        "set_variable": {
+                                            "name": "number_layer_active",
+                                            "value": 0
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
                             {
                                 "from": {
                                     "key_code": "right_command"
@@ -1968,6 +2068,14 @@
                                         }
                                     }
                                 ],
+                                "to_if_alone": [
+                                    {
+                                        "set_variable": {
+                                            "name": "right_cmd_tapped",
+                                            "value": 1
+                                        }
+                                    }
+                                ],
                                 "to_after_key_up": [
                                     {
                                         "set_variable": {
@@ -1976,6 +2084,17 @@
                                         }
                                     }
                                 ],
+                                "to_delayed_action": {
+                                    "to_if_invoked": [
+                                        {
+                                            "set_variable": {
+                                                "name": "right_cmd_tapped",
+                                                "value": 0
+                                            }
+                                        }
+                                    ],
+                                    "to_if_canceled": []
+                                },
                                 "type": "basic"
                             }
                         ]
