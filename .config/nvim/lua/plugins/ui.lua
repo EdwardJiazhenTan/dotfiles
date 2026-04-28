@@ -14,6 +14,13 @@ return {
       require("nordic").load()
       vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#ebcb8b", bold = true })
       vim.api.nvim_set_hl(0, "LineNr", { fg = "#ffffff" })
+      vim.api.nvim_set_hl(0, "TabLineFill", { bg = "#242933", underline = true, sp = "#4c566a" })
+      vim.api.nvim_set_hl(0, "Visual", { bg = "#4C566A" })
+      vim.api.nvim_set_hl(0, "SnacksPickerFile", { fg = "#4c566a" })
+      vim.api.nvim_set_hl(0, "SnacksPickerDir", { fg = "#4c566a" })
+      vim.api.nvim_set_hl(0, "SnacksPickerMatch", { fg = "#88c0d0", bold = true })
+      vim.api.nvim_set_hl(0, "DiagnosticSignError", { fg = "#BF616A" })
+      vim.api.nvim_set_hl(0, "DiagnosticSignWarn", { fg = "#EBCB8B" })
     end,
   },
 
@@ -133,13 +140,13 @@ return {
         show_close_icon = false,
         show_buffer_close_icons = false,
         diagnostics = false,
+        separator_style = { "", "" },
+        indicator = { style = "none" },
       },
       highlights = {
-        fill = { bg = "NONE" },
-        separator = { bg = "NONE" },
-        separator_selected = { bg = "NONE" },
-        separator_visible = { bg = "NONE" },
-        indicator_selected = { bg = "NONE" },
+        fill = { bg = "#242933" },
+        background = { bg = "#242933" },
+        buffer_selected = { bg = "#242933", bold = true },
       },
     },
   },

@@ -101,3 +101,7 @@ alias sand='nx start sandbox'
 alias se='nx setup environment'
 export NX_TUI=false
 
+export PATH="/Users/etan/downloads/git-fuzzy/bin:$PATH"
+
+# Added by LM Studio CLI tool (lms)
+export PATH="$PATH:/Users/etan/.lmstudio/bin"

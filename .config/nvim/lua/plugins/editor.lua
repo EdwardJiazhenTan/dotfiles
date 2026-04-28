@@ -1,7 +1,36 @@
--- Editor enhancement plugins: navigation, terminal, file finding, etc.
 return {
   -- Disable markdown auto-rendering (provided by lazyvim markdown extra)
-  { "MeanderingProgrammer/render-markdown.nvim", enabled = false },
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    ft = { "markdown", "codecompanion" },
+  },
+
+  -- Snacks picker layout
+  {
+    "folke/snacks.nvim",
+    opts = {
+      picker = {
+        layout = {
+          hidden = { "preview" },
+          layout = {
+            backdrop = false,
+            row = 3,
+            width = 0.5,
+            min_width = 80,
+            max_width = 100,
+            height = 0.4,
+            min_height = 2,
+            box = "vertical",
+            border = "hpad",
+            title = "{title}",
+            title_pos = "center",
+            { win = "input", height = 1, border = { " ", " ", " ", " ", " ", " ", " ", " " } },
+            { win = "list", border = "hpad" },
+          },
+        },
+      },
+    },
+  },
 
   -- Surround text objects
   {
@@ -84,50 +113,7 @@ return {
     },
   },
 
-  {
-    "wasabeef/yank-for-claude.nvim",
-    config = function()
-      require("yank-for-claude").setup()
-    end,
-    keys = {
-      -- Reference only
-      {
-        "<leader>y",
-        function()
-          require("yank-for-claude").yank_visual()
-        end,
-        mode = "v",
-        desc = "Yank for Claude",
-      },
-      {
-        "<leader>y",
-        function()
-          require("yank-for-claude").yank_line()
-        end,
-        mode = "n",
-        desc = "Yank line for Claude",
-      },
-
-      -- Reference + Code
-      {
-        "<leader>Y",
-        function()
-          require("yank-for-claude").yank_visual_with_content()
-        end,
-        mode = "v",
-        desc = "Yank with content",
-      },
-      {
-        "<leader>Y",
-        function()
-          require("yank-for-claude").yank_line_with_content()
-        end,
-        mode = "n",
-        desc = "Yank line with content",
-      },
-    },
-  },
-
+  -- File exploerer
   {
     "stevearc/oil.nvim",
     ---@module 'oil'
@@ -142,36 +128,6 @@ return {
     -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
     -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
     lazy = false,
-  },
-
-  {
-    "coder/claudecode.nvim",
-    opts = {
-      diff_opts = {
-        open_in_new_tab = true,
-        hide_terminal_in_new_tab = true,
-      },
-    },
-    keys = {
-      { "<C-,>", "<cmd>ClaudeCodeFocus<cr>", desc = "Claude Code", mode = { "n", "x" } },
-      { "<leader>a", nil, desc = "AI/Claude Code" },
-      { "<leader>ac", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude" },
-      { "<leader>af", "<cmd>ClaudeCodeFocus<cr>", desc = "Focus Claude" },
-      { "<leader>ar", "<cmd>ClaudeCode --resume<cr>", desc = "Resume Claude" },
-      { "<leader>aC", "<cmd>ClaudeCode --continue<cr>", desc = "Continue Claude" },
-      { "<leader>am", "<cmd>ClaudeCodeSelectModel<cr>", desc = "Select Claude model" },
-      { "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>", desc = "Add current buffer" },
-      { "<leader>as", "<cmd>ClaudeCodeSend<cr>", mode = "v", desc = "Send to Claude" },
-      {
-        "<leader>as",
-        "<cmd>ClaudeCodeTreeAdd<cr>",
-        desc = "Add file",
-        ft = { "NvimTree", "neo-tree", "oil", "minifiles", "netrw" },
-      },
-      -- Diff management
-      { "<leader>aa", "<cmd>ClaudeCodeDiffAccept<cr>", desc = "Accept diff" },
-      { "<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>", desc = "Deny diff" },
-    },
   },
 
   -- Trouble diagnostics
@@ -191,24 +147,7 @@ return {
     },
   },
 
-  -- Diff view for git changes and code review
-  {
-    "sindrets/diffview.nvim",
-    cmd = { "DiffviewOpen", "DiffviewFileHistory", "DiffviewClose" },
-    opts = {
-      enhanced_diff_hl = true,
-    },
-    keys = {
-      { "<leader>gD", "<cmd>DiffviewOpen<cr>", desc = "Diffview unstaged changes" },
-      { "<leader>gH", "<cmd>DiffviewFileHistory %<cr>", desc = "Diffview file history" },
-      {
-        "<leader>gr",
-        "<cmd>DiffviewOpen origin/develop...HEAD --imply-local<cr>",
-        desc = "Diffview review vs develop",
-      },
-    },
-  },
-
+  -- auto format
   {
     "stevearc/conform.nvim",
     event = { "BufWritePre" },
@@ -229,7 +168,10 @@ return {
       -- Define your formatters
       formatters_by_ft = {
         lua = { "stylua" },
-        javascript = { "prettierd", "prettier", stop_after_first = true },
+        javascript = { "eslint_d", "prettierd", "prettier", stop_after_first = false },
+        typescript = { "eslint_d", "prettierd", "prettier", stop_after_first = false },
+        typescriptreact = { "eslint_d", "prettierd", "prettier", stop_after_first = false },
+        javascriptreact = { "eslint_d", "prettierd", "prettier", stop_after_first = false },
       },
       default_format_opts = {
         lsp_format = "fallback",

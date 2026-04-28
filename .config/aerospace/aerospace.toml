@@ -113,23 +113,6 @@ cmd-tab = 'workspace-back-and-forth'
 # Move workspace to next monitor (cycle through monitors)
 cmd-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
-# Focus next monitor (hyper-n). Useful for targeting the other display before switching workspace.
-cmd-alt-shift-ctrl-n = 'focus-monitor --wrap-around next'
-
-# Resize mode - Use hyper+r to enter, d/f to resize, workspace letters to move window
-[mode.resize.binding]
-# Window resizing (matches Karabiner symbol layer)
-# d = expand window, f = shrink window
-d = 'resize smart +50'        # Expand focused window
-f = 'resize smart -50'        # Shrink focused window
-
-# Larger adjustments
-shift-d = 'resize smart +100' # Expand focused window (large)
-shift-f = 'resize smart -100' # Shrink focused window (large)
-
-# Utility commands
-equal = 'balance-sizes'       # Balance all window sizes equally
-
 # Move window to workspace (and follow)
 t = ['move-node-to-workspace T', 'workspace T', 'mode main']
 a = ['move-node-to-workspace A', 'workspace A', 'mode main']

@@ -200,6 +200,42 @@ else
     log_success "zsh-syntax-highlighting already installed"
 fi
 
+# jq (used by Claude Code hooks)
+if ! command -v jq &> /dev/null; then
+    log_info "Installing jq..."
+    brew install jq
+    log_success "jq installed"
+else
+    log_success "jq already installed"
+fi
+
+# Node.js (required for Claude Code CLI and ACP server)
+if ! command -v node &> /dev/null; then
+    log_info "Installing Node.js..."
+    brew install node
+    log_success "Node.js installed"
+else
+    log_success "Node.js already installed"
+fi
+
+# Claude Code CLI
+if ! command -v claude &> /dev/null; then
+    log_info "Installing Claude Code CLI..."
+    npm install -g @anthropic-ai/claude-code
+    log_success "Claude Code CLI installed"
+else
+    log_success "Claude Code CLI already installed"
+fi
+
+# claude-agent-acp (ACP bridge for codecompanion.nvim)
+if ! command -v claude-agent-acp &> /dev/null; then
+    log_info "Installing claude-agent-acp..."
+    npm install -g @agentclientprotocol/claude-agent-acp
+    log_success "claude-agent-acp installed"
+else
+    log_success "claude-agent-acp already installed"
+fi
+
 # Install SF Mono Nerd Font for better terminal experience
 log_info "Installing Nerd Fonts..."
 brew install --cask font-sf-mono-nerd-font-ligaturized || log_warning "Font already installed or unavailable"

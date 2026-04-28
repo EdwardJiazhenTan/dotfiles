@@ -7,6 +7,7 @@ local keymap = vim.keymap -- for conciseness
 
 -- basic keymaps
 keymap.set("i", "jk", "<ESC>", { desc = "Exit insert mode with jk" })
+keymap.set("t", "jk", "<C-\\><C-n>", { desc = "Exit terminal mode with jk" })
 keymap.set("n", "<leader>q", "<cmd>q!<CR>", { desc = "Quit without saving" })
 keymap.set("n", "<leader>w", "<cmd>w<CR>", { desc = "Save file" })
 keymap.set("n", "<leader>wqa", "<cmd>wqa<CR>", { desc = "Save and quit all" })
@@ -23,8 +24,11 @@ keymap.set("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close current split" }
 
 -- toggle inlay hints with Alt-i (reuses LazyVim's Snacks toggle)
 keymap.set("n", "<A-i>", function()
-  Snacks.toggle.inlay_hints():toggle()
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 end, { desc = "Toggle inlay hints" })
+
+-- exit terminal mode with Alt-n
+keymap.set("t", "<A-n>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
 -- open oil with -
 keymap.set("n", "-", "<cmd>Oil<CR>")
