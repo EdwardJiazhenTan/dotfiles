@@ -11,3 +11,5 @@ vim.g.persistence_autoload = false
 -- disable animations
 vim.g.snacks_animate = false
 vim.opt.statuscolumn = ""
+-- Don't conceal markdown markup (**, `, etc.) — keep symbols visible
+vim.opt.conceallevel = 0

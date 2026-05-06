@@ -27,8 +27,8 @@ show_always = false
 
 [directory]
 home_symbol = "~"
-truncation_length = 3
-truncation_symbol = ".../"
+truncation_length = 0
+truncate_to_repo = false
 read_only = " ro"
 use_os_path_sep = true
 style = "italic blue"

@@ -38,6 +38,7 @@ git merge main
 - **nvim** - Neovim text editor configuration
 - **tmux** - Terminal multiplexer
 - **zsh** - Zsh shell configuration
+- **starship** - Shell prompt configuration
 - **spicetify** - Spotify customization
 - **zed** - Zed code editor configuration
 - **fastfetch** - System information tool
@@ -46,6 +47,8 @@ git merge main
 - **aerospace** - Tiling window manager for macOS
 - **sketchybar** - Status bar for macOS
 - **karabiner** - Keyboard customization tool for macOS
+- **ghostty** - GPU-accelerated terminal emulator for macOS
+- **LeaderKey** - Keyboard remapping tool for macOS
 
 > **Note**: You are currently on the `macos` branch with all macOS-specific configurations.
 
@@ -53,9 +56,6 @@ git merge main
 - **hyprland** - Wayland compositor/tiling window manager
 - **waybar** - Status bar for Wayland
 - **hyprpanel** - Panel/bar for Hyprland
-
-> **Note**: You are currently on the `main` branch with shared configs only. 
-> Checkout `macos` or `linux` branch for platform-specific configurations.
 
 ## Developer Workflow
 

@@ -15,6 +15,19 @@ return {
     cmd = { "DiffviewOpen", "DiffviewFileHistory", "DiffviewClose" },
     opts = {
       enhanced_diff_hl = true,
+      view = {
+        default = { layout = "diff2_horizontal" },
+        merge_tool = { layout = "diff3_mixed" },
+        file_history = { layout = "diff2_horizontal" },
+      },
+      file_panel = {
+        listing_style = "list",
+      },
+      hooks = {
+        view_opened = function()
+          vim.cmd("DiffviewToggleFiles")
+        end,
+      },
     },
     keys = {
       { "<leader>gD", "<cmd>DiffviewOpen<cr>", desc = "Diffview unstaged changes" },

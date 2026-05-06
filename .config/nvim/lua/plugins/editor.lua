@@ -1,10 +1,4 @@
 return {
-  -- Disable markdown auto-rendering (provided by lazyvim markdown extra)
-  {
-    "MeanderingProgrammer/render-markdown.nvim",
-    ft = { "markdown", "codecompanion" },
-  },
-
   -- Snacks picker layout
   {
     "folke/snacks.nvim",
@@ -168,10 +162,30 @@ return {
       -- Define your formatters
       formatters_by_ft = {
         lua = { "stylua" },
-        javascript = { "eslint_d", "prettierd", "prettier", stop_after_first = false },
-        typescript = { "eslint_d", "prettierd", "prettier", stop_after_first = false },
-        typescriptreact = { "eslint_d", "prettierd", "prettier", stop_after_first = false },
-        javascriptreact = { "eslint_d", "prettierd", "prettier", stop_after_first = false },
+        javascript = function(bufnr)
+          return require("conform").get_formatter_info("eslint_d", bufnr).available
+              and require("util.eslint").has_flat_config(bufnr)
+              and { "eslint_d", "prettierd", stop_after_first = false }
+            or { "prettierd" }
+        end,
+        typescript = function(bufnr)
+          return require("conform").get_formatter_info("eslint_d", bufnr).available
+              and require("util.eslint").has_flat_config(bufnr)
+              and { "eslint_d", "prettierd", stop_after_first = false }
+            or { "prettierd" }
+        end,
+        typescriptreact = function(bufnr)
+          return require("conform").get_formatter_info("eslint_d", bufnr).available
+              and require("util.eslint").has_flat_config(bufnr)
+              and { "eslint_d", "prettierd", stop_after_first = false }
+            or { "prettierd" }
+        end,
+        javascriptreact = function(bufnr)
+          return require("conform").get_formatter_info("eslint_d", bufnr).available
+              and require("util.eslint").has_flat_config(bufnr)
+              and { "eslint_d", "prettierd", stop_after_first = false }
+            or { "prettierd" }
+        end,
       },
       default_format_opts = {
         lsp_format = "fallback",
@@ -179,6 +193,9 @@ return {
       formatters = {
         shfmt = {
           append_args = { "-i", "2" },
+        },
+        eslint_d = {
+          env = { NODE_NO_WARNINGS = "1" },
         },
       },
     },

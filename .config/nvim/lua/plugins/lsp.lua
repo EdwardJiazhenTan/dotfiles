@@ -25,8 +25,6 @@ return {
         "luacheck",
         "shellcheck",
         "shfmt",
-        "tailwindcss-language-server",
-        "css-lsp",
         "jdtls",
         "checkstyle",
         "eslint_d",

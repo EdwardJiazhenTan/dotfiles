@@ -6,9 +6,12 @@ if [[ -d "/opt/homebrew" ]]; then
 fi
 
 # Editor
-export EDITOR='zed'
+export EDITOR='nvim'
 export VISUAL='nvim'
 export ENABLE_IDE_INTEGRATION=true
+
+# vim mode
+bindkey -v
 
 # Global Paths
 export PATH="$HOME/.local/bin:$PATH"

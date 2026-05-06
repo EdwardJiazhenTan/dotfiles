@@ -21,17 +21,7 @@ return {
       vim.api.nvim_set_hl(0, "SnacksPickerMatch", { fg = "#88c0d0", bold = true })
       vim.api.nvim_set_hl(0, "DiagnosticSignError", { fg = "#BF616A" })
       vim.api.nvim_set_hl(0, "DiagnosticSignWarn", { fg = "#EBCB8B" })
-    end,
-  },
-
-  {
-    "brenoprata10/nvim-highlight-colors",
-    config = function()
-      require("nvim-highlight-colors").setup({
-        render = "background",
-        enable_named_colors = true,
-        enable_tailwind = true,
-      })
+      vim.api.nvim_set_hl(0, "@markup.strong", { fg = "#a3be8c", bold = true })
     end,
   },
 
@@ -77,6 +67,27 @@ return {
       vim.api.nvim_set_hl(0, "StatusLine", { bg = "NONE" })
       vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "NONE" })
 
+      -- CodeCompanion activity indicator (animated spinner while a request is in-flight)
+      local cc_spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
+      local cc_state = { active = false, frame = 1 }
+      vim.api.nvim_create_autocmd("User", {
+        pattern = { "CodeCompanionRequestStarted", "CodeCompanionRequestFinished" },
+        callback = function(args)
+          cc_state.active = args.match == "CodeCompanionRequestStarted"
+        end,
+      })
+      local cc_timer = vim.uv.new_timer()
+      cc_timer:start(0, 100, vim.schedule_wrap(function()
+        if cc_state.active then
+          cc_state.frame = (cc_state.frame % #cc_spinner) + 1
+          require("lualine").refresh()
+        end
+      end))
+      local function cc_status()
+        if not cc_state.active then return "" end
+        return cc_spinner[cc_state.frame] .. " thinking"
+      end
+
       require("lualine").setup({
         options = {
           theme = tmux_theme,
@@ -90,32 +101,19 @@ return {
               "mode",
             },
           },
-          lualine_b = {
-            {
-              "diagnostics",
-              sources = { "nvim_lsp", "nvim_diagnostic" },
-              symbols = { error = " ", warn = " ", info = " ", hint = " " },
-            },
+          lualine_b = {},
+          lualine_c = {
+            { cc_status, color = { fg = colors.purple } },
           },
-          lualine_c = {},
           lualine_x = {},
-          lualine_y = {
+          lualine_y = {},
+          lualine_z = {
             {
-              function()
-                local clients = vim.lsp.get_clients({ bufnr = 0 })
-                if #clients == 0 then
-                  return ""
-                end
-                local names = {}
-                for _, client in ipairs(clients) do
-                  table.insert(names, client.name)
-                end
-                return " " .. table.concat(names, ", ")
-              end,
-              color = { fg = colors.dim },
+              "filename",
+              path = 2,
+              color = { fg = colors.fg },
             },
           },
-          lualine_z = {},
         },
         inactive_sections = {
           lualine_a = { "filename" },

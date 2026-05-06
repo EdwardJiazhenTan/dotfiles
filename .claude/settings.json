@@ -41,7 +41,10 @@
       "Bash(nx reset)",
       "Bash(node *)",
       "Bash(tsc *)",
-      "Bash(npx tsc *)"
+      "Bash(npx tsc *)",
+      "Bash(find *)",
+      "Bash(grep *)",
+      "Bash(ls *)"
     ],
     "ask": [
       "Bash(git push *)",
@@ -72,20 +75,11 @@
   "model": "claude-opus-4-7",
   "enabledPlugins": {
     "typescript-lsp@claude-plugins-official": true,
-    "lua-lsp@claude-plugins-official": true
+    "lua-lsp@claude-plugins-official": true,
+    "nx@nx-claude-plugins": true
   },
   "effortLevel": "medium",
-  "skipAutoPermissionPrompt": true,
   "theme": "dark-daltonized",
   "autoCompactEnabled": false,
-  "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Edit|Write|MultiEdit",
-        "hooks": [
-          { "type": "command", "command": "~/.claude/hooks/nvim-jump.sh" }
-        ]
-      }
-    ]
-  }
+  "skipAutoPermissionPrompt": true
 }

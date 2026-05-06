@@ -61,9 +61,6 @@ alt-l = 'focus --boundaries all-monitors-outer-frame --boundaries-action wrap-ar
 cmd-shift-d = 'resize smart -50'
 cmd-shift-f = 'resize smart +50'
 
-# Enter resize mode (hyper + r)
-cmd-alt-shift-ctrl-r = 'mode resize'
-
 # Workspace navigation (letter-based)
 cmd-alt-shift-ctrl-t = 'workspace T'
 cmd-alt-shift-ctrl-a = 'workspace A'
@@ -110,24 +107,6 @@ cmd-shift-r = 'reload-config'
 # Workspace back and forth
 cmd-tab = 'workspace-back-and-forth'
 
-# Move workspace to next monitor (cycle through monitors)
-cmd-shift-tab = 'move-workspace-to-monitor --wrap-around next'
-
-# Move window to workspace (and follow)
-t = ['move-node-to-workspace T', 'workspace T', 'mode main']
-a = ['move-node-to-workspace A', 'workspace A', 'mode main']
-m = ['move-node-to-workspace M', 'workspace M', 'mode main']
-w = ['move-node-to-workspace W', 'workspace W', 'mode main']
-c = ['move-node-to-workspace C', 'workspace C', 'mode main']
-x = ['move-node-to-workspace X', 'workspace X', 'mode main']
-p = ['move-node-to-workspace P', 'workspace P', 'mode main']
-s = ['move-node-to-workspace S', 'workspace S', 'mode main']
-g = ['move-node-to-workspace G', 'workspace G', 'mode main']
-v = ['move-node-to-workspace V', 'workspace V', 'mode main']
-
-# Exit resize mode
-esc = 'mode main'
-enter = 'mode main'
 
 # Add this section to force Simulator into tiling mode
 [[on-window-detected]]

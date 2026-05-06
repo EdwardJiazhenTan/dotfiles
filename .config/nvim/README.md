@@ -11,28 +11,42 @@ lua/
 │   ├── options.lua   -- vim options / globals
 │   ├── lazy.lua      -- lazy.nvim bootstrap
 │   └── autocmds.lua  -- autocommands
-└── plugins/
-    ├── ui.lua        -- colorscheme, statusline, color highlighting
-    ├── editor.lua    -- navigation, terminal, AI integration
-    ├── lsp.lua       -- LSP, completion, Mason tools
-    └── extra.lua     -- language-specific (Typst)
+├── plugins/
+│   ├── ui.lua        -- colorscheme, statusline, bufferline, color highlighting
+│   ├── editor.lua    -- navigation, file browser, formatting, markdown rendering
+│   ├── agent.lua     -- AI integration (CodeCompanion + Claude Code ACP)
+│   ├── git.lua       -- gitsigns, diffview
+│   ├── lsp.lua       -- LSP, completion, Mason tools
+│   └── extra.lua     -- language-specific (Typst)
+└── util/
+    └── eslint.lua    -- flat-config detection for conform
 ```
 
 ## Plugins
 
 ### UI
 - **nordic.nvim** — Nord-based colorscheme (transparent bg off)
-- **lualine.nvim** — minimal statusline matching tmux Nord palette; shows mode initial + diagnostics + active LSP clients
+- **lualine.nvim** — minimal statusline matching tmux Nord palette
+- **bufferline.nvim** — minimal tab/buffer line, no icons or close buttons
 - **nvim-highlight-colors** — inline color swatches with Tailwind support
+- **mini.icons** — icon provider
 
 ### Editor
-- **oil.nvim** — file browser (`-` to open)
-- **flash.nvim** — jump/treesitter motion (`s` / `S`)
+- **oil.nvim** — file browser (`-` to open), hidden files shown
+- **flash.nvim** — jump/treesitter motion (`s` / `S` / `r` / `R`)
 - **nvim-surround** — surround text objects
 - **vim-tmux-navigator** — `<C-h/j/k/l>` across nvim splits and tmux panes
-- **claudecode.nvim** — Claude Code integration (`<C-,>` / `<leader>a*`)
-- **yank-for-claude.nvim** — yank with file reference for Claude (`<leader>y/Y`)
 - **trouble.nvim** — diagnostics/quickfix panel (`<leader>x*`)
+- **render-markdown.nvim** — markdown rendering for buffers and CodeCompanion chat
+- **snacks.nvim** — picker layout override (top-anchored, preview hidden)
+- **conform.nvim** — formatter (`<leader>f`); ESLint flat-config aware for JS/TS
+
+### Agent
+- **codecompanion.nvim** — CodeCompanion chat using the Claude Code ACP adapter; OAuth token pulled from macOS Keychain (`<leader>a*`)
+- **yank-for-claude.nvim** — yank with file reference for Claude (`<leader>y/Y`)
+
+### Git
+- **gitsigns.nvim** — sign column + inline current-line blame
 - **diffview.nvim** — git diff/history viewer (`<leader>gD/gH/gr`)
 
 ### LSP / Completion
@@ -43,25 +57,3 @@ lua/
 
 ### Extra
 - **typst-preview.nvim** — live Typst preview
-
-## Key Keymaps
-
-| Key | Action |
-|-----|--------|
-| `jk` | Exit insert mode |
-| `<leader>w` | Save |
-| `<leader>q` | Quit (no save) |
-| `<leader>nh` | Clear search highlights |
-| `<leader>sv/sh` | Split vertical/horizontal |
-| `-` | Open Oil (file browser) |
-| `s` / `S` | Flash jump / treesitter |
-| `<C-,>` | Focus Claude Code |
-| `<leader>ac` | Toggle Claude |
-| `<leader>ab` | Add buffer to Claude |
-| `<leader>as` | Send selection to Claude (visual) / add file (file browser) |
-| `<leader>aa/ad` | Accept/deny Claude diff |
-| `<leader>y/Y` | Yank for Claude (reference / with content) |
-| `<A-i>` | Toggle inlay hints |
-| `<leader>gD` | Diffview unstaged |
-| `<leader>gH` | Diffview file history |
-| `<leader>gr` | Diffview review vs `origin/develop` |
