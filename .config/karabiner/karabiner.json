@@ -9,7 +9,63 @@
                 },
                 "rules": [
                     {
-                        "description": "Change caps_lock to control",
+                        "description": "Control keys → Command in GUI apps (stay Control in kitty/Terminal)",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.apple\\.Terminal$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "caps_lock",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "key_code": "left_command" }],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.apple\\.Terminal$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "left_control",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "key_code": "left_command" }],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.apple\\.Terminal$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "right_control",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "key_code": "left_command" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Change caps_lock to control (fallback in kitty/Terminal)",
                         "manipulators": [
                             {
                                 "from": {
@@ -17,13 +73,13 @@
                                     "modifiers": { "optional": ["any"] }
                                 },
                                 "to": [{ "key_code": "left_control" }],
-                                "to_if_alone": [{ "key_code": "escape" }],
                                 "type": "basic"
                             }
                         ]
                     },
                     {
                         "description": "Left Command: symbol layer (double-tap → ESC)",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "conditions": [
@@ -102,6 +158,7 @@
                     },
                     {
                         "description": "Change \\ to Backspace",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": { "key_code": "backslash" },
@@ -112,6 +169,7 @@
                     },
                     {
                         "description": "Symbol Layer: Complete Layout",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "conditions": [
@@ -595,6 +653,7 @@
                     },
                     {
                         "description": "Right Option as Hyper key (hold) / OSM Hyper (tap)",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": { "key_code": "right_option" },
@@ -630,6 +689,7 @@
                     },
                     {
                         "description": "Hyper OSM: Apply hyper modifiers to keys",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "conditions": [
@@ -1532,6 +1592,7 @@
                     },
                     {
                         "description": "OSM Cmd: Apply command modifier to next key",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "conditions": [
@@ -2434,6 +2495,7 @@
                     },
                     {
                         "description": "Cmd+jk to Cmd+Up/Down",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": {
@@ -2465,6 +2527,7 @@
                     },
                     {
                         "description": "Right Command: number layer (double-tap → OSM Cmd)",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "conditions": [
@@ -2562,6 +2625,7 @@
                     },
                     {
                         "description": "Number keys to Function keys (1-2: brightness, 3: F20, 4-6: volume, 7-9: media)",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": { "key_code": "1" },
@@ -2637,6 +2701,7 @@
                     },
                     {
                         "description": "Number Layer: Right Cmd + awersdfxcv = 0123456789",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "conditions": [
@@ -2779,6 +2844,7 @@
                     },
                     {
                         "description": "Right Shift to Command",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": {
@@ -2792,6 +2858,7 @@
                     },
                     {
                         "description": "[ to Escape",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": { "key_code": "open_bracket" },
@@ -2818,6 +2885,7 @@
                     },
                     {
                         "description": "0 to Alt+Space (Raycast/Alfred launcher)",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": { "key_code": "0" },
@@ -2833,6 +2901,7 @@
                     },
                     {
                         "description": "Fn key to Caps Lock when tapped, fn when held",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": { "key_code": "fn" },
