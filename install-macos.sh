@@ -303,6 +303,8 @@ done
 # Home-level files
 ln -sf "$SCRIPT_DIR/.zshrc" "$HOME/.zshrc"
 log_success "Linked .zshrc"
+ln -sf "$SCRIPT_DIR/.gitconfig" "$HOME/.gitconfig"
+log_success "Linked .gitconfig"
 
 # Claude commands and settings (into existing ~/.claude/)
 ln -sfn "$SCRIPT_DIR/.claude/commands" "$HOME/.claude/commands"
