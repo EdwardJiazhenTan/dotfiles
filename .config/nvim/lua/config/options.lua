@@ -8,6 +8,8 @@ vim.opt.cursorlineopt = "number"
 
 -- Disable session autoload on startup
 vim.g.persistence_autoload = false
+-- Disable autoformat
+vim.g.autoformat = false
 -- disable animations
 vim.g.snacks_animate = false
 vim.opt.statuscolumn = ""

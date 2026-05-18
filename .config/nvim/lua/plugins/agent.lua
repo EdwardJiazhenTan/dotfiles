@@ -105,7 +105,7 @@ return {
             return require("codecompanion.adapters").extend("claude_code", {
               env = {
                 CLAUDE_CODE_OAUTH_TOKEN = "cmd:security find-generic-password -a $USER -s claude_code_oauth -w",
-                ANTHROPIC_MODEL = "claude-haiku-4-5-20251001",
+                ANTHROPIC_MODEL = "claude-sonnet-4-6",
               },
             })
           end,

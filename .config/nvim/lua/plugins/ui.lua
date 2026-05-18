@@ -12,16 +12,21 @@ return {
         },
       })
       require("nordic").load()
-      vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#ebcb8b", bold = true })
-      vim.api.nvim_set_hl(0, "LineNr", { fg = "#ffffff" })
-      vim.api.nvim_set_hl(0, "TabLineFill", { bg = "#242933", underline = true, sp = "#4c566a" })
-      vim.api.nvim_set_hl(0, "Visual", { bg = "#4C566A" })
-      vim.api.nvim_set_hl(0, "SnacksPickerFile", { fg = "#4c566a" })
-      vim.api.nvim_set_hl(0, "SnacksPickerDir", { fg = "#4c566a" })
-      vim.api.nvim_set_hl(0, "SnacksPickerMatch", { fg = "#88c0d0", bold = true })
-      vim.api.nvim_set_hl(0, "DiagnosticSignError", { fg = "#BF616A" })
-      vim.api.nvim_set_hl(0, "DiagnosticSignWarn", { fg = "#EBCB8B" })
-      vim.api.nvim_set_hl(0, "@markup.strong", { fg = "#a3be8c", bold = true })
+      vim.api.nvim_create_autocmd("ColorScheme", {
+        callback = function()
+          vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#ffffff", bold = true })
+          vim.api.nvim_set_hl(0, "LineNr", { fg = "#ffffff" })
+          vim.api.nvim_set_hl(0, "TabLineFill", { bg = "#242933", underline = true, sp = "#4c566a" })
+          vim.api.nvim_set_hl(0, "Visual", { bg = "#3F5071" })
+          vim.api.nvim_set_hl(0, "SnacksPickerFile", { fg = "#4c566a" })
+          vim.api.nvim_set_hl(0, "SnacksPickerDir", { fg = "#4c566a" })
+          vim.api.nvim_set_hl(0, "SnacksPickerMatch", { fg = "#88c0d0", bold = true })
+          vim.api.nvim_set_hl(0, "DiagnosticSignError", { fg = "#BF616A" })
+          vim.api.nvim_set_hl(0, "DiagnosticSignWarn", { fg = "#EBCB8B" })
+          vim.api.nvim_set_hl(0, "@markup.strong", { fg = "#a3be8c", bold = true })
+        end,
+      })
+      vim.cmd.colorscheme("nordic")
     end,
   },
 
@@ -77,14 +82,20 @@ return {
         end,
       })
       local cc_timer = vim.uv.new_timer()
-      cc_timer:start(0, 100, vim.schedule_wrap(function()
-        if cc_state.active then
-          cc_state.frame = (cc_state.frame % #cc_spinner) + 1
-          require("lualine").refresh()
-        end
-      end))
+      cc_timer:start(
+        0,
+        100,
+        vim.schedule_wrap(function()
+          if cc_state.active then
+            cc_state.frame = (cc_state.frame % #cc_spinner) + 1
+            require("lualine").refresh()
+          end
+        end)
+      )
       local function cc_status()
-        if not cc_state.active then return "" end
+        if not cc_state.active then
+          return ""
+        end
         return cc_spinner[cc_state.frame] .. " thinking"
       end
 
@@ -129,6 +140,18 @@ return {
   },
 
   { "nvim-mini/mini.icons" },
+
+  {
+    "folke/noice.nvim",
+    opts = {
+      cmdline = {
+        format = {
+          search_down = { view = "cmdline_popup" },
+          search_up = { view = "cmdline_popup" },
+        },
+      },
+    },
+  },
 
   {
     "akinsho/bufferline.nvim",
