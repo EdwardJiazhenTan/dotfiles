@@ -31,24 +31,10 @@ sketchybar --add item workspace left \
   --set workspace \
   script="$PLUGIN_DIR/workspace.sh"
 
-
-sketchybar --add item slack left \
-  --set slack \
-  icon="󰒱" \
-  update_freq=20 \
-  script="$PLUGIN_DIR/slack.sh" \
-
-sketchybar --add item github left \
-  --set github \
-  icon="" \
-  update_freq=60 \
-  script="$PLUGIN_DIR/github.sh" \
-
-sketchybar --add item mail left \
-  --set mail \
-  icon="󰊫" \
-  update_freq=30 \
-  script="$PLUGIN_DIR/mail.sh" \
+sketchybar --add item front_app left \
+  --set front_app \
+  script="$PLUGIN_DIR/front_app.sh" \
+  --subscribe front_app front_app_switched
 
 
 ##### Center Items #####
@@ -64,15 +50,11 @@ sketchybar --add item clock e \
   script="$PLUGIN_DIR/clock.sh"
 
 ##### Right Side Items #####
-
-sketchybar --add item audio_device right \
-  --set audio_device \
-  icon="" \
-  label.max_chars=25 \
-  label.scroll_texts=on \
-  update_freq=5 \
-  script="$PLUGIN_DIR/audio_device.sh" \
-  --subscribe audio_device volume_change
+sketchybar --add item battery right \
+  --set battery \
+  update_freq=120 \
+  script="$PLUGIN_DIR/battery.sh" \
+  --subscribe battery system_woke power_source_change
 
 sketchybar --add item volume right \
   --set volume \
@@ -80,16 +62,28 @@ sketchybar --add item volume right \
   script="$PLUGIN_DIR/volume.sh" \
   --subscribe volume volume_change
 
-sketchybar --add item battery right \
-  --set battery \
-  update_freq=120 \
-  script="$PLUGIN_DIR/battery.sh" \
-  --subscribe battery system_woke power_source_change
-
 sketchybar --add item memory right \
   --set memory \
   icon="󰍛" \
   update_freq=10 \
   script="$PLUGIN_DIR/memory.sh"
+
+sketchybar --add item mail right \
+  --set mail \
+  icon="󰊫" \
+  update_freq=30 \
+  script="$PLUGIN_DIR/mail.sh"
+
+sketchybar --add item github right \
+  --set github \
+  icon="󰊤" \
+  update_freq=60 \
+  script="$PLUGIN_DIR/github.sh"
+
+sketchybar --add item slack right \
+  --set slack \
+  icon="󰒱" \
+  update_freq=20 \
+  script="$PLUGIN_DIR/slack.sh"
 
 sketchybar --update
