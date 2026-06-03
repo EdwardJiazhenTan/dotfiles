@@ -1,8 +1,3 @@
-# --- NVM Initialization ---
-# Moved here so it doesn't kill scripts with exit code 3
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-
 # --- Plugins (Using $BREW_PREFIX for speed) ---
 # Autosuggestions
 if [[ -r "$BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then

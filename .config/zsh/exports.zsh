@@ -11,8 +11,5 @@ export PATH="$BREW_PREFIX/opt/postgresql@16/bin:$PATH"
 export PATH="/Users/etan/downloads/git-fuzzy/bin:$PATH"
 export PATH="$PATH:/Users/etan/.lmstudio/bin"
 
-# NVM Directory (Variable only)
-export NVM_DIR="$HOME/.nvm"
-
 # API Keys / Private Env
 [[ -f ~/.env ]] && source ~/.env

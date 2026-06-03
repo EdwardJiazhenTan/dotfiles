@@ -303,6 +303,8 @@ done
 # Home-level files
 ln -sf "$SCRIPT_DIR/.zshrc" "$HOME/.zshrc"
 log_success "Linked .zshrc"
+ln -sf "$SCRIPT_DIR/.zshenv" "$HOME/.zshenv"
+log_success "Linked .zshenv"
 ln -sf "$SCRIPT_DIR/.gitconfig" "$HOME/.gitconfig"
 log_success "Linked .gitconfig"
 
