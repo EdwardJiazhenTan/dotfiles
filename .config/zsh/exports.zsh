@@ -13,3 +13,6 @@ export PATH="$PATH:/Users/etan/.lmstudio/bin"
 
 # API Keys / Private Env
 [[ -f ~/.env ]] && source ~/.env
+
+# GitHub token (sourced from gh CLI keychain) for MCP and tools
+command -v gh &>/dev/null && export GITHUB_TOKEN="$(gh auth token 2>/dev/null)"

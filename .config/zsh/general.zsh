@@ -1,21 +1,13 @@
-# vim mode
-bindkey -v
-
 # --- Key Bindings ---
-bindkey '^p' history-search-backward
-bindkey '^n' history-search-forward
-bindkey '^f' autosuggest-accept
-bindkey '^j' autosuggest-accept
-
-fzf-git-branch-checkout() {
-    git rev-parse --is-inside-work-tree &>/dev/null || return
-    local branch
-    branch=$(git branch --format='%(refname:short)' | fzf --height=40% --reverse) || return
-    BUFFER="git checkout $branch"
-    zle accept-line
-}
-zle -N fzf-git-branch-checkout
-bindkey '^g' fzf-git-branch-checkout
+# zsh-vi-mode resets the viins/vicmd keymaps on init, so any bindkey set here
+# would get clobbered. Defer custom binds until after the plugin initializes.
+zvm_after_init_commands+=('
+  bindkey "^p" history-search-backward
+  bindkey "^n" history-search-forward
+  bindkey "^f" autosuggest-accept
+  bindkey "^j" autosuggest-accept
+  (( $+widgets[fzf-history-widget] )) && bindkey "^r" fzf-history-widget
+')
 
 # --- History Settings ---
 HISTSIZE=100000
@@ -31,3 +23,7 @@ autoload -Uz compinit && compinit
 
 # Send bell on command complete for kitty notifications
 precmd() { echo -ne '\a' }
+
+# Only changing the escape key to `jk` in insert mode, we still
+# keep using the default keybindings `^[` in other modes
+ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
