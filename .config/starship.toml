@@ -1,96 +1,188 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
-add_newline = true
+format = """$directory\
+$git_branch\
+$git_status\
+$rust\
+$nodejs\
+$localip\
+$line_break$character"""
 
-format = """$character"""
+palette = 'nord'
 
-right_format = """$directory$time"""
+[palettes.nord]
+rosewater = "#f0c674"
+flamingo = "#cc6666"
+pink = "#b294bb"
+orange = "#de935f"
+red = "#cc6666"
+maroon = "#a54242"
+peach = "#d08770"
+yellow = "#f0c674"
+green = "#8abeb7"
+teal = "#8abeb7"
+sky = "#81a2be"
+sapphire = "#81a2be"
+blue = "#5e81ac"
+lavender = "#b48ead"
+text = "#d8dee9"
+subtext1 = "#e5e9f0"
+subtext0 = "#eceff4"
+overlay2 = "#4c566a"
+overlay1 = "#434c5e"
+overlay0 = "#3b4252"
+surface2 = "#2e3440"
+surface1 = "#2e3440"
+surface0 = "#2e3440"
+base = "#2e3440"
+mantle = "#3b4252"
+crust = "#434c5e"
 
-[character]
-format = "$symbol "
-success_symbol = "[>](bold bright-yellow)"
-error_symbol = "[>](bold purple)"
-vimcmd_symbol = "[<](bold green)"
-
-[sudo]
-format = "[$symbol]($style)"
-style = "bold bright-purple"
-symbol = "sudo "
+# OS Module
+[os]
 disabled = false
+style = "fg:text"
 
+[os.symbols]
+Windows = "󰍲"
+Ubuntu = "󰕈"
+SUSE = ""
+Raspbian = "󰐿"
+Mint = "󰣭"
+Macos = ""
+Manjaro = ""
+Linux = "󰌽"
+Gentoo = "󰣨"
+Fedora = "󰣛"
+Alpine = ""
+Amazon = ""
+Android = ""
+Arch = "󰣇"
+Artix = "󰣇"
+CentOS = ""
+Debian = "󰣚"
+Redhat = "󱄛"
+RedHatEnterprise = "󱄛"
+
+# Username Module
 [username]
-style_user = "bright-yellow bold"
-style_root = "purple bold"
-format = "[$user]($style) "
-disabled = false
-show_always = false
+show_always = true
+style_user = "fg:blue"
+style_root = "fg:blue"
+format = '[ $user ]($style)'
 
-[directory]
-home_symbol = "~"
-truncation_length = 0
-truncate_to_repo = false
-read_only = " ro"
-use_os_path_sep = true
-style = "italic blue"
-format = '[$path]($style)[$read_only]($read_only_style) '
-repo_root_style = 'bold blue'
-repo_root_format = '[$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style) '
-
-[cmd_duration]
-format = "[$duration ](italic white)"
-
-[jobs]
-format = "[$number bg]($style) "
-style = "white"
-
+# Local IP Module
 [localip]
-ssh_only = true
-format = "[$localipv4](bold magenta) "
+ssh_only = false
+style = "fg:surface0"
+format = '[ $localipv4 ]($style)'
 disabled = false
 
+# Directory Module
+[directory]
+style = "fg:pink"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = "󰝚 "
+"Pictures" = " "
+"Developer" = "󰲋 "
+
+# Git Branch Module
+[git_branch]
+symbol = ""
+style = "fg:teal"
+format = '[[ $symbol $branch ](fg:green)]($style)'
+
+# Git Status Module
+[git_status]
+style = "fg:teal"
+format = '[[($all_status$ahead_behind )](fg:green)]($style)'
+
+# Node.js Module
+[nodejs]
+symbol = ""
+style = "fg:teal"
+format = '[[ $symbol( $version) ](fg:teal)]($style)'
+
+# C Module
+[c]
+symbol = " "
+style = "fg:teal"
+format = '[[ $symbol( $version) ](fg:teal)]($style)'
+
+# Rust Module
+[rust]
+symbol = ""
+style = "fg:teal"
+format = '[[ $symbol( $version) ](fg:teal)]($style)'
+
+# Go Module
+[golang]
+symbol = ""
+style = "fg:teal"
+format = '[[ $symbol( $version) ](fg:teal)]($style)'
+
+# PHP Module
+[php]
+symbol = ""
+style = "fg:teal"
+format = '[[ $symbol( $version) ](fg:teal)]($style)'
+
+# Java Module
+[java]
+symbol = " "
+style = "fg:teal"
+format = '[[ $symbol( $version) ](fg:teal)]($style)'
+
+# Kotlin Module
+[kotlin]
+symbol = ""
+style = "fg:teal"
+format = '[[ $symbol( $version) ](fg:teal)]($style)'
+
+# Haskell Module
+[haskell]
+symbol = ""
+style = "fg:teal"
+format = '[[ $symbol( $version) ](fg:teal)]($style)'
+
+# Python Module
+[python]
+symbol = ""
+style = "fg:teal"
+format = '[[ $symbol( $version) ](fg:teal)]($style)'
+
+# Lua Module
+[lua]
+symbol = "󰢱"
+style = "fg:teal"
+format = '[[ $symbol( $version) ](fg:teal)]($style)'
+
+# Docker Context Module
+[docker_context]
+symbol = ""
+style = "fg:mantle"
+format = '[[ $symbol( $context) ](fg:color_bg3)]($style)'
+
+# Time Module
 [time]
 disabled = false
-format = " [$time]($style)"
 time_format = "%R"
-utc_time_offset = "local"
-style = "italic dimmed white"
+style = "fg:peach"
+format = '[[  $time ](fg:purple)]($style)'
 
-[custom.gitdiff]
-command = '''
-for b in main master develop; do
-  if git rev-parse --verify "origin/$b" &>/dev/null; then
-    stat=$(git diff --shortstat "origin/$b"...HEAD 2>/dev/null)
-    ins=$(echo "$stat" | grep -oE '[0-9]+ insertion' | grep -oE '[0-9]+')
-    del=$(echo "$stat" | grep -oE '[0-9]+ deletion' | grep -oE '[0-9]+')
-    [ -n "$ins" ] || ins=0
-    [ -n "$del" ] || del=0
-    [ "$ins" -eq 0 ] && [ "$del" -eq 0 ] && exit 0
-    printf "\033[32m+%s\033[0m \033[31m-%s\033[0m" "$ins" "$del"
-    exit 0
-  fi
-done
-'''
-when = "git rev-parse --is-inside-work-tree 2>/dev/null"
-format = " $output "
-use_stdin = false
-shell = ["bash", "--nologin"]
+# Line Break Module
+[line_break]
+disabled = false
 
-[git_branch]
-format = "[$branch(:$remote_branch)]($style)"
-style = "italic bright-blue"
-truncation_length = 9999
-only_attached = true
-
-[git_status]
-style = "bold bright-blue"
-format = "([ $ahead_behind$staged$modified$untracked$renamed$deleted$conflicted$stashed]($style))"
-conflicted = "[!](bold bright-magenta)"
-ahead = "[+${count}](green)"
-behind = "[-${count}](red)"
-diverged = "[+${ahead_count} -${behind_count}](bright-magenta)"
-untracked = "[?](bright-yellow)"
-stashed = "[*](white)"
-modified = "[~](yellow)"
-staged = "[+${count}](bright-cyan)"
-renamed = "[r](bright-blue)"
-deleted = "[x](red)"
+# Character Module
+[character]
+format = """
+[$symbol](fg:overlay1) """
+success_symbol = '[ 󰘍](fg:bold text)'
+error_symbol = '[×](fg:bold red)'
