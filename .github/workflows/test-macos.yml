@@ -51,7 +51,7 @@ jobs:
         echo "Testing stow configurations (dry-run)..."
 
         # Test each package with --no to simulate without making changes
-        for package in kitty nvim tmux zsh aerospace sketchybar; do
+        for package in kitty nvim tmux zsh sketchybar; do
           if [ -d "$package" ]; then
             echo "Testing stow for $package..."
             stow -n -v "$package" || echo "Stow simulation completed for $package"
@@ -90,13 +90,6 @@ jobs:
           echo "✗ Zsh config missing"
         fi
 
-        # Check aerospace config
-        if [ -f "aerospace/.config/aerospace/aerospace.toml" ]; then
-          echo "✓ Aerospace config exists"
-        else
-          echo "✗ Aerospace config missing"
-        fi
-
         # Check sketchybar config
         if [ -d "sketchybar/.config/sketchybar" ]; then
           echo "✓ SketchyBar config directory exists"
@@ -121,15 +114,6 @@ jobs:
         else
           echo "✗ install-macos.sh missing"
           exit 1
-        fi
-
-    - name: Validate Aerospace config syntax
-      run: |
-        if [ -f "aerospace/.config/aerospace/aerospace.toml" ]; then
-          echo "Checking Aerospace TOML syntax..."
-          # Use pipx to avoid externally-managed-environment error
-          brew install pipx
-          pipx run --spec toml-cli toml get --toml-path aerospace/.config/aerospace/aerospace.toml . > /dev/null && echo "✓ Aerospace config is valid TOML" || echo "⚠ TOML validation skipped"
         fi
 
     - name: Validate Karabiner config syntax (if exists)

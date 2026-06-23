@@ -73,15 +73,6 @@ else
     log_success "Tmux already installed"
 fi
 
-# Aerospace (window manager)
-if ! command -v aerospace &> /dev/null; then
-    log_info "Installing Aerospace..."
-    brew install --cask nikitabobko/tap/aerospace
-    log_success "Aerospace installed"
-else
-    log_success "Aerospace already installed"
-fi
-
 # Karabiner-Elements (keyboard customization)
 if [ ! -d "/Applications/Karabiner-Elements.app" ]; then
     log_info "Installing Karabiner-Elements..."
@@ -209,7 +200,7 @@ else
     log_success "jq already installed"
 fi
 
-# Node.js (required for Claude Code CLI and ACP server)
+# Node.js (required for opencode plugin dependencies)
 if ! command -v node &> /dev/null; then
     log_info "Installing Node.js..."
     brew install node
@@ -218,22 +209,13 @@ else
     log_success "Node.js already installed"
 fi
 
-# Claude Code CLI
-if ! command -v claude &> /dev/null; then
-    log_info "Installing Claude Code CLI..."
-    npm install -g @anthropic-ai/claude-code
-    log_success "Claude Code CLI installed"
+# opencode CLI
+if ! command -v opencode &> /dev/null; then
+    log_info "Installing opencode CLI..."
+    curl -fsSL https://opencode.ai/install | bash
+    log_success "opencode CLI installed"
 else
-    log_success "Claude Code CLI already installed"
-fi
-
-# claude-agent-acp (ACP bridge for codecompanion.nvim)
-if ! command -v claude-agent-acp &> /dev/null; then
-    log_info "Installing claude-agent-acp..."
-    npm install -g @agentclientprotocol/claude-agent-acp
-    log_success "claude-agent-acp installed"
-else
-    log_success "claude-agent-acp already installed"
+    log_success "opencode CLI already installed"
 fi
 
 # Install SF Mono Nerd Font for better terminal experience
@@ -335,8 +317,7 @@ echo "  1. Restart your terminal or run: source ~/.zshrc"
 echo "  2. Open Kitty terminal"
 echo "  3. Open tmux and press prefix + I to install tmux plugins"
 echo "  4. Open Neovim - plugins should auto-install on first run"
-echo "  5. Grant necessary permissions to Aerospace and Karabiner-Elements in System Settings"
-echo "  6. Start Aerospace: open -a AeroSpace"
-echo "  7. Start SketchyBar: brew services start sketchybar"
+echo "  5. Grant necessary permissions to Karabiner-Elements in System Settings"
+echo "  6. Start SketchyBar: brew services start sketchybar"
 echo ""
 log_warning "You may need to log out and log back in for all changes to take effect"

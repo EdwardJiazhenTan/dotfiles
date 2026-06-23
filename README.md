@@ -44,7 +44,6 @@ git merge main
 - **fastfetch** - System information tool
 
 ### macOS-specific (macos branch)
-- **aerospace** - Tiling window manager for macOS
 - **sketchybar** - Status bar for macOS
 - **karabiner** - Keyboard customization tool for macOS
 - **ghostty** - GPU-accelerated terminal emulator for macOS
@@ -83,7 +82,7 @@ git push
 
 ### Making Platform-Specific Changes
 
-For macOS-specific changes (aerospace, sketchybar, karabiner):
+For macOS-specific changes (sketchybar, karabiner):
 
 ```bash
 git checkout macos

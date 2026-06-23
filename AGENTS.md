@@ -16,9 +16,8 @@ Shared changes go on `main`, then merge into platform branches. Never merge plat
 
 ## Setup
 
-GNU Stow manages symlinks. Run `install-macos.sh` for full macOS setup.
-
 ## Rules
 
 1. **Follow existing patterns** — match the style, structure, and conventions already in the codebase.
 2. **Less code** — reuse shared functions, prefer simpler designs, avoid unnecessary abstraction.
+3. **Test edit** — temporary opencode edit check.
