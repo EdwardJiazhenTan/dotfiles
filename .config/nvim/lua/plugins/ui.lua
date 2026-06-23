@@ -18,8 +18,8 @@ return {
           vim.api.nvim_set_hl(0, "LineNr", { fg = "#ffffff" })
           vim.api.nvim_set_hl(0, "TabLineFill", { bg = "#242933", underline = true, sp = "#4c566a" })
           vim.api.nvim_set_hl(0, "Visual", { bg = "#3F5071" })
-          vim.api.nvim_set_hl(0, "SnacksPickerFile", { fg = "#4c566a" })
-          vim.api.nvim_set_hl(0, "SnacksPickerDir", { fg = "#4c566a" })
+          vim.api.nvim_set_hl(0, "SnacksPickerFile", { fg = "#d8dee9" })
+          vim.api.nvim_set_hl(0, "SnacksPickerDir", { fg = "#d8dee9" })
           vim.api.nvim_set_hl(0, "SnacksPickerMatch", { fg = "#88c0d0", bold = true })
           vim.api.nvim_set_hl(0, "DiagnosticSignError", { fg = "#BF616A" })
           vim.api.nvim_set_hl(0, "DiagnosticSignWarn", { fg = "#EBCB8B" })
@@ -62,6 +62,9 @@ return {
         command = {
           a = { fg = "#ebcb8b", bg = colors.bg, gui = "bold" },
         },
+        terminal = {
+          a = { fg = colors.blue, bg = colors.bg, gui = "bold" },
+        },
         inactive = {
           a = { fg = colors.dim, bg = colors.bg },
           b = { fg = colors.dim, bg = colors.bg },
@@ -71,33 +74,6 @@ return {
 
       vim.api.nvim_set_hl(0, "StatusLine", { bg = "NONE" })
       vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "NONE" })
-
-      -- CodeCompanion activity indicator (animated spinner while a request is in-flight)
-      local cc_spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
-      local cc_state = { active = false, frame = 1 }
-      vim.api.nvim_create_autocmd("User", {
-        pattern = { "CodeCompanionRequestStarted", "CodeCompanionRequestFinished" },
-        callback = function(args)
-          cc_state.active = args.match == "CodeCompanionRequestStarted"
-        end,
-      })
-      local cc_timer = vim.uv.new_timer()
-      cc_timer:start(
-        0,
-        100,
-        vim.schedule_wrap(function()
-          if cc_state.active then
-            cc_state.frame = (cc_state.frame % #cc_spinner) + 1
-            require("lualine").refresh()
-          end
-        end)
-      )
-      local function cc_status()
-        if not cc_state.active then
-          return ""
-        end
-        return cc_spinner[cc_state.frame] .. " thinking"
-      end
 
       require("lualine").setup({
         options = {
@@ -113,9 +89,7 @@ return {
             },
           },
           lualine_b = {},
-          lualine_c = {
-            { cc_status, color = { fg = colors.purple } },
-          },
+          lualine_c = {},
           lualine_x = {},
           lualine_y = {},
           lualine_z = {
@@ -146,29 +120,20 @@ return {
     opts = {
       cmdline = {
         format = {
+          input = { view = "cmdline_popup" },
           search_down = { view = "cmdline_popup" },
           search_up = { view = "cmdline_popup" },
+        },
+      },
+      views = {
+        hover = {
+          border = {
+            style = "rounded",
+          },
         },
       },
     },
   },
 
-  {
-    "akinsho/bufferline.nvim",
-    opts = {
-      options = {
-        show_buffer_icons = false,
-        show_close_icon = false,
-        show_buffer_close_icons = false,
-        diagnostics = false,
-        separator_style = { "", "" },
-        indicator = { style = "none" },
-      },
-      highlights = {
-        fill = { bg = "#242933" },
-        background = { bg = "#242933" },
-        buffer_selected = { bg = "#242933", bold = true },
-      },
-    },
-  },
+  { "akinsho/bufferline.nvim", enabled = false },
 }

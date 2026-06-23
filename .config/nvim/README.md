@@ -14,12 +14,13 @@ lua/
 ├── plugins/
 │   ├── ui.lua        -- colorscheme, statusline, bufferline, color highlighting
 │   ├── editor.lua    -- navigation, file browser, formatting, markdown rendering
-│   ├── agent.lua     -- AI integration (CodeCompanion + Claude Code ACP)
+│   ├── agent.lua     -- AI integration (opencode.nvim)
 │   ├── git.lua       -- gitsigns, diffview
 │   ├── lsp.lua       -- LSP, completion, Mason tools
 │   └── extra.lua     -- language-specific (Typst)
 └── util/
-    └── eslint.lua    -- flat-config detection for conform
+    ├── eslint.lua               -- flat-config detection for conform
+    └── opencode_inline_diff.lua -- inline diff tab for opencode edit permission requests
 ```
 
 ## Plugins
@@ -42,8 +43,7 @@ lua/
 - **conform.nvim** — formatter (`<leader>f`); ESLint flat-config aware for JS/TS
 
 ### Agent
-- **codecompanion.nvim** — CodeCompanion chat using the Claude Code ACP adapter; OAuth token pulled from macOS Keychain (`<leader>a*`)
-- **yank-for-claude.nvim** — yank with file reference for Claude (`<leader>y/Y`)
+- **opencode.nvim** — opencode integration with custom inline-diff tab for edit permission requests (`<leader>o*`, `<leader>k`)
 
 ### Git
 - **gitsigns.nvim** — sign column + inline current-line blame

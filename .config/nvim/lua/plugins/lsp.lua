@@ -94,6 +94,12 @@ return {
           },
         },
       },
+      setup = {
+        vtsls = function(_, opts)
+          opts.commands = opts.commands or {}
+          opts.commands["_typescript.didOrganizeImports"] = function() end
+        end,
+      },
     },
   },
 

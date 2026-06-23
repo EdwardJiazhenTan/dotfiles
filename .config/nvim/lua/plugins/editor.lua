@@ -55,6 +55,10 @@ return {
       { "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
       { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
       { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
+      { "<c-h>", "<C-\\><C-n><cmd>TmuxNavigateLeft<cr>", mode = "t" },
+      { "<c-j>", "<C-\\><C-n><cmd>TmuxNavigateDown<cr>", mode = "t" },
+      { "<c-k>", "<C-\\><C-n><cmd>TmuxNavigateUp<cr>", mode = "t" },
+      { "<c-l>", "<C-\\><C-n><cmd>TmuxNavigateRight<cr>", mode = "t" },
     },
   },
 
@@ -146,15 +150,6 @@ return {
     "stevearc/conform.nvim",
     event = { "BufWritePre" },
     cmd = { "ConformInfo" },
-    cmd = { "ConformInfo", "Format" },
-    keys = {
-      {
-        "<leader>f",
-        "<cmd>Format<cr>",
-        mode = "",
-        desc = "Format buffer",
-      },
-    },
     -- This will provide type hinting with LuaLS
     ---@module "conform"
     ---@type conform.setupOpts
@@ -199,11 +194,5 @@ return {
         },
       },
     },
-    init = function()
-      vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
-      vim.api.nvim_create_user_command("Format", function()
-        require("conform").format({ async = true })
-      end, { desc = "Format buffer" })
-    end,
   },
 }
