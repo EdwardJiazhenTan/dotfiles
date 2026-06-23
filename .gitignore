@@ -49,5 +49,20 @@ temp/
 # Zed database files
 .config/zed/prompts/
 
+# opencode local state
+.config/opencode/node_modules/
+.config/opencode/.ponytail-active
+.config/opencode/*.bak-*
+.config/opencode/package.json
+.config/opencode/package-lock.json
+.config/opencode/bun.lock
+.config/opencode/.gitignore
+
+# Playwright MCP output
+.playwright-mcp/
+
+# Local shell copy
+.zshrc-copy
+
 # Homebrew
 Brewfile.lock.json
