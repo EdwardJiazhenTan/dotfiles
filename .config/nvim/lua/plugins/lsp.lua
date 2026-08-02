@@ -7,13 +7,34 @@ return {
       },
       completion = {
         menu = {
-          border = "rounded",
+          auto_show_delay_ms = 200,
         },
         documentation = {
-          auto_show = true,
-          window = { border = "rounded" },
+          auto_show = false,
         },
-        ghost_text = { enabled = false },
+        ghost_text = {
+          enabled = false,
+        },
+      },
+      signature = {
+        enabled = true,
+        window = {
+          show_documentation = true,
+        },
+      },
+      cmdline = {
+        completion = {
+          menu = {
+            draw = {
+              columns = {
+                { "label", "label_description", gap = 1 },
+              },
+            },
+          },
+          ghost_text = {
+            enabled = false,
+          },
+        },
       },
     },
   },
@@ -22,7 +43,6 @@ return {
     "mason-org/mason.nvim",
     opts = function(_, opts)
       vim.list_extend(opts.ensure_installed, {
-        "luacheck",
         "shellcheck",
         "shfmt",
         "jdtls",
@@ -36,8 +56,18 @@ return {
   {
     "mfussenegger/nvim-lint",
     opts = {
+      events = { "BufWritePost" },
       linters_by_ft = {
+        javascript = { "eslint_d" },
+        javascriptreact = { "eslint_d" },
         markdown = {},
+        typescript = { "eslint_d" },
+        typescriptreact = { "eslint_d" },
+      },
+      linters = {
+        eslint_d = {
+          condition = require("util.eslint").has_config,
+        },
       },
     },
   },
@@ -46,10 +76,10 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       inlay_hints = {
-        enabled = false,
+        enabled = true,
       },
       diagnostics = {
-        virtual_text = { current_line = true },
+        virtual_text = false,
         underline = true,
         signs = {
           text = {
@@ -66,42 +96,22 @@ return {
         float = { border = "rounded" },
       },
       servers = {
-        vtsls = {
+        eslint = {
           settings = {
-            typescript = {
-              tsserver = {
-                maxTsServerMemory = 8192,
-              },
-              preferences = {
-                includePackageJsonAutoImports = "off",
-                autoImportFileExcludePatterns = { "**/node_modules/**", "**/*.spec.ts", "**/*.test.ts" },
-              },
-            },
-            javascript = {
-              preferences = {
-                includePackageJsonAutoImports = "off",
-              },
-            },
-            vtsls = {
-              autoUseWorkspaceTsdk = true,
-              enableMoveToFileCodeAction = false,
-              experimental = {
-                completion = {
-                  enableServerSideFuzzyMatch = true,
-                },
-              },
-            },
+            useFlatConfig = false,
+            workingDirectories = { mode = "auto" },
           },
         },
-      },
-      setup = {
-        vtsls = function(_, opts)
-          opts.commands = opts.commands or {}
-          opts.commands["_typescript.didOrganizeImports"] = function() end
-        end,
+        tsgo = {},
       },
     },
   },
+  -- {
+  --   "esmuellert/nvim-eslint",
+  --   config = function()
+  --     require("nvim-eslint").setup({})
+  --   end,
+  -- },
 
   -- NOTE: nvim-cmp config commented out in favor of LazyVim's default blink.cmp.
   -- Uncomment the block below (and add { "saghen/blink.nvim", enabled = false }) to restore.

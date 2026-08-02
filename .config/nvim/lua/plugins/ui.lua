@@ -35,6 +35,10 @@ return {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
+      local pi = require("util.pi")
+
+      pi.setup()
+
       local colors = {
         blue = "#88c0d0",
         green = "#a3be8c",
@@ -90,20 +94,46 @@ return {
           },
           lualine_b = {},
           lualine_c = {},
-          lualine_x = {},
-          lualine_y = {},
-          lualine_z = {
+          lualine_x = {
             {
-              "filename",
-              path = 2,
-              color = { fg = colors.fg },
+              pi.status,
             },
           },
+          lualine_y = {
+            {
+              "diagnostics",
+            },
+          },
+          lualine_z = {},
         },
         inactive_sections = {
-          lualine_a = { "filename" },
+          lualine_a = {},
           lualine_b = {},
           lualine_c = {},
+          lualine_x = {},
+          lualine_y = {},
+          lualine_z = {},
+        },
+        winbar = {
+          lualine_a = {},
+          lualine_b = {},
+          lualine_c = {
+            "%=",
+            { "filename", path = 1 },
+            "%=",
+          },
+          lualine_x = {},
+          lualine_y = {},
+          lualine_z = {},
+        },
+        inactive_winbar = {
+          lualine_a = {},
+          lualine_b = {},
+          lualine_c = {
+            "%=",
+            { "filename", path = 1 },
+            "%=",
+          },
           lualine_x = {},
           lualine_y = {},
           lualine_z = {},
@@ -125,10 +155,13 @@ return {
           search_up = { view = "cmdline_popup" },
         },
       },
+      presets = {
+        lsp_doc_border = true,
+      },
       views = {
         hover = {
-          border = {
-            style = "rounded",
+          size = {
+            max_width = 80,
           },
         },
       },

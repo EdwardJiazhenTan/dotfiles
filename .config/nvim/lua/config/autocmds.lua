@@ -25,16 +25,6 @@ vim.api.nvim_create_autocmd("QuitPre", {
   end,
 })
 
--- Rounded borders for hover (K) and signature help windows
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-  border = "rounded",
-  max_width = 80,
-})
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-  border = "rounded",
-  max_width = 80,
-})
-
 -- Disable LazyVim's default spell-check for markdown
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "markdown",

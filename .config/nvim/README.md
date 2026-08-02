@@ -14,13 +14,12 @@ lua/
 ├── plugins/
 │   ├── ui.lua        -- colorscheme, statusline, bufferline, color highlighting
 │   ├── editor.lua    -- navigation, file browser, formatting, markdown rendering
-│   ├── agent.lua     -- AI integration (opencode.nvim)
 │   ├── git.lua       -- gitsigns, diffview
 │   ├── lsp.lua       -- LSP, completion, Mason tools
 │   └── extra.lua     -- language-specific (Typst)
 └── util/
-    ├── eslint.lua               -- flat-config detection for conform
-    └── opencode_inline_diff.lua -- inline diff tab for opencode edit permission requests
+    ├── eslint.lua -- flat-config detection for conform
+    └── pi.lua     -- Pi bridge and Neovim context integration
 ```
 
 ## Plugins
@@ -43,7 +42,7 @@ lua/
 - **conform.nvim** — formatter (`<leader>f`); ESLint flat-config aware for JS/TS
 
 ### Agent
-- **opencode.nvim** — opencode integration with custom inline-diff tab for edit permission requests (`<leader>o*`, `<leader>k`)
+- **Pi** — tmux-local agent bridge with Neovim context (`<leader>pa`)
 
 ### Git
 - **gitsigns.nvim** — sign column + inline current-line blame
@@ -52,8 +51,8 @@ lua/
 ### LSP / Completion
 - **blink.cmp** — completion (super-tab preset, rounded borders, no ghost text)
 - **nvim-lspconfig** — LSP config; inlay hints off, virtual text off, underline diagnostics
-- **Mason** extras: `luacheck`, `shellcheck`, `shfmt`, `tailwindcss-language-server`, `css-lsp`, `jdtls`, `checkstyle`
-- **vtsls** — TypeScript/JS server with workspace SDK, fuzzy match, 8 GB memory cap
+- **Mason** extras: `shellcheck`, `shfmt`, `tailwindcss-language-server`, `css-lsp`, `jdtls`, `checkstyle`
+- **tsgo** — native TypeScript/JS language server (LSP support is still in progress upstream)
 
 ### Extra
 - **typst-preview.nvim** — live Typst preview

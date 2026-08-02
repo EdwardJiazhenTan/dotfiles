@@ -2,17 +2,16 @@
 
 ## Branch Strategy
 
-- **main** — shared configs (kitty, nvim, tmux, zsh, starship, zed, spicetify, fastfetch)
-- **macos** — main + macOS-only (sketchybar, karabiner, ghostty, LeaderKey)
-- **linux** — main + Linux-only (hyprland, waybar, hyprpanel)
+- **macos** — macOS configs and shared configs in the flattened repo layout
+- **hyprland** — Hyprland/Linux configs and shared configs in the older Stow package layout
 
-Shared changes go on `main`, then merge into platform branches. Never merge platform branches back to main.
+Sync shared settings intentionally between branches. Do not merge platform branches into each other.
 
 ## Structure
 
 - `.config/` — all XDG app configs
 - `.zshrc` — shell config (home-level)
-- `install-macos.sh` — bootstrap script (brew, stow symlinks, TPM)
+- `install-macos.sh` — bootstrap script (brew, symlinks, TPM)
 
 ## Setup
 
@@ -20,4 +19,3 @@ Shared changes go on `main`, then merge into platform branches. Never merge plat
 
 1. **Follow existing patterns** — match the style, structure, and conventions already in the codebase.
 2. **Less code** — reuse shared functions, prefer simpler designs, avoid unnecessary abstraction.
-3. **Test edit** — temporary opencode edit check.

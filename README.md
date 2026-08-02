@@ -1,88 +1,37 @@
 # Dotfiles
 
-Personal configuration files managed with [GNU Stow](https://www.gnu.org/software/stow/).
+Personal configuration files for macOS and Hyprland/Linux.
 
 ## Branch Structure
 
-This repository uses a **branch-based strategy** to manage platform-specific and shared configurations:
+This repository uses platform branches:
 
-- **main** - Shared configurations that work across all platforms
-- **macos** - macOS-specific configs (merges from main + macOS additions)
-- **linux** - Linux-specific configs (merges from main + Linux additions)
+- **macos** - macOS configs plus shared configs in the flattened `.config/*` layout
+- **hyprland** - Hyprland/Linux configs plus shared configs in the older Stow package layout
 
-### Workflow
-
-1. **Shared config changes** → commit to `main` branch
-2. **Platform-specific changes** → commit to `macos` or `linux` branch
-3. **Syncing shared configs** → merge `main` into platform branches regularly
-
-```bash
-# Work on shared configs (kitty, nvim, tmux, etc.)
-git checkout main
-# ... make changes ...
-git add . && git commit -m "Update nvim config"
-
-# Sync to macOS
-git checkout macos
-git merge main
-
-# Sync to Linux
-git checkout linux
-git merge main
-```
+Shared settings are synced intentionally between branches. Platform branches are not merged into each other.
 
 ## Configurations
 
-### Shared (main branch)
+### Shared
 - **kitty** - GPU-accelerated terminal emulator
 - **nvim** - Neovim text editor configuration
 - **tmux** - Terminal multiplexer
 - **zsh** - Zsh shell configuration
 - **starship** - Shell prompt configuration
-- **spicetify** - Spotify customization
-- **zed** - Zed code editor configuration
 - **fastfetch** - System information tool
 
-### macOS-specific (macos branch)
-- **sketchybar** - Status bar for macOS
-- **karabiner** - Keyboard customization tool for macOS
+### macOS-specific (`macos` branch)
 - **ghostty** - GPU-accelerated terminal emulator for macOS
-- **LeaderKey** - Keyboard remapping tool for macOS
 
-> **Note**: You are currently on the `macos` branch with all macOS-specific configurations.
-
-### Linux-specific (linux branch)
+### Linux-specific (`hyprland` branch)
 - **hyprland** - Wayland compositor/tiling window manager
 - **waybar** - Status bar for Wayland
 - **hyprpanel** - Panel/bar for Hyprland
 
 ## Developer Workflow
 
-### Making Changes to Shared Configs
-
-When updating configs that should be shared across platforms (kitty, nvim, tmux, zsh, etc.):
-
-```bash
-# 1. Make changes on main branch
-git checkout main
-# ... edit kitty/nvim/tmux configs ...
-git add .
-git commit -m "Update shared config"
-
-# 2. Sync to macOS
-git checkout macos
-git merge main
-git push
-
-# 3. Sync to Linux
-git checkout linux
-git merge main
-git push
-```
-
-### Making Platform-Specific Changes
-
-For macOS-specific changes (sketchybar, karabiner):
+For macOS-specific changes:
 
 ```bash
 git checkout macos
@@ -92,32 +41,17 @@ git commit -m "Update macOS config"
 git push
 ```
 
-For Linux-specific changes (hyprland, waybar):
+For Hyprland/Linux-specific changes:
 
 ```bash
-git checkout linux
+git checkout hyprland
 # ... edit platform-specific configs ...
 git add .
 git commit -m "Update Linux config"
 git push
 ```
 
-### Quick Sync Aliases
-
-Add these to your `~/.gitconfig` for easier syncing:
-
-```gitconfig
-[alias]
-    sync-macos = !git checkout macos && git merge main && git checkout -
-    sync-linux = !git checkout linux && git merge main && git checkout -
-    sync-all = !git checkout macos && git merge main && git checkout linux && git merge main && git checkout -
-```
-
-Usage:
-```bash
-# After committing to main
-git sync-all  # Syncs main to both platform branches
-```
+For shared settings, update one branch and copy the same setting to the other branch deliberately.
 
 ## Installation
 
@@ -135,9 +69,9 @@ git checkout macos
 
 This script will:
 - Install Homebrew and all required applications
-- Install GNU Stow and manage symlinks
+- Symlink tracked dotfiles into `$HOME`
 - Backup existing configurations
-- Install Tmux Plugin Manager and Neovim plugins
+- Install Tmux Plugin Manager
 
 ### Manual Installation (macOS)
 
@@ -147,21 +81,22 @@ git clone https://github.com/EdwardJiazhenTan/dotfiles ~/dotfiles
 cd ~/dotfiles
 git checkout macos
 
-# Install Homebrew and GNU Stow
+# Install Homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-brew install stow
 
-# Stow all configurations
-stow */
+# Link configs
+ln -sfn "$PWD/.config"/* ~/.config/
+ln -sf "$PWD/.zshrc" ~/.zshrc
+ln -sf "$PWD/.gitconfig" ~/.gitconfig
 ```
 
 ### Linux
 
 ```bash
-# Clone and checkout linux branch
+# Clone and checkout hyprland branch
 git clone https://github.com/EdwardJiazhenTan/dotfiles ~/dotfiles
 cd ~/dotfiles
-git checkout linux
+git checkout hyprland
 
 # Install GNU Stow
 sudo pacman -S stow  # Arch Linux
@@ -171,7 +106,7 @@ sudo pacman -S stow  # Arch Linux
 stow */
 ```
 
-### Manual Stow Usage
+### Manual Stow Usage (`hyprland` branch)
 
 ```bash
 # Install specific config

@@ -1,0 +1,7 @@
+gui:
+  showFileTree: true
+  showRootItemInFileTree: false
+
+git:
+  pagers:
+    - pager: delta --dark --paging=never --side-by-side --line-numbers --syntax-theme=Nord

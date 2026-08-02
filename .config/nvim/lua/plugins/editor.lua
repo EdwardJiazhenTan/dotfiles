@@ -4,22 +4,14 @@ return {
     "folke/snacks.nvim",
     opts = {
       picker = {
-        layout = {
-          hidden = { "preview" },
-          layout = {
-            backdrop = false,
-            row = 3,
-            width = 0.5,
-            min_width = 80,
-            max_width = 100,
-            height = 0.4,
-            min_height = 2,
-            box = "vertical",
-            border = "hpad",
-            title = "{title}",
-            title_pos = "center",
-            { win = "input", height = 1, border = { " ", " ", " ", " ", " ", " ", " ", " " } },
-            { win = "list", border = "hpad" },
+        layout = { preset = "ivy_split" },
+        ignored = true,
+      },
+      zen = {
+        win = {
+          backdrop = {
+            transparent = false,
+            blend = 90,
           },
         },
       },
@@ -154,33 +146,12 @@ return {
     ---@module "conform"
     ---@type conform.setupOpts
     opts = {
-      -- Define your formatters
       formatters_by_ft = {
         lua = { "stylua" },
-        javascript = function(bufnr)
-          return require("conform").get_formatter_info("eslint_d", bufnr).available
-              and require("util.eslint").has_flat_config(bufnr)
-              and { "eslint_d", "prettierd", stop_after_first = false }
-            or { "prettierd" }
-        end,
-        typescript = function(bufnr)
-          return require("conform").get_formatter_info("eslint_d", bufnr).available
-              and require("util.eslint").has_flat_config(bufnr)
-              and { "eslint_d", "prettierd", stop_after_first = false }
-            or { "prettierd" }
-        end,
-        typescriptreact = function(bufnr)
-          return require("conform").get_formatter_info("eslint_d", bufnr).available
-              and require("util.eslint").has_flat_config(bufnr)
-              and { "eslint_d", "prettierd", stop_after_first = false }
-            or { "prettierd" }
-        end,
-        javascriptreact = function(bufnr)
-          return require("conform").get_formatter_info("eslint_d", bufnr).available
-              and require("util.eslint").has_flat_config(bufnr)
-              and { "eslint_d", "prettierd", stop_after_first = false }
-            or { "prettierd" }
-        end,
+        javascript = { "prettierd" },
+        javascriptreact = { "prettierd" },
+        typescript = { "prettierd" },
+        typescriptreact = { "prettierd" },
       },
       default_format_opts = {
         lsp_format = "fallback",
@@ -189,9 +160,28 @@ return {
         shfmt = {
           append_args = { "-i", "2" },
         },
-        eslint_d = {
-          env = { NODE_NO_WARNINGS = "1" },
+      },
+    },
+  },
+
+  -- better diagnostics
+  {
+    "rachartier/tiny-inline-diagnostic.nvim",
+    event = "VeryLazy",
+    priority = 1000,
+    opts = {
+      hi = {
+        background = "Normal",
+      },
+      options = {
+        show_source = {
+          enabled = true,
         },
+        multilines = {
+          enabled = true,
+        },
+        show_all_diags_on_cursorline = true,
+        show_diags_only_under_cursor = true,
       },
     },
   },

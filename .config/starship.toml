@@ -5,26 +5,25 @@ $git_branch\
 $git_status\
 $rust\
 $nodejs\
-$localip\
 $line_break$character"""
 
 palette = 'nord'
 
 [palettes.nord]
-rosewater = "#f0c674"
-flamingo = "#cc6666"
-pink = "#b294bb"
-orange = "#de935f"
-red = "#cc6666"
-maroon = "#a54242"
-peach = "#d08770"
-yellow = "#f0c674"
-green = "#8abeb7"
-teal = "#8abeb7"
-sky = "#81a2be"
-sapphire = "#81a2be"
-blue = "#5e81ac"
-lavender = "#b48ead"
+rosewater = "#EBCB8B"
+flamingo = "#BF616A"
+pink = "#B48EAD"
+orange = "#D08770"
+red = "#BF616A"
+maroon = "#BF616A"
+peach = "#D08770"
+yellow = "#EBCB8B"
+green = "#A3BE8C"
+teal = "#8FBCBB"
+sky = "#88C0D0"
+sapphire = "#81A1C1"
+blue = "#5E81AC"
+lavender = "#B48EAD"
 text = "#d8dee9"
 subtext1 = "#e5e9f0"
 subtext0 = "#eceff4"
@@ -74,7 +73,7 @@ format = '[ $user ]($style)'
 # Local IP Module
 [localip]
 ssh_only = false
-style = "fg:surface0"
+style = "fg:text"
 format = '[ $localipv4 ]($style)'
 disabled = false
 
@@ -82,7 +81,8 @@ disabled = false
 [directory]
 style = "fg:pink"
 format = "[ $path ]($style)"
-truncation_length = 3
+truncation_length = 0
+truncate_to_repo = false
 truncation_symbol = "…/"
 
 [directory.substitutions]
@@ -106,8 +106,8 @@ format = '[[($all_status$ahead_behind )](fg:green)]($style)'
 # Node.js Module
 [nodejs]
 symbol = ""
-style = "fg:teal"
-format = '[[ $symbol( $version) ](fg:teal)]($style)'
+style = "fg:rosewater"
+format = '[[ $symbol( $version) ](fg:rosewater)]($style)'
 
 # C Module
 [c]
@@ -184,5 +184,6 @@ disabled = false
 [character]
 format = """
 [$symbol](fg:overlay1) """
-success_symbol = '[ 󰘍](fg:bold text)'
-error_symbol = '[×](fg:bold red)'
+success_symbol = '[ ](fg:bold text)'
+error_symbol = '[ ](fg:bold red)'
+vimcmd_symbol = '[ ](fg:bold green)'

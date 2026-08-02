@@ -1,18 +1,14 @@
 # Font
-font-family = Lilex
-font-size = 15
-font-thicken = true
-
-# Bell
-visual-bell = none
+font-family = JetBrainsMono NFM SemiBold
+font-size = 14
+font-thicken = false
 
 # Window
 window-decoration = false
 macos-titlebar-style = hidden
-background-opacity = 0.98
-window-padding-x = 20
-window-padding-y = 5,0
-macos-option-as-alt = true
+background-opacity = 1
+window-padding-x = 5
+window-padding-y = 5
 
 # Shell integration
 shell-integration = detect
@@ -20,8 +16,8 @@ shell-integration = detect
 # Nord colorscheme
 foreground = #D8DEE9
 background = #242933
-selection-foreground = #000000
-selection-background = #FFFACD
+selection-foreground = #ECEFF4
+selection-background = #434C5E
 cursor-color = #81A1C1
 
 # black

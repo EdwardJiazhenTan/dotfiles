@@ -51,7 +51,7 @@ jobs:
         echo "Testing stow configurations (dry-run)..."
 
         # Test each package with --no to simulate without making changes
-        for package in kitty nvim tmux zsh sketchybar; do
+        for package in kitty nvim tmux zsh; do
           if [ -d "$package" ]; then
             echo "Testing stow for $package..."
             stow -n -v "$package" || echo "Stow simulation completed for $package"
@@ -90,13 +90,6 @@ jobs:
           echo "✗ Zsh config missing"
         fi
 
-        # Check sketchybar config
-        if [ -d "sketchybar/.config/sketchybar" ]; then
-          echo "✓ SketchyBar config directory exists"
-        else
-          echo "✗ SketchyBar config missing"
-        fi
-
     - name: Validate install script
       run: |
         echo "Validating install script..."
@@ -114,15 +107,6 @@ jobs:
         else
           echo "✗ install-macos.sh missing"
           exit 1
-        fi
-
-    - name: Validate Karabiner config syntax (if exists)
-      run: |
-        if [ -f "karabiner/.config/karabiner/karabiner.json" ]; then
-          echo "Checking Karabiner JSON syntax..."
-          python3 -m json.tool karabiner/.config/karabiner/karabiner.json > /dev/null && echo "✓ Karabiner config is valid JSON"
-        else
-          echo "⚠ Karabiner config not in repo (optional)"
         fi
 
     - name: Test actual stow in temporary HOME

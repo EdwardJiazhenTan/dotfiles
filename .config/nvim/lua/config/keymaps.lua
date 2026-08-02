@@ -26,6 +26,31 @@ keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 -- open oil with -
 keymap.set("n", "-", "<cmd>Oil<CR>")
 
+keymap.set({ "n", "x" }, "<leader>pa", function()
+  require("util.pi").add_context()
+end, { desc = "Add Context to Pi" })
+
+keymap.set({ "n", "x" }, "<leader>pd", function()
+  require("util.pi").add_diagnostics()
+end, { desc = "Add Diagnostics to Pi" })
+
+keymap.set({ "n", "x" }, "<leader>ph", function()
+  require("util.pi").add_hover()
+end, { desc = "Add LSP Hover to Pi" })
+
+-- copy the current file's project-relative path
+keymap.set("n", "<leader>yp", function()
+  local file = vim.api.nvim_buf_get_name(0)
+  if file == "" then
+    vim.notify("Current buffer has no file", vim.log.levels.WARN)
+    return
+  end
+
+  local path = vim.fs.relpath(LazyVim.root(), file) or file
+  vim.fn.setreg("+", path)
+  vim.notify("Copied " .. path)
+end, { desc = "Yank File Path" })
+
 -- visual mode mappings
 keymap.set("v", "<", "<gv", { desc = "Indent left and reselect" })
 keymap.set("v", ">", ">gv", { desc = "Indent right and reselect" })

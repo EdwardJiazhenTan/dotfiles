@@ -18,4 +18,8 @@ function M.has_flat_config(bufnr)
   return vim.fs.find(CONFIG_NAMES, { upward = true, path = fname })[1] ~= nil
 end
 
+function M.has_config(ctx)
+  return vim.fs.find(CONFIG_NAMES, { upward = true, path = ctx.filename })[1] ~= nil
+end
+
 return M
