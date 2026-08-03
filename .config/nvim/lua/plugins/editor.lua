@@ -132,6 +132,30 @@ return {
     lazy = false,
   },
 
+  -- Code folding
+  {
+    "kevinhwang91/nvim-ufo",
+    dependencies = { "kevinhwang91/promise-async" },
+    event = { "BufReadPost", "BufNewFile" },
+    opts = {},
+    keys = {
+      {
+        "zR",
+        function()
+          require("ufo").openAllFolds()
+        end,
+        desc = "Open All Folds",
+      },
+      {
+        "zM",
+        function()
+          require("ufo").closeAllFolds()
+        end,
+        desc = "Close All Folds",
+      },
+    },
+  },
+
   -- Trouble diagnostics
   {
     "folke/trouble.nvim",

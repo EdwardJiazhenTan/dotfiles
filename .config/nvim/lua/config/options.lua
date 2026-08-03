@@ -6,6 +6,10 @@ vim.opt.wildignore:append({ "/node_modules/*" })
 vim.opt.cursorline = true
 vim.opt.cursorlineopt = "number"
 vim.opt.signcolumn = "yes"
+vim.opt.foldcolumn = "1"
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+vim.opt.foldenable = true
 
 -- Disable session autoload on startup
 vim.g.persistence_autoload = false

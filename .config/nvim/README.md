@@ -36,6 +36,7 @@ lua/
 - **oil.nvim** — file browser (`-` to open), hidden files shown
 - **flash.nvim** — jump/treesitter motion (`s` / `S` / `r` / `R`)
 - **nvim-surround** — surround text objects (`gsa`, `gsd`, `gsr`)
+- **nvim-ufo** — LSP-backed code folding (`zR` / `zM`)
 - **vim-tmux-navigator** — `<C-h/j/k/l>` across nvim splits and tmux panes
 - **trouble.nvim** — diagnostics/quickfix panel (`<leader>x*`)
 - **render-markdown.nvim** — markdown rendering for buffers and CodeCompanion chat
