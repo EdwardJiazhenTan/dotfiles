@@ -40,7 +40,7 @@ lua/
 - **vim-tmux-navigator** — `<C-h/j/k/l>` across nvim splits and tmux panes
 - **trouble.nvim** — diagnostics/quickfix panel (`<leader>x*`)
 - **render-markdown.nvim** — markdown rendering for buffers and CodeCompanion chat
-- **snacks.nvim** — picker layout override (top-anchored, preview hidden)
+- **snacks.nvim** — picker layout override plus relative import-path copying (`<leader>fi`)
 - **conform.nvim** — formatter (`<leader>f`); ESLint flat-config aware for JS/TS
 
 ### Agent
