@@ -33,6 +33,7 @@ jobs:
             --volume "$GITHUB_WORKSPACE:/workspace:ro" \
             archlinux:latest \
             bash -lc '
+              set -euo pipefail
               pacman -Syu --needed --noconfirm git zsh
               cp -a /workspace /tmp/dotfiles
               cd /tmp/dotfiles
