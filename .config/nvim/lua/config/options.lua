@@ -4,7 +4,7 @@ vim.opt.smarttab = true
 vim.opt.tabstop = 2
 vim.opt.wildignore:append({ "/node_modules/*" })
 vim.opt.cursorline = true
-vim.opt.cursorlineopt = "number"
+vim.opt.cursorlineopt = "both"
 vim.opt.signcolumn = "yes"
 vim.opt.foldcolumn = "1"
 vim.opt.foldlevel = 99

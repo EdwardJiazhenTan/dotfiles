@@ -79,6 +79,7 @@ return {
       diagnostics = {
         virtual_text = false,
         underline = true,
+        severity_sort = true,
         signs = {
           text = {
             [vim.diagnostic.severity.ERROR] = "",
@@ -87,8 +88,10 @@ return {
             [vim.diagnostic.severity.HINT] = "",
           },
           numhl = {
-            [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
-            [vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
+            [vim.diagnostic.severity.ERROR] = "DiagnosticLineNrError",
+            [vim.diagnostic.severity.WARN] = "DiagnosticLineNrWarn",
+            [vim.diagnostic.severity.INFO] = "DiagnosticLineNrInfo",
+            [vim.diagnostic.severity.HINT] = "DiagnosticLineNrHint",
           },
         },
         float = { border = "rounded" },

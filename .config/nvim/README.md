@@ -25,7 +25,7 @@ lua/
 ## Plugins
 
 ### UI
-- **nordic.nvim** — Nord-based colorscheme (transparent bg off)
+- **nordic.nvim** — Nord-based colorscheme with Nordic Blur cursor, active-line, and diagnostic gutter colors
 - **lualine.nvim** — minimal statusline matching tmux Nord palette
 - **dropbar.nvim** — keyboard-driven path and symbol breadcrumbs (`<leader>;`, `[;`, `];`)
 - **bufferline.nvim** — minimal tab/buffer line, no icons or close buttons
