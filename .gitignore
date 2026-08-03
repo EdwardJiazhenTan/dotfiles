@@ -36,8 +36,8 @@ temp/
 .vscode/
 .idea/
 
-# Claude local settings
-.claude/settings.json
+# Claude local configuration
+.claude/
 
 # Zsh
 .zcompdump*

@@ -36,14 +36,11 @@ if command -v fzf &>/dev/null; then
     export FZF_CTRL_T_OPTS="--preview '$_FZF_PREVIEW_CMD'"
 fi
 
-# Init at source time so starship can wrap zle-keymap-select last and avoid
-# FUNCNEST recursion.
-if [[ -r "${ZSH_VI_MODE_FILE:-}" ]]; then
-    ZVM_INIT_MODE=sourcing
-    source "$ZSH_VI_MODE_FILE"
-fi
+bindkey -v
+KEYTIMEOUT=10
+bindkey -M viins "^f" autosuggest-accept
+(( $+widgets[fzf-history-widget] )) && bindkey -M viins "^r" fzf-history-widget
 
-# Loaded last so its zle-keymap-select hook wraps earlier plugin widgets.
 if command -v starship &>/dev/null; then
     eval "$(starship init zsh)"
 fi

@@ -1,127 +1,73 @@
 # Dotfiles
 
-Personal configuration files for macOS and Hyprland/Linux.
+Shared configuration for macOS and Arch Linux.
 
-## Branch Structure
+## Branches
 
-This repository uses platform branches:
+- **main** — active cross-platform configuration
+- **macos** — historical macOS snapshot
+- **hyprland** — historical Hyprland snapshot pending extraction to its own repository
 
-- **macos** - macOS configs plus shared configs in the flattened `.config/*` layout
-- **hyprland** - Hyprland/Linux configs plus shared configs in the older Stow package layout
+New work belongs on `main`. The historical branches are retained for reference.
 
-Shared settings are synced intentionally between branches. Platform branches are not merged into each other.
+## Tracked configuration
 
-## Configurations
+- Ghostty
+- Kitty
+- Neovim
+- tmux
+- Zsh and Starship
+- Fastfetch
+- gh-dash
+- LazyGit
+- Git
 
-### Shared
-- **kitty** - GPU-accelerated terminal emulator
-- **nvim** - Neovim text editor configuration
-- **tmux** - Terminal multiplexer
-- **zsh** - Zsh shell configuration
-- **starship** - Shell prompt configuration
-- **fastfetch** - System information tool
+Karabiner, OpenCode, Zed, Claude, and Pi configuration are intentionally managed outside this public repository.
 
-### macOS-specific (`macos` branch)
-- **ghostty** - GPU-accelerated terminal emulator for macOS
-
-### Linux-specific (`hyprland` branch)
-- **hyprland** - Wayland compositor/tiling window manager
-- **waybar** - Status bar for Wayland
-- **hyprpanel** - Panel/bar for Hyprland
-
-## Developer Workflow
-
-For macOS-specific changes:
+## Install
 
 ```bash
-git checkout macos
-# ... edit platform-specific configs ...
-git add .
-git commit -m "Update macOS config"
-git push
-```
-
-For Hyprland/Linux-specific changes:
-
-```bash
-git checkout hyprland
-# ... edit platform-specific configs ...
-git add .
-git commit -m "Update Linux config"
-git push
-```
-
-For shared settings, update one branch and copy the same setting to the other branch deliberately.
-
-## Installation
-
-### Automated Installation (macOS)
-
-```bash
-# Clone and checkout macOS branch
-git clone https://github.com/EdwardJiazhenTan/dotfiles ~/dotfiles
+git clone git@github.com:Tekindar666/dotfiles.git ~/dotfiles
 cd ~/dotfiles
-git checkout macos
-
-# Run automated installation script
-./install-macos.sh
+./install.sh
 ```
 
-This script will:
-- Install Homebrew and all required applications
-- Symlink tracked dotfiles into `$HOME`
-- Backup existing configurations
-- Install Tmux Plugin Manager
+The installer:
 
-### Manual Installation (macOS)
+1. Detects macOS or Arch Linux.
+2. Installs packages with Homebrew or pacman.
+3. Symlinks tracked configuration into `$HOME`.
+4. Selects the matching Zsh entrypoint.
+5. Installs Tmux Plugin Manager when missing.
+
+Arch installation performs a full system upgrade with `pacman -Syu` to avoid an unsupported partial upgrade.
+
+To link configuration without installing packages:
 
 ```bash
-# Clone and checkout macOS branch
-git clone https://github.com/EdwardJiazhenTan/dotfiles ~/dotfiles
-cd ~/dotfiles
-git checkout macos
-
-# Install Homebrew
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-# Link configs
-ln -sfn "$PWD/.config"/* ~/.config/
-ln -sf "$PWD/.zshrc" ~/.zshrc
-ln -sf "$PWD/.gitconfig" ~/.gitconfig
+./install.sh --skip-packages
 ```
 
-### Linux
+Existing regular files or directories are moved to timestamped backups before linking.
 
-```bash
-# Clone and checkout hyprland branch
-git clone https://github.com/EdwardJiazhenTan/dotfiles ~/dotfiles
-cd ~/dotfiles
-git checkout hyprland
+## Zsh layout
 
-# Install GNU Stow
-sudo pacman -S stow  # Arch Linux
-# or: sudo apt install stow  # Debian/Ubuntu
-
-# Stow all configurations
-stow */
+```text
+.config/zsh/
+├── entrypoints/
+│   ├── arch.zsh
+│   └── macos.zsh
+├── platform/
+│   ├── arch.zsh
+│   └── macos.zsh
+├── shared.zsh
+└── shared modules
 ```
 
-### Manual Stow Usage (`hyprland` branch)
-
-```bash
-# Install specific config
-stow nvim
-stow kitty
-
-# Install all configs
-stow */
-
-# Remove a config
-stow -D nvim
-```
+The installer links the correct entrypoint to `~/.zshrc`; shell startup does not need to detect the operating system.
 
 ## Notes
 
-- The installation script automatically handles all configurations including `.zshrc`
-- All shell scripts use `#!/usr/bin/env bash` for better portability
-- Sensitive environment variables should be stored in `~/.env` (not tracked in git)
+- Credentials and environment variables belong in `~/.env`, which is not tracked.
+- Local application state should not be added to this repository.
+- Hyprland configuration will be maintained separately rather than merged into `main`.

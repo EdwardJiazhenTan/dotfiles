@@ -2,20 +2,19 @@
 
 ## Branch Strategy
 
-- **macos** — macOS configs and shared configs in the flattened repo layout
-- **hyprland** — Hyprland/Linux configs and shared configs in the older Stow package layout
-
-Sync shared settings intentionally between branches. Do not merge platform branches into each other.
+- **main** — active shared configuration for macOS and Arch Linux
+- **macos** — historical macOS snapshot; do not add new work
+- **hyprland** — historical Hyprland snapshot pending extraction; do not merge into `main`
 
 ## Structure
 
-- `.config/` — all XDG app configs
-- `.zshrc` — shell config (home-level)
-- `install-macos.sh` — bootstrap script (brew, symlinks, TPM)
-
-## Setup
+- `.config/` — shared XDG application configuration
+- `.config/zsh/entrypoints/` — installer-selected Zsh entrypoints
+- `.config/zsh/platform/` — platform-specific shell paths
+- `install.sh` — Homebrew/pacman bootstrap, symlinks, and TPM
 
 ## Rules
 
-1. **Follow existing patterns** — match the style, structure, and conventions already in the codebase.
-2. **Less code** — reuse shared functions, prefer simpler designs, avoid unnecessary abstraction.
+1. Follow existing patterns and keep platform differences isolated.
+2. Reuse shared functions and prefer minimal configuration.
+3. Keep private and machine-local application state outside this repository.

@@ -1,0 +1,40 @@
+name: Test installation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  macos:
+    name: macOS install
+    runs-on: macos-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Run install smoke test
+        run: tests/install-smoke.sh macos
+
+  arch:
+    name: Arch install
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Run install smoke test in Arch Linux
+        run: |
+          docker run --rm \
+            --volume "$GITHUB_WORKSPACE:/workspace:ro" \
+            archlinux:latest \
+            bash -lc '
+              pacman -Syu --needed --noconfirm git zsh
+              cp -a /workspace /tmp/dotfiles
+              cd /tmp/dotfiles
+              tests/install-smoke.sh arch
+            '
