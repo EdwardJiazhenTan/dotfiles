@@ -17,10 +17,7 @@ return {
         },
       },
       signature = {
-        enabled = true,
-        window = {
-          show_documentation = true,
-        },
+        enabled = false,
       },
       cmdline = {
         completion = {

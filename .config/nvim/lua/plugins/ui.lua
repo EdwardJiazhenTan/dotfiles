@@ -163,6 +163,12 @@ return {
           size = {
             max_width = 80,
           },
+          win_options = {
+            winhighlight = {
+              Normal = "Normal",
+              FloatBorder = "NoicePopupBorder",
+            },
+          },
         },
       },
     },

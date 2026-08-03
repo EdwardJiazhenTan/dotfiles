@@ -21,13 +21,25 @@ return {
   -- Surround text objects
   {
     "kylechui/nvim-surround",
-    version = "^3.0.0", -- Use for stability; omit to use `main` branch for the latest features
-    event = "VeryLazy",
-    config = function()
-      require("nvim-surround").setup({
-        -- Configuration here, or leave empty to use defaults
-      })
-    end,
+    version = "^3.0.0",
+    keys = {
+      { "gsa", mode = { "n", "x" }, desc = "Add Surround" },
+      { "gsd", mode = "n", desc = "Delete Surround" },
+      { "gsr", mode = "n", desc = "Replace Surround" },
+    },
+    opts = {
+      keymaps = {
+        normal = "gsa",
+        normal_cur = false,
+        normal_line = false,
+        normal_cur_line = false,
+        visual = "gsa",
+        visual_line = false,
+        delete = "gsd",
+        change = "gsr",
+        change_line = false,
+      },
+    },
   },
 
   -- Tmux navigation
