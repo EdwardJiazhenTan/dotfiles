@@ -27,6 +27,7 @@ lua/
 ### UI
 - **nordic.nvim** — Nord-based colorscheme (transparent bg off)
 - **lualine.nvim** — minimal statusline matching tmux Nord palette
+- **dropbar.nvim** — keyboard-driven path and symbol breadcrumbs (`<leader>;`, `[;`, `];`)
 - **bufferline.nvim** — minimal tab/buffer line, no icons or close buttons
 - **nvim-highlight-colors** — inline color swatches with Tailwind support
 - **mini.icons** — icon provider

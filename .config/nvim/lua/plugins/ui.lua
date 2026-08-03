@@ -114,33 +114,38 @@ return {
           lualine_y = {},
           lualine_z = {},
         },
-        winbar = {
-          lualine_a = {},
-          lualine_b = {},
-          lualine_c = {
-            "%=",
-            { "filename", path = 1 },
-            "%=",
-          },
-          lualine_x = {},
-          lualine_y = {},
-          lualine_z = {},
-        },
-        inactive_winbar = {
-          lualine_a = {},
-          lualine_b = {},
-          lualine_c = {
-            "%=",
-            { "filename", path = 1 },
-            "%=",
-          },
-          lualine_x = {},
-          lualine_y = {},
-          lualine_z = {},
-        },
         extensions = { "aerial" },
       })
     end,
+  },
+
+  {
+    "Bekaboo/dropbar.nvim",
+    lazy = false,
+    keys = {
+      {
+        "<leader>;",
+        function()
+          require("dropbar.api").pick()
+        end,
+        desc = "Pick Winbar Symbol",
+      },
+      {
+        "[;",
+        function()
+          require("dropbar.api").goto_context_start()
+        end,
+        desc = "Go to Start of Current Context",
+      },
+      {
+        "];",
+        function()
+          require("dropbar.api").select_next_context()
+        end,
+        desc = "Select Next Context",
+      },
+    },
+    opts = {},
   },
 
   { "nvim-mini/mini.icons" },
