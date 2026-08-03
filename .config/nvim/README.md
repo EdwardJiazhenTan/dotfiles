@@ -50,7 +50,7 @@ lua/
 - **diffview.nvim** — git diff/history viewer (`<leader>gD/gH/gr`)
 
 ### LSP / Completion
-- **blink.cmp** — completion (super-tab preset, rounded borders, no ghost text)
+- **blink.cmp** — completion with automatic type/documentation details (super-tab preset, no ghost text)
 - **nvim-lspconfig** — LSP config; inlay hints off, virtual text off, underline diagnostics
 - **Mason** extras: `shellcheck`, `shfmt`, `tailwindcss-language-server`, `css-lsp`, `jdtls`, `checkstyle`
 - **tsgo** — native TypeScript/JS language server (LSP support is still in progress upstream)
