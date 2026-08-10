@@ -1,0 +1,78 @@
+name: Sync Configs Between Branches
+
+on:
+  push:
+    branches:
+      - macos
+      - hyprland
+    paths:
+      - '.claude/**'
+      - '.config/kitty/**'
+      - '.config/nvim/**'
+      - '.config/starship.toml'
+      - '.config/tmux/**'
+      - '.zshrc'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Determine source and target branches
+        id: branches
+        run: |
+          if [ "${{ github.ref_name }}" = "macos" ]; then
+            echo "source=macos" >> $GITHUB_OUTPUT
+            echo "target=hyprland" >> $GITHUB_OUTPUT
+          else
+            echo "source=hyprland" >> $GITHUB_OUTPUT
+            echo "target=macos" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Sync configs to target branch
+        run: |
+          SOURCE_BRANCH="${{ steps.branches.outputs.source }}"
+          TARGET_BRANCH="${{ steps.branches.outputs.target }}"
+
+          echo "Syncing from $SOURCE_BRANCH to $TARGET_BRANCH"
+
+          # Checkout target branch
+          git checkout $TARGET_BRANCH
+
+          # Checkout specific files from source branch
+          git checkout $SOURCE_BRANCH -- \
+            .claude \
+            .config/kitty \
+            .config/nvim \
+            .config/starship.toml \
+            .config/tmux/tmux.conf \
+            .zshrc
+
+          # Check if there are changes
+          if git diff --staged --quiet; then
+            echo "No changes to sync"
+            exit 0
+          fi
+
+          # Commit and push changes
+          git commit -m "chore: sync configs from $SOURCE_BRANCH
+
+          Auto-synced configs:
+          - .claude/
+          - .config/kitty/
+          - .config/nvim/
+          - .config/starship.toml
+          - .config/tmux/
+          - .zshrc"
+
+          git push origin $TARGET_BRANCH
