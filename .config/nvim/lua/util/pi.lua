@@ -4,6 +4,8 @@ local tmux_option = "@pi_nvim_bridge"
 local request_timeout_ms = 5000
 local connection = nil
 local next_id = 0
+local agent_state = "idle"
+local discovery_timer = nil
 
 local function notify(message, level)
   vim.schedule(function()
@@ -403,20 +405,88 @@ local function request(target, message, callback)
   send(target, message)
 end
 
-function M.setup()
-  vim.schedule(function()
-    local socket_path = get_socket_path()
-    if not socket_path then
-      return
-    end
+local function set_status(params)
+  if type(params) ~= "table" or (params.state ~= "working" and params.state ~= "idle") then
+    error("set_status requires working or idle state")
+  end
 
-    local context = current_context()
-    ensure_connection(socket_path, context, function() end)
+  local previous = agent_state
+  agent_state = params.state
+  redraw_statusline()
+  if previous == "working" and agent_state == "idle" then
+    vim.notify("Pi finished", vim.log.levels.INFO, { title = "Pi" })
+  end
+  return { state = agent_state }
+end
+
+request_handlers.set_status = set_status
+
+function M.setup()
+  if discovery_timer then
+    return
+  end
+
+  discovery_timer = vim.uv.new_timer()
+  if not discovery_timer then
+    return
+  end
+
+  discovery_timer:start(0, 2000, function()
+    vim.schedule(function()
+      if connection and connection.connected then
+        return
+      end
+
+      local socket_path = get_socket_path()
+      if not socket_path then
+        return
+      end
+
+      local context = current_context()
+      ensure_connection(socket_path, context, function() end)
+    end)
   end)
 end
 
 function M.status()
-  return connection and connection.connected and "Pi ●" or "Pi ○"
+  if not connection or not connection.connected then
+    return "Pi ○"
+  end
+  return agent_state == "working" and "Pi ◐" or "Pi ●"
+end
+
+function M.prompt()
+  local context = current_context()
+  vim.ui.input({ prompt = "Pi prompt: " }, function(input)
+    local prompt = input and vim.trim(input) or ""
+    if prompt == "" then
+      return
+    end
+
+    local socket_path, error = get_socket_path()
+    if not socket_path then
+      vim.notify(error, vim.log.levels.ERROR, { title = "Pi" })
+      return
+    end
+
+    ensure_connection(socket_path, context, function(target)
+      request(target, {
+        type = "prompt",
+        prompt = prompt,
+        context = context,
+      }, function(ok, result)
+        vim.schedule(function()
+          if not ok then
+            notify(result or "Pi rejected the prompt", vim.log.levels.ERROR)
+            return
+          end
+          agent_state = "working"
+          redraw_statusline()
+          vim.notify("Prompt sent to Pi", vim.log.levels.INFO, { title = "Pi" })
+        end)
+      end)
+    end)
+  end)
 end
 
 local function add_to_draft(label, content, context)
@@ -434,9 +504,13 @@ local function add_to_draft(label, content, context)
       content = content,
       context = context,
     }, function(ok, result)
-      if not ok then
-        notify(result or "Pi rejected the editor context", vim.log.levels.ERROR)
-      end
+      vim.schedule(function()
+        if not ok then
+          notify(result or "Pi rejected the editor context", vim.log.levels.ERROR)
+          return
+        end
+        vim.notify("Added " .. label:lower() .. " to Pi draft", vim.log.levels.INFO, { title = "Pi" })
+      end)
     end)
   end)
 end

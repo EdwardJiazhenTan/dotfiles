@@ -30,6 +30,10 @@ keymap.set({ "n", "x" }, "<leader>pa", function()
   require("util.pi").add_context()
 end, { desc = "Add Context to Pi" })
 
+keymap.set({ "n", "x" }, "<leader>pp", function()
+  require("util.pi").prompt()
+end, { desc = "Prompt Pi" })
+
 keymap.set({ "n", "x" }, "<leader>pd", function()
   require("util.pi").add_diagnostics()
 end, { desc = "Add Diagnostics to Pi" })

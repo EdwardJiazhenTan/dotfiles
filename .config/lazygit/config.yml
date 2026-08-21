@@ -4,4 +4,4 @@ gui:
 
 git:
   pagers:
-    - pager: delta --dark --paging=never --side-by-side --line-numbers --syntax-theme=Nord
+    - pager: delta --dark --paging=never --line-numbers --syntax-theme=Nord

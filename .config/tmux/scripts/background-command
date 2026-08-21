@@ -1,0 +1,17 @@
+#!/bin/sh
+
+if [ "${1:-}" = "--run" ]; then
+    command=$2
+    "${SHELL:-/bin/sh}" -ic "$command"
+    exec "${SHELL:-/bin/sh}" -l
+fi
+
+printf 'Directory: %s\n\nWindow name: ' "$PWD"
+IFS= read -r window_name || exit 0
+[ -n "$window_name" ] || exit 0
+
+printf 'Command: '
+IFS= read -r command || exit 0
+[ -n "$command" ] || exit 0
+
+exec tmux new-window -d -n "$window_name" -c "$PWD" "$0" --run "$command"
