@@ -455,8 +455,12 @@ function M.status()
   return agent_state == "working" and "Pi ◐" or "Pi ●"
 end
 
-function M.prompt()
+function M.prompt(options)
   local context = current_context()
+  if options and options.exit_visual then
+    vim.api.nvim_feedkeys(vim.keycode("<Esc>"), "nx", false)
+  end
+
   vim.ui.input({ prompt = "Pi prompt: " }, function(input)
     local prompt = input and vim.trim(input) or ""
     if prompt == "" then

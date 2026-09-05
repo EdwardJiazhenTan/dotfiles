@@ -26,9 +26,13 @@ keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 -- open oil with -
 keymap.set("n", "-", "<cmd>Oil<CR>")
 
-keymap.set({ "n", "x" }, "<leader>pa", function()
+keymap.set("n", "<leader>pa", function()
   require("util.pi").add_context()
 end, { desc = "Add Context to Pi" })
+
+keymap.set("x", "<leader>pa", function()
+  require("util.pi").prompt({ exit_visual = true })
+end, { desc = "Prompt Pi with Selection" })
 
 keymap.set({ "n", "x" }, "<leader>pp", function()
   require("util.pi").prompt()
