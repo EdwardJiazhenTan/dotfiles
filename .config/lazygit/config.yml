@@ -1,7 +1,6 @@
 gui:
   showFileTree: true
   showRootItemInFileTree: false
-
 git:
-  pagers:
-    - pager: delta --dark --paging=never --line-numbers --syntax-theme=Nord
+  diffRenderers:
+    - command: delta --dark --paging=never --line-numbers --syntax-theme=Nord

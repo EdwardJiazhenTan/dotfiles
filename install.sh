@@ -230,9 +230,11 @@ else
     log_success "Tmux Plugin Manager already installed"
 fi
 
+log_info "Installing tmux plugins..."
+"$HOME/.config/tmux/plugins/tpm/bin/install_plugins"
+
 log_success "Installation complete."
 printf "  1. Restart your terminal or run: source ~/.zshrc\n"
-printf "  2. Open tmux and press prefix + I to install tmux plugins\n"
 if [[ "$PLATFORM" == "arch" ]] && command -v zsh &>/dev/null; then
-    printf "  3. To make Zsh your login shell, run: chsh -s \"$(command -v zsh)\"\n"
+    printf "  2. To make Zsh your login shell, run: chsh -s \"$(command -v zsh)\"\n"
 fi
