@@ -6,7 +6,7 @@ Shared configuration for macOS and Arch Linux.
 
 - **main** — active cross-platform configuration
 - **macos** — historical macOS snapshot
-- **hyprland** — historical Hyprland snapshot pending extraction to its own repository
+- **hyprland** — historical Hyprland snapshot retained for reference; active desktop configuration lives in [hyprland-dotfiles](https://github.com/Tekindar666/hyprland-dotfiles)
 
 New work belongs on `main`. The historical branches are retained for reference.
 
@@ -22,7 +22,7 @@ New work belongs on `main`. The historical branches are retained for reference.
 - LazyGit
 - Git
 
-Karabiner, OpenCode, Zed, Claude, and Pi configuration are intentionally managed outside this public repository.
+Hyprland desktop configuration is maintained in [hyprland-dotfiles](https://github.com/Tekindar666/hyprland-dotfiles). Karabiner, OpenCode, Zed, Claude, and Pi configuration are also managed outside this public repository.
 
 ## Install
 
@@ -70,4 +70,4 @@ The installer links the correct entrypoint to `~/.zshrc`; shell startup does not
 
 - Credentials and environment variables belong in `~/.env`, which is not tracked.
 - Local application state should not be added to this repository.
-- Hyprland configuration will be maintained separately rather than merged into `main`.
+- Hyprland configuration is maintained separately in [hyprland-dotfiles](https://github.com/Tekindar666/hyprland-dotfiles).
